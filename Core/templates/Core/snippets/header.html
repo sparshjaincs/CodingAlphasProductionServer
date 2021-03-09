@@ -13,7 +13,16 @@
          </div>
      </form>
  --> 
- <a class="navbar-brand text-dark "style="font-weight:600; letter-spacing:1px;" href="/"><img src="/media/users/logo.jpg" style="height:40px;"></a>
+ <a class="navbar-brand text-dark "style="font-weight:600; letter-spacing:1px;" href="/">
+    <div class="d-flex justify-content-start align-items-center">
+        <div>
+            <img src="{% static 'svg/Vector.svg' %}" style="height:20px;">
+        </div>
+        <div  class="mt-2">
+            <img src="{% static 'svg/ca.svg' %}" style="height:20px;">
+        </div>
+    </div>
+</a>
  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
      <span class="navbar-toggler-icon"></span>
  </button>
@@ -23,7 +32,7 @@
          
              <li class="nav-item d-flex justify-content-start">
                 <a class="nav-link" href="{% url 'explore' %}">Explore</a>
-                 <div style=" margin-left:-30px; margin-top: -5px;z-index:-1;"><span class="badge badge-sm badge-danger rounded" style="font-size: 8px;">Day {{days}}</span></div>
+                 <div style=" margin-left:-30px; margin-top: -5px;z-index:-1;"><span class="badge badge-sm badge-danger pl-1 pr-1 pt-1" style="font-size: 8px; border-radius: 10px;">Day {{days}}</span></div>
                
              </li>
              <li class="nav-item"><a class="nav-link" href="{% url 'contestpage' %}">Contest</a></li>
@@ -31,7 +40,16 @@
                <a class="nav-link" href="{% url 'coding' %}">Coding</a>
              </li>
              <li class="nav-item"> 
+                <a class="nav-link" href="{% url 'explore' %}">Aptitude</a>
+              </li>
+             <li class="nav-item"> 
                 <a class="nav-link" href="{% url 'discuss_homepage' %}">Discuss</a>
+              </li>
+              <li class="nav-item"> 
+                <a class="nav-link" href="{% url 'explore' %}">Mock</a>
+              </li>
+              <li class="nav-item"> 
+                <a class="nav-link" href="{% url 'explore' %}">Learning</a>
               </li>
              <!--
                <li class="nav-item dropdown" >
@@ -131,7 +149,8 @@
      <li class="nav-item">
         <a class="nav-link " href="{% url 'blog' %}">Blogs</a>
       </li>
-                   <li class="nav-item dropdown" >
+                   <!-- 
+                       <li class="nav-item dropdown" >
                      <a class="nav-link text-warning "  id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-shopping-cart"></i> Store</a>
                      <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" style="font-size: 13px;">
                        
@@ -140,15 +159,18 @@
                        <li><a class="dropdown-item text-warning"  href=" 'premium' %}"><i class="fa fa-star"></i> Premium</a></li>
                      </ul>
                    </li>
+                   -->
      
                  </ul>
                  
            </ul>
          <ul class="navbar-nav ">
             {% if request.user.is_authenticated %}
-             <li class="nav-item mr-2 mt-2">
+             <!-- #region
+            <li class="nav-item mr-2 mt-2">
                  <a class="btn btn-sm btn-outline-warning anchor" style="font-size: 12px;"  href=" 'premium' %}"><i class="fa fa-star "></i> Premium</a>
              </li>
+            -->
              <li class="nav-item mr-2 mt-2">
                 <a class="btn shadow-sm btn-sm  anchor text-white" style="font-size: 12px; font-weight: 600; background-color: #202C33;"  href="{% url 'playground' %}" data-toggle="tooltip" title="Playground"><i class="fa fa-code "></i></a>
             </li>

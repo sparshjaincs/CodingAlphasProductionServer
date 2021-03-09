@@ -10,6 +10,8 @@ from django.contrib.auth.mixins import UserPassesTestMixin
 from django.contrib.auth.views import PasswordResetView
 from django.contrib.auth import login, authenticate
 from django.contrib import messages
+from datetime import date
+from discuss.jobs import Jobs
 class MyPasswordResetView(UserPassesTestMixin, PasswordResetView):
     template_name = 'Core/snippets/password_reset.html'
 
@@ -44,8 +46,15 @@ def create(request):
     return render(request,'Core/snippets/createAccount.html',context)
 
 def homepage(request):
+    context = {}
     if request.user.is_authenticated:
-        return render(request,"Core/homepage.html")
+        context['home'] = Homepage_Activity.objects.all().order_by('-id')
+        context['day'] = date.today()
+        #job = Jobs('SDE',"",1)
+        #data = job.select()
+        #context['jobs'] = data[:5]
+
+        return render(request,"Core/homepage.html",context)
     else:
         return render(request,"Core/frontend.html")
 
@@ -167,4 +176,7 @@ def mark(request):
     return HttpResponse(json.dumps([status]))
 
 def profile(request,user):
-    return render(request,'Core/profile.html')
+    context = {}
+    context['article'] = Articles.objects.filter(user_name2 = request.user).order_by('-date_Publish','-time')
+    context['post'] = Quora.objects.filter(user = request.user).order_by("-created")
+    return render(request,'Core/profile.html',context)

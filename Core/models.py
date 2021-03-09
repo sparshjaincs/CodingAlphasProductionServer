@@ -8,6 +8,7 @@ from ckeditor.fields import RichTextField
 from ckeditor_uploader.fields import RichTextUploadingField
 from django.contrib.contenttypes.fields import GenericRelation
 from discuss.models import *
+
 #from .views import current_user as cu
 # Create your models here.
 
@@ -35,7 +36,7 @@ class Articles(models.Model):
     image = models.ImageField(upload_to='users/images',blank=True,default='',null=True)
     video= models.FileField(upload_to='users/video', null=True,blank=True ,verbose_name="Video")
     image2 = models.CharField(max_length=1000,blank=True,null=True)
-    content = RichTextField(blank=False,null=True)
+    content = RichTextUploadingField(null=True)
     link = models.TextField(blank=True,default="")
     description = models.TextField(blank=True,default="")
     time= models.TimeField(blank=False,default=datetime.now())
@@ -125,6 +126,9 @@ class Profile(models.Model):
     following = models.ManyToManyField(User,default=None,blank=True,related_name="following_title")
     signup_confirmation = models.BooleanField(default=False)
     instagram = models.CharField(max_length=1000,blank=True,null=True)
+    website = models.CharField(max_length=1000,blank=True,null=True)
+    linkedin = models.CharField(max_length=1000,blank=True,null=True)
+    github = models.CharField(max_length=1000,blank=True,null=True)
     facebook = models.CharField(max_length=1000,blank=True,null=True)
     twitter = models.CharField(max_length=1000,blank=True,null=True)
     college = models.CharField(max_length=1000, blank=True,default="")
@@ -291,6 +295,16 @@ class Module(models.Model):
     def __str__(self):
         return str(self.company) + " " + self.title + " " + self.status + " " + str(self.topic)
 
+
+class Homepage_Activity(models.Model):
+    CHOICE = (
+        ('Blog','Blog'),('Post','Post'),('Career','Career'),
+    )
+    category = models.CharField(max_length=1000,choices = CHOICE)
+    blog = models.ForeignKey(Articles,related_name = "homepage_blog",to_field="title",on_delete = models.CASCADE,null=True)
+    post = models.ForeignKey(Quora,related_name = "homepage_post",on_delete = models.CASCADE,null=True)
+    def __str__(self):
+        return self.category
 
 
 

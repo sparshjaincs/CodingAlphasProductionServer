@@ -10,10 +10,12 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 import os
-from pathlib import Path
+#from pathlib import Path
+from unipath import Path
 
+BASE_DIR = Path(__file__).ancestor(3)
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+#BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 # Quick-start development settings - unsuitable for production
@@ -88,7 +90,7 @@ WSGI_APPLICATION = 'codingalphas.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': BASE_DIR + '/db.sqlite3',
     }
 }
 
@@ -169,6 +171,7 @@ CKEDITOR_CONFIGS = {
             '/',
             {'name': 'styles', 'items': ['Styles', 'Format', 'Font', 'FontSize']},
             {'name': 'colors', 'items': ['TextColor', 'BGColor']},
+            
             {'name': 'tools', 'items': ['ShowBlocks']},
             
           # put this to force next toolbar on new line
@@ -194,6 +197,7 @@ CKEDITOR_CONFIGS = {
             # your extra plugins here
             'div',
             'autolink',
+            #'youtube',
             'autoembed',
             'embedsemantic',
             'autogrow',

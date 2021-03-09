@@ -1,4 +1,5 @@
 {% extends 'Core/snippets/base.html' %}
+{% load shortcut %}
 {% load static %}
 {% block header %}
 {% include 'Core/snippets/header.html' %}
@@ -42,428 +43,98 @@ text-transform: capitalize;
 
 
 
-<div class="site-mobile-menu site-navbar-target">
-<div class="site-mobile-menu-header">
-  
-<div class="row">
-<div class="col-lg-12">
-<div class="posts-slide-wrap">
-<div class="tns-outer" id="posts-slide-ow"><div class="tns-nav" aria-label="Carousel Pagination"><button type="button" data-nav="0" aria-controls="posts-slide" style="" aria-label="Carousel Page 1" class="" tabindex="-1"></button><button type="button" data-nav="1" aria-controls="posts-slide" style="" aria-label="Carousel Page 2" class="" tabindex="-1"></button><button type="button" data-nav="2" aria-controls="posts-slide" style="" aria-label="Carousel Page 3 (Current Slide)" class="tns-nav-active"></button><button type="button" data-nav="3" tabindex="-1" aria-controls="posts-slide" style="" aria-label="Carousel Page 4"></button></div><div class="tns-liveregion tns-visually-hidden" aria-live="polite" aria-atomic="true">slide <span class="current">4</span>  of 4</div><div id="posts-slide-mw" class="tns-ovh"><div class="tns-inner" id="posts-slide-iw"><div class="posts-slide  tns-slider tns-carousel tns-subpixel tns-calc tns-horizontal" id="posts-slide" style="transform: translate3d(-50%, 0px, 0px);"><div class="item tns-item tns-slide-cloned" aria-hidden="true" tabindex="-1">
-<div class="post-entry d-lg-flex">
 
-<div class="content align-self-center">
-<div class="post-meta mb-3">
-<a href="https://preview.colorlib.com/theme/magdesign/#" class="category">Business</a>, <a href="https://preview.colorlib.com/theme/magdesign/#" class="category">Travel</a> —
-<span class="date">July 2, 2020</span>
-</div>
-<h2 class="heading"><a href="https://preview.colorlib.com/theme/magdesign/single.html">Your most unhappy customers are your greatest source of learning.</a></h2>
-<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
-<a href="https://preview.colorlib.com/theme/magdesign/#" class="post-author d-flex align-items-center">
-<div class="author-pic">
-<img src="{% static 'folder/person_1.jpg' %}" alt="Image">
-</div>
-<div class="text">
-<strong>Sergy Campbell</strong>
-<span>CEO and Founder</span>
-</div>
-</a>
-</div>
-</div>
-</div>
-<div class="item tns-item" id="posts-slide-item0" aria-hidden="true" tabindex="-1">
-<div class="post-entry d-lg-flex">
-<div class="me-lg-5 thumbnail mb-4 mb-lg-0">
-<a href="https://preview.colorlib.com/theme/magdesign/single.html">
-<img src="{% static 'folder/post_lg_1.webp' %}" alt="Image" class="img-fluid">
-</a>
-</div>
-<div class="content align-self-center">
-<div class="post-meta mb-3">
-<a href="https://preview.colorlib.com/theme/magdesign/#" class="category">Business</a>, <a href="https://preview.colorlib.com/theme/magdesign/#" class="category">Travel</a> —
-<span class="date">July 2, 2020</span>
-</div>
-<h2 class="heading"><a href="https://preview.colorlib.com/theme/magdesign/single.html">Your most unhappy customers are your greatest source of learning.</a></h2>
-<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
-<a href="https://preview.colorlib.com/theme/magdesign/#" class="post-author d-flex align-items-center">
-<div class="author-pic">
-<img src="{% static 'folder/person_1.jpg' %}" alt="Image">
-</div>
-<div class="text">
-<strong>Sergy Campbell</strong>
-<span>CEO and Founder</span>
-</div>
-</a>
-</div>
-</div>
-</div>
-
-<div class="item tns-item" id="posts-slide-item1" aria-hidden="true" tabindex="-1">
-<div class="post-entry d-lg-flex">
-<div class="me-lg-5 thumbnail mb-4 mb-lg-0">
-<a href="https://preview.colorlib.com/theme/magdesign/single.html">
-<img src="{% static 'folder/post_lg_2.webp' %}" alt="Image" class="img-fluid">
-</a>
-</div>
-<div class="content align-self-center">
-<div class="post-meta mb-3">
-<a href="https://preview.colorlib.com/theme/magdesign/#" class="category">Business</a>, <a href="https://preview.colorlib.com/theme/magdesign/#" class="category">Travel</a> —
-<span class="date">July 2, 2020</span>
-</div>
-<h2 class="heading"><a href="https://preview.colorlib.com/theme/magdesign/single.html">Your most unhappy customers are your greatest source of learning.</a></h2>
-<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
-<a href="https://preview.colorlib.com/theme/magdesign/#" class="post-author d-flex align-items-center">
-<div class="author-pic">
-<img src="{% static 'folder/person_1.jpg' %}" alt="Image">
-</div>
-<div class="text">
-<strong>Sergy Campbell</strong>
-<span>CEO and Founder</span>
-</div>
-</a>
-</div>
-</div>
-</div>
-
-<div class="item tns-item tns-slide-active" id="posts-slide-item2">
-<div class="post-entry d-lg-flex">
-<div class="me-lg-5 thumbnail mb-4 mb-lg-0">
-<a href="https://preview.colorlib.com/theme/magdesign/single.html">
-<img src="{% static 'folder/post_lg_3.webp' %}" alt="Image" class="img-fluid">
-</a>
-</div>
-<div class="content align-self-center">
-<div class="post-meta mb-3">
-<a href="https://preview.colorlib.com/theme/magdesign/#" class="category">Business</a>, <a href="https://preview.colorlib.com/theme/magdesign/#" class="category">Travel</a> —
-<span class="date">July 2, 2020</span>
-</div>
-<h2 class="heading"><a href="https://preview.colorlib.com/theme/magdesign/single.html">Your most unhappy customers are your greatest source of learning.</a></h2>
-<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
-<a href="https://preview.colorlib.com/theme/magdesign/#" class="post-author d-flex align-items-center">
-<div class="author-pic">
-<img src="{% static 'folder/person_1.jpg' %}" alt="Image">
-</div>
-<div class="text">
-<strong>Sergy Campbell</strong>
-<span>CEO and Founder</span>
-</div>
-</a>
-</div>
-</div>
-</div>
-
-<div class="item tns-item" id="posts-slide-item3" aria-hidden="true" tabindex="-1">
-<div class="post-entry d-lg-flex">
-<div class="me-lg-5 thumbnail mb-4 mb-lg-0">
-<a href="https://preview.colorlib.com/theme/magdesign/single.html">
-<img src="{% static 'folder/post_lg_4.webp' %}" alt="Image" class="img-fluid">
-</a>
-</div>
-<div class="content align-self-center">
-<div class="post-meta mb-3">
-<a href="https://preview.colorlib.com/theme/magdesign/#" class="category">Business</a>, <a href="https://preview.colorlib.com/theme/magdesign/#" class="category">Travel</a> —
-<span class="date">July 2, 2020</span>
-</div>
-<h2 class="heading"><a href="https://preview.colorlib.com/theme/magdesign/single.html">Your most unhappy customers are your greatest source of learning.</a></h2>
-<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
-<a href="https://preview.colorlib.com/theme/magdesign/#" class="post-author d-flex align-items-center">
-<div class="author-pic">
-<img src="{% static 'folder/person_1.jpg' %}" alt="Image">
-</div>
-<div class="text">
-<strong>Sergy Campbell</strong>
-<span>CEO and Founder</span>
-</div>
-</a>
-</div>
-</div>
-</div>
-
-<div class="item tns-item tns-slide-cloned" aria-hidden="true" tabindex="-1">
-<div class="post-entry d-lg-flex">
-<div class="me-lg-5 thumbnail mb-4 mb-lg-0">
-<a href="https://preview.colorlib.com/theme/magdesign/single.html">
-<img src="{% static 'folder/post_lg_1.webp' %}" alt="Image" class="img-fluid">
-</a>
-</div>
-<div class="content align-self-center">
-<div class="post-meta mb-3">
-<a href="https://preview.colorlib.com/theme/magdesign/#" class="category">Business</a>, <a href="https://preview.colorlib.com/theme/magdesign/#" class="category">Travel</a> —
-<span class="date">July 2, 2020</span>
-</div>
-<h2 class="heading"><a href="https://preview.colorlib.com/theme/magdesign/single.html">Your most unhappy customers are your greatest source of learning.</a></h2>
-<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
-<a href="https://preview.colorlib.com/theme/magdesign/#" class="post-author d-flex align-items-center">
-<div class="author-pic">
-<img src="{% static 'folder/person_1.jpg' %}" alt="Image">
-</div>
-<div class="text">
-<strong>Sergy Campbell</strong>
-<span>CEO and Founder</span>
-</div>
-</a>
-</div>
-</div>
-</div></div></div></div></div>
-</div>
-</div>
-</div>
-</div>
-</div>
-
+{% if carousel %}
 <div class="section ">
   
   <div class="container p-1">
+ 
+   
   <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
     <ol class="carousel-indicators">
-      <li style="background-color: #F79918;" data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-      <li style="background-color: #F79918;" data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-      <li style="background-color: #F79918;"  data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+
+      {% for x in carousel %}
+      <li style="background-color: #F79918;" data-target="#carouselExampleIndicators" data-slide-to="{{forloop.counter|add:'-1'}}" class="{% if forloop.counter == 1 %} active {% endif %}"></li>
+      {% endfor %}
     </ol>
     <div class="carousel-inner pb-0 mb-0">
-      <div class="carousel-item active">
+    
+        {% for x in carousel %}
+        <div class="carousel-item {% if forloop.counter == 1%}active{% endif %}">
         
-<div class="col-lg-12">
-  <div class="post-entry d-lg-flex mb-5">
-  <div class="me-md-3 thumbnail mb-3 mb-md-0">
-  <img src="{% static 'folder/img_3.webp' %}" alt="Image" class="img-fluid">
-  </div>
-  <div class="content">
-  <div class="post-meta mb-1 mt-2">
-  <a href="https://preview.colorlib.com/theme/magdesign/#" class="category">Business</a>, <a href="https://preview.colorlib.com/theme/magdesign/#" class="category">Travel</a> —
-  <span class="date">July 2, 2020</span>
-  </div>
-  <h2 class="heading"><a href="https://preview.colorlib.com/theme/magdesign/single.html">Your most unhappy customers are your greatest source of learning.</a></h2>
-  <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind textsFar far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts Far far away, behind the word mountain</p>
-  <a href="https://preview.colorlib.com/theme/magdesign/#" class="post-author d-flex align-items-center">
-  <div class="author-pic">
-  <img src="{% static 'folder/person_1.jpg' %}" alt="Image">
-  </div>
-  <div class="text">
-  <strong>Sergy Campbell</strong>
-  <span>Author, 26 published post</span>
-  </div>
-  </a>
-  </div>
-  </div>
-  </div>
-      </div>
-      <div class="carousel-item">
-        <div class="post-entry mb-5 d-lg-flex">
-          <div class="me-md-3 thumbnail mb-3 mb-md-0">
-          <img src="{% static 'folder/img_3.webp' %}" alt="Image" class="img-fluid">
-          </div>
-          <div class="content ">
-          <div class="post-meta mb-1 mt-2 ">
-          <a href="https://preview.colorlib.com/theme/magdesign/#" class="category">Business</a>, <a href="https://preview.colorlib.com/theme/magdesign/#" class="category">Travel</a> —
-          <span class="date">July 2, 2020</span>
-          </div>
-          <h2 class="heading"><a href="https://preview.colorlib.com/theme/magdesign/single.html">Your most unhappy customers are your greatest source of learning.</a></h2>
-          <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind textsFar far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts Far far away, behind the word mountain</p>
-          <a href="https://preview.colorlib.com/theme/magdesign/#" class="post-author d-flex align-items-center">
-          <div class="author-pic">
-          <img src="{% static 'folder/person_1.jpg' %}" alt="Image">
-          </div>
-          <div class="text">
-          <strong>Sergy Campbell</strong>
-          <span>Author, 26 published post</span>
-          </div>
-          </a>
-          </div>
-          </div>
-          </div>
+          <div class="col-lg-12">
+            <div class="post-entry d-lg-flex mb-5">
+            <div class="me-md-3 thumbnail mb-3 mb-md-0">
+            <img src="/media/{{x.image}}/" alt="Image" class="img-fluid">
+            </div>
+            <div class="content">
+           
+            <h2 class="heading"><a href="/blog/{{x.title|replace}}/{{x.id}}/">{{x.title}}</a></h2>
+            <p>{{x.description|safe}}</p>
+            <a href="/profile/{{x.user_name2}}/" class="post-author d-flex align-items-center">
+            <div class="author-pic">
+            <img src="/media/{{x.user_name2.profile.avatar}}/" alt="Image">
+            </div>
+            <div class="text">
+            <strong>{{x.user_name2.profile.first_name}} {{x.user_name2.profile.last_name}}</strong>
+            <span>Author, {{x.user_name2.project_username_2.all.count}} published post, {{x.date_Publish}}</span>
+            </div>
+            </a>
+            </div>
+            </div>
+            </div>
+                </div>
+        {% endfor %}
+ 
      
-      <div class="carousel-item">
-        <div class="post-entry d-lg-flex mb-5 mt-2">
-          <div class="me-md-3 thumbnail mb-3 mb-md-0">
-          <img src="{% static 'folder/img_3.webp' %}" alt="Image" class="img-fluid">
-          </div>
-          <div class="content">
-          <div class="post-meta mb-1">
-          <a href="https://preview.colorlib.com/theme/magdesign/#" class="category">Business</a>, <a href="https://preview.colorlib.com/theme/magdesign/#" class="category">Travel</a> —
-          <span class="date">July 2, 2020</span>
-          </div>
-          <h2 class="heading"><a href="https://preview.colorlib.com/theme/magdesign/single.html">Your most unhappy customers are your greatest source of learning.</a></h2>
-          <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind textsFar far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts Far far away, behind the word mountain</p>
-          <a href="https://preview.colorlib.com/theme/magdesign/#" class="post-author d-flex align-items-center">
-          <div class="author-pic">
-          <img src="{% static 'folder/person_1.jpg' %}" alt="Image">
-          </div>
-          <div class="text">
-          <strong>Sergy Campbell</strong>
-          <span>Author, 26 published post</span>
-          </div>
-          </a>
-          </div>
-          </div>
-          </div>
       </div>
     </div>
+ 
     
   </div>
 </div>
 </div>
+{% endif %}
+{% if inbox %}
 <div class="section" >
 <div class="container">
-<div class="row g-5">
-<div class="col-lg-4">
-<div class="post-entry d-block small-post-entry-v">
-<div class="thumbnail">
-<a href="https://preview.colorlib.com/theme/magdesign/single.html">
-<img src="{% static 'folder/img_2.webp' %}" alt="Image" class="img-fluid">
-</a>
-</div>
-<div class="content">
-<div class="post-meta mb-1">
-<a href="https://preview.colorlib.com/theme/magdesign/#" class="category">Business</a>, <a href="https://preview.colorlib.com/theme/magdesign/#" class="category">Travel</a> —
-<span class="date">July 2, 2020</span>
-</div>
-<h2 class="heading mb-3"><a href="https://preview.colorlib.com/theme/magdesign/single.html">Your most unhappy customers are your greatest source of learning.</a></h2>
-<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-<a href="https://preview.colorlib.com/theme/magdesign/#" class="post-author d-flex align-items-center">
-<div class="author-pic">
-<img src="{% static 'folder/person_1.jpg' %}" alt="Image">
-</div>
-<div class="text">
-<strong>Sergy Campbell</strong>
-<span>CEO and Founder</span>
-</div>
-</a>
-</div>
-</div>
-</div>
-<div class="col-lg-4">
-<div class="post-entry d-block small-post-entry-v">
-<div class="thumbnail">
-<a href="https://preview.colorlib.com/theme/magdesign/single.html">
-<img src="{% static 'folder/img_3.webp' %}" alt="Image" class="img-fluid">
-</a>
-</div>
-<div class="content">
-<div class="post-meta mb-1">
-<a href="https://preview.colorlib.com/theme/magdesign/#" class="category">Business</a>, <a href="https://preview.colorlib.com/theme/magdesign/#" class="category">Travel</a> —
-<span class="date">July 2, 2020</span>
-</div>
-<h2 class="heading mb-3"><a href="https://preview.colorlib.com/theme/magdesign/single.html">Your most unhappy customers are your greatest source of learning.</a></h2>
-<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-<a href="https://preview.colorlib.com/theme/magdesign/#" class="post-author d-flex align-items-center">
-<div class="author-pic">
-<img src="{% static 'folder/person_1.jpg' %}" alt="Image">
- </div>
-<div class="text">
-<strong>Sergy Campbell</strong>
-<span>CEO and Founder</span>
-</div>
-</a>
+ 
+<div class="row ">
+  
+
+  {% for x in inbox %}
+  <div class="col-lg-4 mb-5">
+    <div class="post-entry d-block small-post-entry-v">
+    <div class="thumbnail">
+    <a href="/blog/{{x.title|replace}}/{{x.id}}/">
+    <img src="/media/{{x.image}}/" alt="Image" class="img-fluid" style="height:200px; width:100%;">
+    </a>
+    </div>
+    <div class="content">
+    
+    <h2 class="heading mb-3"><a href="/blog/{{x.title|replace}}/{{x.id}}/">{{x.title}}</a></h2>
+    <p>{{x.description|safe}}</p>
+    <a href="/profile/{{x.user_name2}}/" class="post-author d-flex align-items-center">
+    <div class="author-pic">
+    <img src="/media/{{x.user_name2.profile.avatar}}" alt="Image">
+    </div>
+    <div class="text">
+      <strong>{{x.user_name2.profile.first_name}} {{x.user_name2.profile.last_name}}</strong>
+      <span>Author, {{x.user_name2.project_username_2.all.count}} published post, {{x.date_Publish}}, {{x.time}}</span>
+    </div>
+    </a>
+    </div>
+    </div>
+    </div>
+  {% endfor %}
+
+
+
 </div>
 </div>
 </div>
-<div class="col-lg-4">
-<div class="post-entry d-block small-post-entry-v">
-<div class="thumbnail">
-<a href="https://preview.colorlib.com/theme/magdesign/single.html">
-<img src="{% static 'folder/img_4.webp' %}" alt="Image" class="img-fluid">
-</a>
-</div>
-<div class="content">
-<div class="post-meta mb-1">
-<a href="https://preview.colorlib.com/theme/magdesign/#" class="category">Business</a>, <a href="https://preview.colorlib.com/theme/magdesign/#" class="category">Travel</a> —
-<span class="date">July 2, 2020</span>
-</div>
-<h2 class="heading mb-3"><a href="https://preview.colorlib.com/theme/magdesign/#">Your most unhappy customers are your greatest source of learning.</a></h2>
-<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-<a href="https://preview.colorlib.com/theme/magdesign/#" class="post-author d-flex align-items-center">
-<div class="author-pic">
-<img src="{% static 'folder/person_1.jpg' %}" alt="Image">
-</div>
-<div class="text">
-<strong>Sergy Campbell</strong>
-<span>CEO and Founder</span>
-</div>
-</a>
-</div>
-</div>
-</div>
-<div class="col-lg-4">
-<div class="post-entry d-block small-post-entry-v">
-<div class="thumbnail">
-<a href="https://preview.colorlib.com/theme/magdesign/single.html">
-<img src="{% static 'folder/img_4.webp' %}" alt="Image" class="img-fluid">
-</a>
-</div>
-<div class="content">
-<div class="post-meta mb-1">
-<a href="https://preview.colorlib.com/theme/magdesign/#" class="category">Business</a>, <a href="https://preview.colorlib.com/theme/magdesign/#" class="category">Travel</a> —
-<span class="date">July 2, 2020</span>
-</div>
-<h2 class="heading mb-3"><a href="https://preview.colorlib.com/theme/magdesign/#">Your most unhappy customers are your greatest source of learning.</a></h2>
-<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-<a href="https://preview.colorlib.com/theme/magdesign/#" class="post-author d-flex align-items-center">
-<div class="author-pic">
-<img src="{% static 'folder/person_1.jpg' %}" alt="Image">
-</div>
-<div class="text">
-<strong>Sergy Campbell</strong>
-<span>CEO and Founder</span>
-</div>
-</a>
-</div>
-</div>
-</div>
-<div class="col-lg-4">
-<div class="post-entry d-block small-post-entry-v">
-<div class="thumbnail">
-<a href="https://preview.colorlib.com/theme/magdesign/single.html">
-<img src="{% static 'folder/img_5.webp' %}" alt="Image" class="img-fluid">
-</a>
-</div>
-<div class="content">
-<div class="post-meta mb-1">
-<a href="https://preview.colorlib.com/theme/magdesign/#" class="category">Business</a>, <a href="https://preview.colorlib.com/theme/magdesign/#" class="category">Travel</a> —
-<span class="date">July 2, 2020</span>
-</div>
-<h2 class="heading mb-3"><a href="https://preview.colorlib.com/theme/magdesign/#">Your most unhappy customers are your greatest source of learning.</a></h2>
-<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-<a href="https://preview.colorlib.com/theme/magdesign/#" class="post-author d-flex align-items-center">
-<div class="author-pic">
-<img src="{% static 'folder/person_1.jpg' %}" alt="Image">
-</div>
-<div class="text">
-<strong>Sergy Campbell</strong>
-<span>CEO and Founder</span>
-</div>
-</a>
-</div>
-</div>
-</div>
-<div class="col-lg-4">
-<div class="post-entry d-block small-post-entry-v">
-<div class="thumbnail">
-<a href="https://preview.colorlib.com/theme/magdesign/single.html">
-<img src="{% static 'folder/img_6.webp' %}" alt="Image" class="img-fluid">
-</a>
-</div>
-<div class="content">
-<div class="post-meta mb-1">
-<a href="https://preview.colorlib.com/theme/magdesign/#" class="category">Business</a>, <a href="https://preview.colorlib.com/theme/magdesign/#" class="category">Travel</a> —
-<span class="date">July 2, 2020</span>
-</div>
-<h2 class="heading mb-3"><a href="https://preview.colorlib.com/theme/magdesign/#">Your most unhappy customers are your greatest source of learning.</a></h2>
-<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-<a href="https://preview.colorlib.com/theme/magdesign/#" class="post-author d-flex align-items-center">
-<div class="author-pic">
-<img src="{% static 'folder/person_1.jpg' %}" alt="Image">
-</div>
-<div class="text">
-<strong>Sergy Campbell</strong>
-<span>CEO and Founder</span>
-</div>
-</a>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
+{% endif %}
+{% if box %}
 <div class="section">
 <div class="container-fluid">
 <div class="row justify-content-center mb-5">
@@ -477,331 +148,82 @@ text-transform: capitalize;
 <span class="prev" data-controls="prev" aria-controls="most-popular-center" tabindex="-1" aria-disabled="true">Prev</span>
 <span class="next" data-controls="next" aria-controls="most-popular-center" tabindex="-1">Next</span>
 </div>
-<div class="tns-outer" id="most-popular-center-ow"><div class="tns-nav" aria-label="Carousel Pagination"><button type="button" data-nav="0" aria-controls="most-popular-center" style="" aria-label="Carousel Page 1 (Current Slide)" class="tns-nav-active"></button><button type="button" data-nav="1" tabindex="-1" aria-controls="most-popular-center" style="" aria-label="Carousel Page 2"></button><button type="button" data-nav="2" tabindex="-1" aria-controls="most-popular-center" style="" aria-label="Carousel Page 3"></button><button type="button" data-nav="3" tabindex="-1" aria-controls="most-popular-center" style="" aria-label="Carousel Page 4"></button><button type="button" data-nav="4" tabindex="-1" aria-controls="most-popular-center" style="" aria-label="Carousel Page 5"></button><button type="button" data-nav="5" tabindex="-1" aria-controls="most-popular-center" style="" aria-label="Carousel Page 6"></button></div><div class="tns-liveregion tns-visually-hidden" aria-live="polite" aria-atomic="true">slide <span class="current">1 to 2</span>  of 6</div>
+<div class="tns-outer" id="most-popular-center-ow">
+ <div class="tns-liveregion tns-visually-hidden" aria-live="polite" aria-atomic="true">slide <span class="current">1 to 2</span>  of 6</div>
 <div id="most-popular-center-mw" class="tns-ovh">
   <div class="tns-inner" id="most-popular-center-iw">
     <div class="most-popular-slider  tns-slider tns-carousel tns-subpixel tns-calc tns-horizontal" id="most-popular-center" style="transition-duration: 0s; transform: translate3d(0%, 0px, 0px);">
-<div class="item tns-item tns-slide-active" id="most-popular-center-item0">
-<div class="post-entry d-block small-post-entry-v">
-<div class="thumbnail">
-<a href="https://preview.colorlib.com/theme/magdesign/single.html">
-<img src="{% static 'folder/img_7.webp' %}" alt="Image" class="img-fluid">
-</a>
-</div>
-<div class="content">
-<div class="post-meta mb-1">
-<a href="https://preview.colorlib.com/theme/magdesign/#" class="category">Business</a>, <a href="https://preview.colorlib.com/theme/magdesign/#" class="category">Travel</a> —
-<span class="date">July 2, 2020</span>
-</div>
-<h2 class="heading mb-3"><a href="https://preview.colorlib.com/theme/magdesign/single.html">Your most unhappy customers are your greatest source of learning.</a></h2>
-<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-<a href="https://preview.colorlib.com/theme/magdesign/#" class="post-author d-flex align-items-center">
-<div class="author-pic">
-<img src="{% static 'folder/person_1.jpg' %}" alt="Image">
-</div>
-<div class="text">
-<strong>Sergy Campbell</strong>
-<span>CEO and Founder</span>
-</div>
-</a>
-</div>
-</div>
-</div>
-<div class="item tns-item tns-slide-active" id="most-popular-center-item1">
-<div class="post-entry d-block small-post-entry-v">
-<div class="thumbnail">
-<a href="https://preview.colorlib.com/theme/magdesign/single.html">
-<img src="{% static 'folder/img_2.webp' %}" alt="Image" class="img-fluid">
-</a>
-</div>
-<div class="content">
-<div class="post-meta mb-1">
-<a href="https://preview.colorlib.com/theme/magdesign/#" class="category">Business</a>, <a href="https://preview.colorlib.com/theme/magdesign/#" class="category">Travel</a> —
-<span class="date">July 2, 2020</span>
-</div>
-<h2 class="heading mb-3"><a href="https://preview.colorlib.com/theme/magdesign/single.html">Your most unhappy customers are your greatest source of learning.</a></h2>
-<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-<a href="https://preview.colorlib.com/theme/magdesign/#" class="post-author d-flex align-items-center">
-<div class="author-pic">
-<img src="{% static 'folder/person_1.jpg' %}" alt="Image">
-</div>
-<div class="text">
-<strong>Sergy Campbell</strong>
-<span>CEO and Founder</span>
-</div>
-</a>
-</div>
-</div>
-</div>
-<div class="item tns-item" id="most-popular-center-item2" aria-hidden="true" tabindex="-1">
-<div class="post-entry d-block small-post-entry-v">
-<div class="thumbnail">
-<a href="https://preview.colorlib.com/theme/magdesign/single.html">
-<img src="{% static 'folder/img_3.webp' %}" alt="Image" class="img-fluid">
-</a>
-</div>
-<div class="content">
-<div class="post-meta mb-1">
-<a href="https://preview.colorlib.com/theme/magdesign/#" class="category">Business</a>, <a href="https://preview.colorlib.com/theme/magdesign/#" class="category">Travel</a> —
-<span class="date">July 2, 2020</span>
-</div>
-<h2 class="heading mb-3"><a href="https://preview.colorlib.com/theme/magdesign/single.html">Your most unhappy customers are your greatest source of learning.</a></h2>
-<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-<a href="https://preview.colorlib.com/theme/magdesign/#" class="post-author d-flex align-items-center">
-<div class="author-pic">
-<img src="{% static 'folder/person_1.jpg' %}" alt="Image">
-</div>
-<div class="text">
-<strong>Sergy Campbell</strong>
-<span>CEO and Founder</span>
-</div>
-</a>
-</div>
-</div>
-</div>
-<div class="item tns-item" id="most-popular-center-item3" aria-hidden="true" tabindex="-1">
-<div class="post-entry d-block small-post-entry-v">
-<div class="thumbnail">
-<a href="https://preview.colorlib.com/theme/magdesign/single.html">
-<img src="{% static 'folder/img_4.webp' %}" alt="Image" class="img-fluid">
-</a>
-</div>
-<div class="content">
-<div class="post-meta mb-1">
-<a href="https://preview.colorlib.com/theme/magdesign/#" class="category">Business</a>, <a href="https://preview.colorlib.com/theme/magdesign/#" class="category">Travel</a> —
-<span class="date">July 2, 2020</span>
-</div>
-<h2 class="heading mb-3"><a href="https://preview.colorlib.com/theme/magdesign/single.html">Your most unhappy customers are your greatest source of learning.</a></h2>
-<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-<a href="https://preview.colorlib.com/theme/magdesign/#" class="post-author d-flex align-items-center">
-<div class="author-pic">
-<img src="{% static 'folder/person_1.jpg' %}" alt="Image">
-</div>
-<div class="text">
-<strong>Sergy Campbell</strong>
-<span>CEO and Founder</span>
-</div>
-</a>
-</div>
-</div>
-</div>
-<div class="item tns-item" id="most-popular-center-item4" aria-hidden="true" tabindex="-1">
-<div class="post-entry d-block small-post-entry-v">
-<div class="thumbnail">
-<a href="https://preview.colorlib.com/theme/magdesign/single.html">
-<img src="{% static 'folder/img_5.webp' %}" alt="Image" class="img-fluid">
-</a>
-</div>
-<div class="content">
-<div class="post-meta mb-1">
-<a href="https://preview.colorlib.com/theme/magdesign/#" class="category">Business</a>, <a href="https://preview.colorlib.com/theme/magdesign/#" class="category">Travel</a> —
-<span class="date">July 2, 2020</span>
-</div>
-<h2 class="heading mb-3"><a href="https://preview.colorlib.com/theme/magdesign/single.html">Your most unhappy customers are your greatest source of learning.</a></h2>
-<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-<a href="https://preview.colorlib.com/theme/magdesign/#" class="post-author d-flex align-items-center">
-<div class="author-pic">
-<img src="{% static 'folder/person_1.jpg' %}" alt="Image">
-</div>
-<div class="text">
-<strong>Sergy Campbell</strong>
-<span>CEO and Founder</span>
-</div>
-</a>
-</div>
-</div>
-</div>
-<div class="item tns-item" id="most-popular-center-item5" aria-hidden="true" tabindex="-1">
-<div class="post-entry d-block small-post-entry-v">
-<div class="thumbnail">
-<a href="https://preview.colorlib.com/theme/magdesign/single.html">
-<img src="{% static 'folder/img_6.webp' %}" alt="Image" class="img-fluid">
-</a>
-</div>
-<div class="content">
-<div class="post-meta mb-1">
-<a href="https://preview.colorlib.com/theme/magdesign/#" class="category">Business</a>, <a href="https://preview.colorlib.com/theme/magdesign/#" class="category">Travel</a> —
-<span class="date">July 2, 2020</span>
-</div>
-<h2 class="heading mb-3"><a href="https://preview.colorlib.com/theme/magdesign/single.html">Your most unhappy customers are your greatest source of learning.</a></h2>
-<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-<a href="https://preview.colorlib.com/theme/magdesign/#" class="post-author d-flex align-items-center">
-<div class="author-pic">
-<img src="{% static 'folder/person_1.jpg' %}" alt="Image">
-</div>
-<div class="text">
-<strong>Sergy Campbell</strong>
-<span>CEO and Founder</span>
-</div>
-</a>
-</div>
-</div>
-</div>
+{% for i in box %}
+<div class="item tns-item tns-slide-active" id="most-popular-center-item{{forloop.counter|add:'-1'}}">
+  <div class="post-entry d-block small-post-entry-v">
+  <div class="thumbnail">
+  <a href="/blog/{{x.title|replace}}/{{x.id}}/">
+  <img src="/media/{{i.image}}/" alt="Image" class="img-fluid">
+  </a>
+  </div>
+  <div class="content">
+  
+  <h2 class="heading mb-3"><a href="/blog/{{x.title|replace}}/{{x.id}}/">{{i.title}}</a></h2>
+  <p>{{i.description|safe}}</p>
+  <a href="/profile/{{x.user_name2}}/" class="post-author d-flex align-items-center">
+  <div class="author-pic">
+  <img src="/media/{{i.user_name2.profile.avatar}}/" alt="Image">
+  </div>
+  <div class="text">
+    <strong>{{i.user_name2.profile.first_name}} {{i.user_name2.profile.last_name}}</strong>
+    <span>Author, {{i.user_name2.project_username_2.all.count}} published post, {{i.date_Publish}}</span>
+  </div>
+  </a>
+  </div>
+  </div>
+  </div>
+{% endfor %}
+
+
 </div></div></div></div>
 </div>
 </div>
+{% endif %}
+
+{% if list %}
 <div class="section">
 <div class="container">
 <div class="row g-5">
-<div class="col-lg-6">
+<div class="col-lg-12">
 <div class="row mb-4">
-<div class="col-12">
-<h2 class="h4 fw-bold">Sports</h2>
+
 </div>
-</div>
-<div class="row justify-content-center">
-<div class="col-lg-12">
-<div class="post-entry d-md-flex xsmall-horizontal mb-5">
-<div class="me-md-3 thumbnail mb-3 mb-md-0">
-<img src="{% static 'folder/img_2.webp' %}" alt="Image" class="img-fluid">
-</div>
-<div class="content">
-<div class="post-meta mb-1">
-<a href="https://preview.colorlib.com/theme/magdesign/#" class="category">Business</a>, <a href="https://preview.colorlib.com/theme/magdesign/#" class="category">Travel</a> —
-<span class="date">July 2, 2020</span>
-</div>
-<h2 class="heading"><a href="https://preview.colorlib.com/theme/magdesign/single.html">Your most unhappy customers are your greatest source of learning.</a></h2>
-<a href="https://preview.colorlib.com/theme/magdesign/#" class="post-author d-flex align-items-center">
-<div class="author-pic">
-<img src="{% static 'folder/person_1.jpg' %}" alt="Image">
-</div>
-<div class="text">
-<strong>Sergy Campbell</strong>
-<span>Author, 26 published post</span>
-</div>
-</a>
-</div>
-</div>
-</div>
-<div class="col-lg-12">
-<div class="post-entry d-md-flex xsmall-horizontal mb-5">
-<div class="me-md-3 thumbnail mb-3 mb-md-0">
-<img src="{% static 'folder/img_3.webp' %}" alt="Image" class="img-fluid">
-</div>
-<div class="content">
-<div class="post-meta mb-1">
-<a href="https://preview.colorlib.com/theme/magdesign/#" class="category">Business</a>, <a href="https://preview.colorlib.com/theme/magdesign/#" class="category">Travel</a> —
-<span class="date">July 2, 2020</span>
-</div>
-<h2 class="heading"><a href="https://preview.colorlib.com/theme/magdesign/single.html">Your most unhappy customers are your greatest source of learning.</a></h2>
-<a href="https://preview.colorlib.com/theme/magdesign/#" class="post-author d-flex align-items-center">
-<div class="author-pic">
-<img src="{% static 'folder/person_1.jpg' %}" alt="Image">
-</div>
-<div class="text">
-<strong>Sergy Campbell</strong>
-<span>Author, 26 published post</span>
-</div>
-</a>
-</div>
-</div>
-</div>
-<div class="col-lg-12">
-<div class="post-entry d-md-flex xsmall-horizontal mb-5">
-<div class="me-md-3 thumbnail mb-3 mb-md-0">
-<img src="{% static 'folder/img_4.webp' %}" alt="Image" class="img-fluid">
-</div>
-<div class="content">
-<div class="post-meta mb-1">
-<a href="https://preview.colorlib.com/theme/magdesign/#" class="category">Business</a>, <a href="https://preview.colorlib.com/theme/magdesign/#" class="category">Travel</a> —
-<span class="date">July 2, 2020</span>
-</div>
-<h2 class="heading"><a href="https://preview.colorlib.com/theme/magdesign/single.html">Your most unhappy customers are your greatest source of learning.</a></h2>
-<a href="https://preview.colorlib.com/theme/magdesign/#" class="post-author d-flex align-items-center">
-<div class="author-pic">
-<img src="{% static 'folder/person_1.jpg' %}" alt="Image">
-</div>
-<div class="text">
-<strong>Sergy Campbell</strong>
-<span>Author, 26 published post</span>
-</div>
-</a>
-</div>
-</div>
-</div>
-</div>
-</div>
+<div class="row justify-content-start">
+{% for x in list %}
 <div class="col-lg-6">
-<div class="row mb-4">
-<div class="col-12">
-<h2 class="h4 fw-bold">Business</h2>
+  <div class="post-entry d-md-flex xsmall-horizontal mb-5">
+  <div class="me-md-3 thumbnail mb-3 mb-md-0">
+  <img src="/media/{{x.image}}/" alt="Image" class="img-fluid">
+  </div>
+  <div class="content">
+ 
+  <h2 class="heading"><a href="/blog/{{x.title|replace}}/{{x.id}}/">{{x.title}}</a></h2>
+  <a href="/profile/{{x.user_name2}}/" class="post-author d-flex align-items-center">
+  <div class="author-pic">
+  <img src="/media/{{x.user_name2.profile.avatar}}" alt="Image">
+  </div>
+  <div class="text">
+    <strong>{{x.user_name2.profile.first_name}} {{x.user_name2.profile.last_name}}</strong>
+    <span>Author, {{x.user_name2.project_username_2.all.count}} published post, {{x.date_Publish}}</span>
+  </div>
+  </a>
+  </div>
+  </div>
+  </div>
+{% endfor %}
+
 </div>
 </div>
-<div class="row justify-content-center">
-<div class="col-lg-12">
-<div class="post-entry d-md-flex xsmall-horizontal mb-5">
-<div class="me-md-3 thumbnail mb-3 mb-md-0">
-<img src="{% static 'folder/img_2.webp' %}" alt="Image" class="img-fluid">
-</div>
-<div class="content">
-<div class="post-meta mb-1">
-<a href="https://preview.colorlib.com/theme/magdesign/#" class="category">Business</a>, <a href="https://preview.colorlib.com/theme/magdesign/#" class="category">Travel</a> —
-<span class="date">July 2, 2020</span>
-</div>
-<h2 class="heading"><a href="https://preview.colorlib.com/theme/magdesign/single.html">Your most unhappy customers are your greatest source of learning.</a></h2>
-<a href="https://preview.colorlib.com/theme/magdesign/#" class="post-author d-flex align-items-center">
-<div class="author-pic">
-<img src="{% static 'folder/person_1.jpg' %}" alt="Image">
-</div>
-<div class="text">
-<strong>Sergy Campbell</strong>
-<span>Author, 26 published post</span>
-</div>
-</a>
-</div>
-</div>
-</div>
-<div class="col-lg-12">
-<div class="post-entry d-md-flex xsmall-horizontal mb-5">
-<div class="me-md-3 thumbnail mb-3 mb-md-0">
-<img src="{% static 'folder/img_3.webp' %}" alt="Image" class="img-fluid">
-</div>
-<div class="content">
-<div class="post-meta mb-1">
-<a href="https://preview.colorlib.com/theme/magdesign/#" class="category">Business</a>, <a href="https://preview.colorlib.com/theme/magdesign/#" class="category">Travel</a> —
-<span class="date">July 2, 2020</span>
-</div>
-<h2 class="heading"><a href="https://preview.colorlib.com/theme/magdesign/single.html">Your most unhappy customers are your greatest source of learning.</a></h2>
-<a href="https://preview.colorlib.com/theme/magdesign/#" class="post-author d-flex align-items-center">
-<div class="author-pic">
-<img src="{% static 'folder/person_1.jpg' %}" alt="Image">
-</div>
-<div class="text">
-<strong>Sergy Campbell</strong>
-<span>Author, 26 published post</span>
-</div>
-</a>
+
 </div>
 </div>
 </div>
-<div class="col-lg-12">
-<div class="post-entry d-md-flex xsmall-horizontal mb-5">
-<div class="me-md-3 thumbnail mb-3 mb-md-0">
-<img src="{% static 'folder/img_4.webp' %}" alt="Image" class="img-fluid">
-</div>
-<div class="content">
-<div class="post-meta mb-1">
-<a href="https://preview.colorlib.com/theme/magdesign/#" class="category">Business</a>, <a href="https://preview.colorlib.com/theme/magdesign/#" class="category">Travel</a> —
-<span class="date">July 2, 2020</span>
-</div>
-<h2 class="heading"><a href="https://preview.colorlib.com/theme/magdesign/single.html">Your most unhappy customers are your greatest source of learning.</a></h2>
-<a href="https://preview.colorlib.com/theme/magdesign/#" class="post-author d-flex align-items-center">
-<div class="author-pic">
-<img src="{% static 'folder/person_1.jpg' %}" alt="Image">
-</div>
-<div class="text">
-<strong>Sergy Campbell</strong>
-<span>Author, 26 published post</span>
-</div>
-</a>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
+{% endif %}
 <div style="position: fixed; bottom:4rem; right:4rem;">
   <a class=" button btn border shadow  d-flex align-items-center justify-content-center text-white" href="{% url 'create' %}" style="width:60px; height:60px; border-radius:50%; font-size: 14px; "><i class="fa fa-plus"></i></a>
 </div>

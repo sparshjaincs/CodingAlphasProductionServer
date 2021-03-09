@@ -6,4 +6,5 @@ urlpatterns = [
     path("<method>/inbox/<id>/",views.inside,name='inside'),
     path('anwser/quora_submit/',views.anwser_submit,name="anwser_submit"),
     path("comment/submit/",views.comment_submit,name="comment_submit"),
+    path("jobs/scrape/",views.scrape,name="scrape"),
 ]

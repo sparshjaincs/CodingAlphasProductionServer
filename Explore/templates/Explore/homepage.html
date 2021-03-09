@@ -1,5 +1,6 @@
 {% extends 'Core/snippets/base.html'  %}
 {% load shortcut %}
+{% load static %}
 {% block header %}
 {% include 'Core/snippets/header.html' %}
 {% endblock %}
@@ -38,12 +39,11 @@
   transform: translateX(0);
 }
 
-
 .card1{
-    
+    color:white;
     border:none;
-    background:linear-gradient(330deg,  #6dd5ed, #2193b0);
-    border-radius:10px;
+    background:linear-gradient(135deg,  #764ba2, #667eea );
+  
 }
 .card2{
    color:white;
@@ -54,9 +54,9 @@
 
 
 .card4{
-    color:white;
     border:none;
-    background:linear-gradient(135deg,  #764ba2, #667eea );
+    background:linear-gradient(330deg,  #6dd5ed, #2193b0);
+    border-radius:10px;
  
 }
 .card3{
@@ -65,11 +65,30 @@
     background:linear-gradient(330deg,   #000000, #434343);
     
 }
-
+#soon{
+    animation:example 5s infinite;
+}
+@keyframes example{
+    0%{
+        width:500px;
+    }
+    50%{
+        width:600px;
+    }
+    100%{
+        width:500px;
+    }
+}
 {% endblock %}
 {% block body %}
 <div class="container-fluid pl-5 pr-5">
-    <div class="row mt-5">
+    <div class="row mt-5 pt-5">
+        <div class="col-12 mt-5 pt-5">
+            <div class="d-flex justify-content-center">
+                <img id="soon"src="{% static 'svg/undraw_under_construction_46pa.svg' %}" style="width:600px;">
+            </div>
+        </div>
+        <!--
         <div class="col-12 mt-5">
             <div style="font-size: 18px; font-weight:600; letter-spacing: 0.5px; color:#D5D7D8;" class="">
                Welcome To 
@@ -81,61 +100,54 @@
         </div>
 
         
-
+       
+        
         <div class="col-12 mt-4 pt-4">
+            
             <div style="font-size: 16px;  letter-spacing: 0.5px; color:#D5D7D8;" class="mb-4">
                 <i class="fa fa-calendar"></i> Daily Challanges 
              </div>
-            <div id="recipeCarousel" class="carousel slide w-100" data-ride="carousel">
-                <div class="carousel-inner ml-5" role="listbox">
-                    {% for x in chapter%}
-                    <div class="carousel-item{% if forloop.counter == 1%} active {% endif %}">
-                        <div class=" col-9 col-md-4 col-lg-3">
-                            <div class="card border-0 ml-5 mr-5 " style="border-radius: 25px; height:230px">
-                                <div class="card-header card4" style="border-top-left-radius:25px; border-top-right-radius:25px;" >
-                                    <div>
-                                        <p class="mt-1" style="font-size: 22px; font-weight: 600; ">{{x.title}}</p>
-                                    </div>
-                                    <span  style="position: absolute; right:1rem;" class="badge badge-sm badge-warning rounded"> Day {{date}}</span>
-                                </div>
-                                <div class="card-body  rounded" style="">
-                                   
-                                    <div style="font-size:13px;" class="text-muted d-flex justify-content-between">
-                                       <div class="">
-                                        <div>
-                                            <center>{{x.contestchapters.all.count}}</center>
-                                        </div>
-                                        <div>
-                                          <center>Chapters</center>  
-                                        </div>
-                                       
-                                       </div>
-                                       <div style="" class="d-flex align-items-center justify-content-center">
-                                        <a  href="/explore/dailycontest/{{x.title|replace}}/{{x.id}}/" class="btn rounded-circle shadow-sm" style="font-size: 16px; background-color: #EEE; border:3px solid #D5D7D8;">
-                                            <i class="fa fa-play-circle mt-1"></i>
-                                        </a>
-                                    </div>
-                                   
-                                    </div>
-                                </div>
+             <div style="display:flex; flex-direction:row;">
+                {% for x in chapter%}
+                <div class="col-12 col-md-4 col-lg-3">
+
+
+                <div class="card border-0 ml-5 mr-5  shadow-sm " style="border-radius: 25px; height:230px">
+                    <div class="card-header card{{forloop.counter}}" style="border-top-left-radius:25px; border-top-right-radius:25px;" >
+                        <div>
+                            <p class="mt-1" style="font-size: 22px; font-weight: 600; ">{{x.title}}</p>
+                        </div>
+                        <span  style="position: absolute; right:1rem;" class="badge badge-sm badge-warning rounded"> {% if forloop.counter == 1%}Day {{date}} {% else %} Expired {% endif %}</span>
+                    </div>
+                    <div class="card-body  rounded" style="">
+                       
+                        <div style="font-size:13px;" class="text-muted d-flex justify-content-between">
+                           <div class="">
+                            <div>
+                                <center>{{x.contestchapters.all.count}}</center>
                             </div>
+                            <div>
+                              <center>Chapters</center>  
+                            </div>
+                           
+                           </div>
+                           <div style="" class="d-flex align-items-center justify-content-center">
+                            <a  href="/explore/dailycontest/{{x.title|replace}}/{{x.id}}/" class="btn rounded-circle shadow-sm" style="font-size: 16px; background-color: #EEE; border:3px solid #D5D7D8;">
+                                <i class="fa fa-play-circle mt-1"></i>
+                            </a>
+                        </div>
+                       
                         </div>
                     </div>
-                    
-                    
-                    {% endfor %}
                 </div>
-                <a class="carousel-control-prev w-auto" href="#recipeCarousel" role="button" data-slide="prev">
-                    <span class="carousel-control-prev-icon bg-dark border border-dark rounded" style="height:50px; width:30px; opacity:0.2;" aria-hidden="true"></span>
-                    <span class="sr-only">Previous</span>
-                </a>
-                <a class="carousel-control-next w-auto" href="#recipeCarousel" role="button" data-slide="next">
-                    <span class="carousel-control-next-icon bg-dark border border-dark rounded " style="height:50px; width:30px; opacity:0.2;" aria-hidden="true"></span>
-                    <span class="sr-only">Next</span>
-                </a>
+                
             </div>
+                {% endfor %}
+             </div>
+
+          
         </div>
-<!--
+
         <div class="col-12 mt-5 pt-4">
             <div style="font-size: 16px;  letter-spacing: 0.5px; color:#D5D7D8;" class="mb-4">
                 <i class="fa fa-line-chart"></i> Algorithms Visualizers

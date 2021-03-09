@@ -4,6 +4,8 @@ from django.db.models import Q
 from django.http import HttpResponse
 import json
 from .models import *
+from Core.models import Homepage_Activity
+from .jobs import *
 # Create your views here.
 def homepage(request):
     context = {}
@@ -13,9 +15,19 @@ def homepage(request):
     context['method'] = method
     if method == 'General':
         quora = Quora_Form()
+
     else:
         quora = Other_Form
     context['form'] = quora
+    tag = Quora.objects.filter(category=method)
+    tags = []
+    for i in tag:
+        if i.tags:
+            for j in i.tags.split(","):
+                if j not in tags:
+                    tags.append(j)
+
+    context['tags'] = tags
     context['pinned'] = Quora.objects.filter(category=method,pinned=True).order_by('-created')
     context['data'] = Quora.objects.filter(~ Q(id__in = Quora.objects.filter(category=method,pinned=True)),category=method).order_by('-created')[:20]
     return render(request,'discuss/homepage.html',context)
@@ -42,6 +54,8 @@ def quora_submit(request):
                         
                         'status':'You successfully submited your question.',
                     }
+                    home = Homepage_Activity(category = 'Post',post = ins)
+                    home.save()
                     return HttpResponse(json.dumps(data))
 
                 except Exception as exp:
@@ -61,6 +75,8 @@ def quora_submit(request):
                         
                         'status':'You successfully submited your question.',
                     }
+                    home = Homepage_Activity(category = 'Post',post = ins)
+                    home.save()
                     return HttpResponse(json.dumps(data))
 
                 except Exception as exp:
@@ -180,6 +196,11 @@ def comment_submit(request):
                         return HttpResponse(json.dumps(['success',data]))
                     except Exception as exp:
                         return HttpResponse(json.dumps(['error',str(exp)]))
+
+def scrape(request):
+    data = Jobs("SDE","",3)
+    data = data.select()
+    return HttpResponse(json.dumps(data))
 
         
 

@@ -48,15 +48,18 @@ def every_monday_morning():
     
 # Create your views here.
 def homepage(request):
+    every_monday_morning()
     context = {}
     context['date'] = date.today().strftime("%d")
-    context['chapter'] = DailyContest.objects.all().order_by('created')
+    contest  = DailyContest.objects.all().order_by('-created')
+    context['chapter'] = contest
     return render(request,'Explore/homepage.html',context)
-every_monday_morning()
+
 
 def daily(request,title,id):
     context = {}
     data = DailyContest.objects.get(id = id)
+    current = True if str(data.created.year)+str(data.created.month) == str(date.today().year) + str(date.today().month) else False
     context['data'] = data
     n = int(date.today().strftime("%d"))
 
@@ -73,22 +76,31 @@ def daily(request,title,id):
         l = {}
         l['title'] = i.title
         l['id'] = i.id
-        if flag > c:
-            status = 'Expired'
-        elif flag == c:
-            status = 'Active'
+        if current:
+            if flag > c:
+                status = 'Expired'
+            elif flag == c:
+                status = 'Active'
+            else:
+                status = 'Upcoming'
         else:
-            status = 'Upcoming'
+            status = 'Expired'
         l['status'] = status
         ques= []
         
         for j in i.chaptercontent.all():
             df= {}
             df['id'] = j.question.id
-            if con < n:
+            if current:
+                if con < n:
+                    df['instance'] = j
+                    if con == n-1:
+                        df['flag'] = True
+            else:
                 df['instance'] = j
                 if con == n-1:
-                    df['flag'] = True
+                        df['flag'] = True
+                
             ques.append(df)
             con+=1
         l['question'] = ques
