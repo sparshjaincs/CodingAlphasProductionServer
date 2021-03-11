@@ -19,7 +19,272 @@
     box-shadow:2px 2px 10px rgb(0,0,0,0.3);
 }
 {% endblock %}
+{% block jscss %}
+<script src="https://cdn.ckeditor.com/ckeditor5/26.0.0/classic/ckeditor.js"></script>
+{% endblock %}
 {% block body %}
+<div class="container">
+    <div class="row mt-5 pt-5">
+        <div class="col-12 col-md-12 col-lg-3">
+
+        </div>
+        <div class="col-12 col-md-12 col-lg-6">
+            <div class="card border-0 shadow-sm ">
+                <div class="card-header d-flex justify-content-between align-items-center border-0">
+                   <div class="d-flex justify-content-start align-items-center">
+                    <div>
+                        <img src="/media/{{request.user.profile.avatar}}" style="width:40px;" class="rounded-circle">
+                    </div>
+                    <div class="ml-2" style="font-size: 14px; letter-spacing: 0.3px; font-weight: 600; color:#546E7A">
+                       <a href="/profile/{{request.user}}/" style="">{{request.user.profile.first_name}} {{request.user.profile.last_name}}</a>
+                    </div>
+                   </div>
+                   <div>
+                       <a  data-toggle="modal" data-target="#Post" class="btn btn-sm border  pr-3 pl-3 pt-2 pb-2" style="border-radius: 20px; background-color: #E57851; color: white;"><i class="fa fa-paper-plane"></i> Create a post</a>
+                   </div>
+
+                </div>
+                <div class="card-body p-1 pl-2 pr-2 d-flex justify-content-between">
+                    <div class="" title="Share Photo" data-toggle="tooltip">
+                        <a class="btn btn-sm bg-light pr-3 pl-3 pt-2 pb-2" style="border-radius: 20px; color:#546E7A; font-size: 13px; "><i class="fa fa-photo"></i> Photo</a>
+                    </div>
+                    <div title="Share Video" data-toggle="tooltip">
+                        <a class="btn btn-sm bg-light pr-3 pl-3 pt-2 pb-2" style="border-radius: 20px; color:#546E7A; font-size: 13px; "><i class="fa fa-video-camera"></i> Video</a>
+                    </div>
+                    <div title="Declare an event" data-toggle="tooltip">
+                        <a class="btn btn-sm bg-light pr-3 pl-3 pt-2 pb-2" style="border-radius: 20px; color:#546E7A; font-size: 13px; "><i class="fa fa-calendar-check-o"></i> Event</a>
+                    </div>
+                    <div title="Post an article" data-toggle="tooltip">
+                        <a href="/blog/create/" class="btn btn-sm bg-light pr-3 pl-3 pt-2 pb-2" style="border-radius: 20px; color:#546E7A; font-size: 13px; "><i class="fa fa-newspaper-o"></i> Write Article</a>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="mt-3 d-flex justify-content-between">
+                <div>
+                    <div style="font-size: 13px;">
+                       <a class="btn btn-sm rounded-0" href="#" style="color:#E57851; border:1px solid #E57851; border-top: none;  border-left: none;  border-right: none; ">All Updates</a>
+                    </div>
+                </div>
+                <div>
+                    <input class="form-control text-muted" type="text" style="font-size: 13px; border-radius:20px;" placeholder="Search...">
+                </div>
+            </div>
+
+            {% for i in home %}
+                    {% if i.category == 'Blog' %}
+                        <div class="card card-body border-0 shadow-sm mt-3 ">
+                            <div class="d-flex justify-content-between">
+                                <div class="d-flex justify-content-start mb-3 align-items-center">
+                                    <div>
+                                            <img src="/media/{{i.blog.user_name2.profile.avatar}}" class="rounded-circle" style="width:35px; height:35px;">
+                                    </div>
+                                    <div class="ml-2">
+                                        <div class="text-muted" style="font-size: 13px; ">
+                                           <a href="/profile/{{i.blog.user_name2}}/" style="font-weight: 600;"> {{i.blog.user_name2.profile.first_name}} {{i.blog.user_name2.profile.last_name}}</a> posted an article
+                                        </div>
+                                        <div class="text-muted" style="font-size: 13px;">
+                                            {{i.blog.date_Publish}}, {{i.blog.time}}
+                                        </div>
+
+                                       
+                                    </div>
+                                </div>
+                                <div>
+                                    <a><i class="fa fa-ellipsis-v"></i></a>
+                                </div>
+                            </div>
+                            <div style="font-size: 14px; font-weight: 600;" class="text-dark mb-2">
+                               <a href="/blog/{{i.blog.title|replace}}/{{i.blog.id}}/"><center>{{i.blog.title}}</center></a> 
+                            </div>
+                            <div>
+                                <a href="/media/{{i.blog.image}}/"><img src="/media/{{i.blog.image}}/" style="width: 100%;"></a>
+                            </div>
+                            <div style="font-size: 13px;" class="text-muted">
+                               <center>
+                                {{i.blog.description}}
+                               </center>
+                            </div>
+                            <hr>
+                            <div class="">
+                                <div class="d-flex justify-content-center">
+                                    <a href="#" class="btn btn-sm">
+                                        <div class=" mr-2" style="font-size: 13px;">
+                                            <i class="fa fa-thumbs-up fa2"></i> {{i.blog.liked.all.count}} Like
+                                        </div>
+                                    </a>
+                                    <a href="#" class="btn btn-sm">
+                                    <div class="ml-2 mr-2" style="font-size: 13px;">
+                                        <i class="fa fa-thumbs-down fa2"></i> {{i.blog.disliked.all.count}} Dislike
+                                    </div>
+                                </a>
+                                    <a href="#" class="btn btn-sm">
+                                        <div class=" ml-2 mr-2" style="font-size: 13px;">
+                                            <i class="fa fa-comments fa2"></i> Comment
+                                        </div>
+                                    </a>
+                                    {% if request.user == i.blog.user_name2 %}
+                                    <a href="#" class="btn btn-sm">
+                                        <div class=" ml-2 mr-2" style="font-size: 13px;">
+                                            <i class="fa fa-pencil fa2"></i> Edit
+                                        </div>
+                                    </a>
+                                    <a href="#" class="btn btn-sm">
+                                        <div class=" ml-2 mr-2" style="font-size: 13px;">
+                                            <i class="fa fa-trash fa2"></i> Delete
+                                        </div>
+                                    </a>
+                                    {% endif %}
+                                
+                                    
+                                </div>
+                                
+                            </div>
+                            
+                        </div>
+                    {% endif %}
+                    
+                   {% endfor %}
+        </div>
+        <div class="col-12 col-md-12 col-lg-3">
+
+        </div>
+    </div>
+
+    <!--Modals-->
+
+    <div class="modal fade" id="Post" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content border-0">
+              <div class="modal-header p-3" style="background-color: #FBFAF9;">
+                <div class="d-flex justify-content-start align-items-center">
+                    <div>
+                        <img src="/media/{{request.user.profile.avatar}}" style="width:30px;" class="rounded-circle">
+                    </div>
+                    <div class="ml-2" style="font-size: 13px; letter-spacing: 0.3px; font-weight: 600; color:#546E7A">
+                       <a href="/profile/{{request.user}}/" style="">{{request.user.profile.first_name}} {{request.user.profile.last_name}}</a>
+                    </div>
+                   </div>
+              </div>
+            <div class="modal-body">
+                <form method="POST" enctype="multipart/form-data">
+                    <textarea id="editor" style="font-size: 12px; border:none; outline:none;" name="post_content"></textarea>
+                    <div style="width:100%; height:100px; display: none;" class="border mt-2" id="post_file_box" >
+                        <div id="photo_image" style="display: none;">
+                            Image
+                        </div>
+                        <div id="photo_video"  style="display: none;">
+                            Video
+                        </div>
+                        <div id="photo_attachment"  style="display: none;">
+                            Attachment
+                        </div>
+                        <div id="photo_gif"  style="display: none;">
+                            GIF
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-start align-items-center mt-2">
+                        
+                        <div title="Attach a photo" data-toggle="tooltip">
+                            <a href="#" onclick="show_post_photo()" class="btn btn-sm" style="color:#E57851"><i class="fa fa-photo"></i></a>
+                        </div>
+                        <div title="Attach a video" data-toggle="tooltip">
+                            <a href="#"  onclick="show_post_video()" class="btn btn-sm" ><i class="fa fa-video-camera fa2"></i></a>
+                        </div>
+                        <div title="Attach a document" data-toggle="tooltip">
+                            <a href="#"  onclick="show_post_document()" class="btn btn-sm" ><i class="fa fa-file fa2"></i></a>
+                        </div>
+                  
+                        <div title="Post a GIF" data-toggle="tooltip" style="margin-top: -5px;">
+                            <a href="#"  onclick="show_post_gif()" class=" ml-2 rounded  " style="font-size: 10px; border:1px solid #E57851; color: #E57851; padding:3px;" >GIF</a>
+                        </div>
+                        
+                    </div>
+
+                    <div class="d-flex justify-content-end">
+                        <div>
+                            <a class="btn btn-sm text-muted close mt-1" data-dismiss="modal" aria-label="Close" style="font-size: 12px;">Cancel</a>
+                        </div>
+                        <div>
+                            <a class="btn btn-sm text-white" style="border-radius:20px; background-color:#E57851; font-size: 12px;"><i class="fa fa-paper-plane"></i> Post Update</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+           
+          </div>
+        </div>
+      </div>
+</div>
+{% endblock %}
+{% block script %}
+<script>
+    function check(value){
+        if (document.getElementById("post_file_box").style.display == 'none'){
+            document.getElementById("post_file_box").style.display = "block";
+        }
+        else{
+            if(document.getElementById('photo_image').style.display == 'block')
+            {document.getElementById("post_file_box").style.display = "none";}
+            else if (document.getElementById('photo_image').style.display == 'none'){
+                document.getElementById('photo_image').style.display = 'block';
+            }
+            else if(document.getElementById('photo_video').style.display == 'block')
+            {document.getElementById("post_file_box").style.display = "none";}
+            else if (document.getElementById('photo_video').style.display == 'none'){
+                document.getElementById('photo_video').style.display = 'block';
+            }
+            else if(document.getElementById('photo_attachment').style.display == 'block')
+            {document.getElementById("post_file_box").style.display = "none";}
+            else if (document.getElementById('photo_attachment').style.display == 'none'){
+                document.getElementById('photo_attachment').style.display = 'block';
+            }
+            else if(document.getElementById('photo_gif').style.display == 'block')
+            {document.getElementById("post_file_box").style.display = "none";}
+            else if (document.getElementById('photo_gif').style.display == 'none'){
+                document.getElementById('photo_gif').style.display = 'block';
+            }
+            
+        }
+    }
+    function show_post_photo(){
+        check(1);
+        document.getElementById('photo_image').style.display = 'block';
+        document.getElementById('photo_video').style.display = 'none';
+        document.getElementById('photo_attachment').style.display = 'none';
+        document.getElementById('photo_gif').style.display = 'none';
+    }
+    function show_post_video(){
+        check(2);
+        document.getElementById('photo_image').style.display = 'none';
+        document.getElementById('photo_video').style.display = 'block';
+        document.getElementById('photo_attachment').style.display = 'none';
+        document.getElementById('photo_gif').style.display = 'none';
+    }
+    function show_post_document(){
+        check(3);
+        document.getElementById('photo_image').style.display = 'none';
+        document.getElementById('photo_video').style.display = 'none';
+        document.getElementById('photo_attachment').style.display = 'block';
+        document.getElementById('photo_gif').style.display = 'none';
+    }
+    function show_post_gif(){
+        check(4);
+        document.getElementById('photo_image').style.display = 'none';
+        document.getElementById('photo_video').style.display = 'none';
+        document.getElementById('photo_attachment').style.display = 'none';
+        document.getElementById('photo_gif').style.display = 'block';
+    }
+    ClassicEditor
+        .create( document.querySelector( '#editor' ) )
+        .catch( error => {
+            console.error( error );
+        } );
+
+</script>
+{% endblock %}
+{% block bod %}
 <div class="container">
     <div class="row mt-5 pt-5">
         <div class="col-12 col-md-3 col-lg-3">

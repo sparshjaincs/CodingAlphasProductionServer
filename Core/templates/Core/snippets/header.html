@@ -1,6 +1,7 @@
 {% load static %}
-<nav class="navbar navbar-expand-lg navbar-light fixed-top navbar-bg" style="height: 45px; font-size: 13px; z-index:2; box-shadow:2px 2px 10px rgb(0,0,0,0.1); background-color: white;">
-    <!-- <a class="sidebar-toggle d-flex">
+<nav class="navbar navbar-expand-lg navbar-light fixed-top navbar-bg" style="height: 60px; font-size: 13px; z-index:2; box-shadow:2px 2px 10px rgb(0,0,0,0.1); background-color: white;">
+   <div class="container">
+        <!-- <a class="sidebar-toggle d-flex">
  <i class="hamburger align-self-center"></i>
  </a>
  
@@ -28,8 +29,9 @@
  </button>
  
      <div class="navbar-collapse collapse" style="display: flex; justify-content: space-between;">
-         <ul class="navbar-nav">
-         
+         <ul class="navbar-nav  align-items-center d-flex">
+           
+         <!--
              <li class="nav-item d-flex justify-content-start">
                 <a class="nav-link" href="{% url 'explore' %}">Explore</a>
                  <div style=" margin-left:-30px; margin-top: -5px;z-index:-1;"><span class="badge badge-sm badge-danger pl-1 pr-1 pt-1" style="font-size: 8px; border-radius: 10px;">Day {{days}}</span></div>
@@ -51,6 +53,7 @@
               <li class="nav-item"> 
                 <a class="nav-link" href="{% url 'explore' %}">Learning</a>
               </li>
+              -->
              <!--
                <li class="nav-item dropdown" >
                    <a class="nav-link dropdown-toggle"  id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Aptitude </a>
@@ -146,9 +149,7 @@
                      <a class="nav-link" href="#">Learning</a>
                    </li>
      -->
-     <li class="nav-item">
-        <a class="nav-link " href="{% url 'blog' %}">Blogs</a>
-      </li>
+     
                    <!-- 
                        <li class="nav-item dropdown" >
                      <a class="nav-link text-warning "  id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-shopping-cart"></i> Store</a>
@@ -164,17 +165,20 @@
                  </ul>
                  
            </ul>
-         <ul class="navbar-nav ">
+         <ul class="navbar-nav d-flex align-items-center">
+            <li class="nav-item ">
+                <a class="nav-link text-dark mr-2" style="font-weight: 600;" href="{% url 'blog' %}">Blogs</a>
+            </li>
             {% if request.user.is_authenticated %}
              <!-- #region
             <li class="nav-item mr-2 mt-2">
                  <a class="btn btn-sm btn-outline-warning anchor" style="font-size: 12px;"  href=" 'premium' %}"><i class="fa fa-star "></i> Premium</a>
              </li>
-            -->
+           
              <li class="nav-item mr-2 mt-2">
                 <a class="btn shadow-sm btn-sm  anchor text-white" style="font-size: 12px; font-weight: 600; background-color: #202C33;"  href="{% url 'playground' %}" data-toggle="tooltip" title="Playground"><i class="fa fa-code "></i></a>
             </li>
- 
+  -->
              
  
              <!--
@@ -252,7 +256,7 @@
    </a>
  
                  <a class="nav-link dropdown-toggle d-none d-sm-inline-block anc" href="#" data-toggle="dropdown">
-     <img src="/media/{{user.profile.avatar}}" class="avatar img-fluid  mr-1 rounded-circle"  style="width:30px;"/> <span class="text-dark">{{user.username}}</span>
+     <img src="/media/{{user.profile.avatar}}" class="avatar img-fluid  mr-1 rounded-circle"  style="width:30px;"/> <span class="text-dark " style="font-weight: 600;">{{user.username}}</span>
    </a>
                  <div class="dropdown-menu dropdown-menu-right text-dark" style="font-size: 14px; color:#546E7A; width:240px;">
                      <a class="dropdown-item  pb-2 pt-2"  href="/profile/{{user}}/"><i class="fa fa1 fa-user mr-1" ></i> Profile</a>
@@ -275,7 +279,7 @@
              </li>
              {% else %}
              <li class="nav-item">
-                 <a class="nav-lin  btn btn-sm border-left" data-toggle="modal" data-target="#exampleModalCenter">
+                 <a class="nav-link  btn btn-sm border-left" data-toggle="modal" data-target="#exampleModalCenter">
                     <i class="align-middle" data-feather="log-in"></i> Sign In
                  </a>
              </li>
@@ -283,6 +287,7 @@
          </ul>
      </div>
     
+   </div>
  </nav>
  
  

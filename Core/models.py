@@ -4,10 +4,11 @@ from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from datetime import datetime
-from ckeditor.fields import RichTextField
+from ckeditor.fields import RichTextField 
 from ckeditor_uploader.fields import RichTextUploadingField
 from django.contrib.contenttypes.fields import GenericRelation
 from discuss.models import *
+
 
 #from .views import current_user as cu
 # Create your models here.

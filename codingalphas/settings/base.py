@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'Playground',
     'Explore',
     'contest',
+    
 ]
 
 MIDDLEWARE = [
