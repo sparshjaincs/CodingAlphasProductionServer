@@ -18,4 +18,8 @@ admin.site.register(Syllabus)
 admin.site.register(Discussion_comment)
 admin.site.register(Job_Search)
 admin.site.register(Module)
+admin.site.register(Photo)
+admin.site.register(Photo_Image)
+admin.site.register(Homepage_Activity)
+admin.site.register(Video)
 

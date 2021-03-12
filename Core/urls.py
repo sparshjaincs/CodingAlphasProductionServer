@@ -6,5 +6,7 @@ urlpatterns = [
      path("dislike/",views.dislike,name="dislike"),
      path("follow/",views.follow,name="follow"),
      path("mark/",views.mark,name="mark"),
-     path("profile/<user>/",views.profile,name="profile")
+     path("profile/<user>/",views.profile,name="profile"),
+     path("photo/upload/list/",views.photo_upload,name="photo_upload"),
+     path("video/upload/list/",views.video_upload,name="video_upload"),
 ]

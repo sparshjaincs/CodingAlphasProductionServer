@@ -12,6 +12,7 @@ from django.contrib.auth import login, authenticate
 from django.contrib import messages
 from datetime import date
 from discuss.jobs import Jobs
+from .forms import *
 class MyPasswordResetView(UserPassesTestMixin, PasswordResetView):
     template_name = 'Core/snippets/password_reset.html'
 
@@ -25,6 +26,8 @@ def homepage(request):
     if request.user.is_authenticated:
         context['home'] = Homepage_Activity.objects.all().order_by('-id')
         context['day'] = date.today()
+        context['photo_form'] = Photo_Form()
+        context['photo_extend_form'] = Photo_Extend_Form()
         #job = Jobs('SDE',"",1)
         #data = job.select()
         #context['jobs'] = data[:5]
@@ -155,3 +158,35 @@ def profile(request,user):
     context['article'] = Articles.objects.filter(user_name2 = request.user).order_by('-date_Publish','-time')
     context['post'] = Quora.objects.filter(user = request.user).order_by("-created")
     return render(request,'Core/profile.html',context)
+
+
+def photo_upload(request):
+    if request.method == 'POST':
+        data = request.FILES.getlist('photo_files')
+        text = request.POST.get('photo_text')
+        tags = request.POST.get('photo_taggs')
+        ins = Photo(user = request.user,description = text,tags = tags)
+        ins.save()
+        for i in data:
+            ins1 = Photo_Image(instance = ins,image = i)
+            ins1.save()
+        ins = Homepage_Activity(category = 'Photo',photo = ins)
+        ins.save()
+        return HttpResponse(json.dumps("Success"))
+    else:
+        return HttpResponse(json.dumps("Error"))
+
+
+def video_upload(request):
+    if request.method == 'POST':
+        data = request.FILES.get('video_file')
+        text = request.POST.get('video_text')
+        tags = request.POST.get('video_tags')
+        ins = Video(user = request.user,description = text,tags = tags,video_file = data)
+        ins.save()
+        ins = Homepage_Activity(category = 'Video',video = ins)
+        ins.save()
+        return HttpResponse(json.dumps("Success"))
+    else:
+        return HttpResponse(json.dumps("Error"))
+

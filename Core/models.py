@@ -296,16 +296,46 @@ class Module(models.Model):
     def __str__(self):
         return str(self.company) + " " + self.title + " " + self.status + " " + str(self.topic)
 
+class Photo(models.Model):
+    user = models.ForeignKey(User,related_name="photo_user",on_delete=models.CASCADE,to_field="username")
+    description = models.CharField(max_length=10000,blank = False)
+    tags = models.CharField(max_length=1000,blank = True,null = True)
+    created = models.DateTimeField(auto_now_add=True,null=True)
+    like = models.ManyToManyField(User,default=None,blank=True,related_name="photo_like")
+    dislike = models.ManyToManyField(User,default=None,blank=True,related_name="photo_dislike")
+    def __str__(self):
+        return self.user.username
+class Photo_Image(models.Model):
+    instance = models.ForeignKey(Photo,related_name="photo_image",on_delete=models.CASCADE)
+    image = models.ImageField(upload_to='users/images',blank=False)
+    def __str__(self):
+        return self.instance.user.username
 
+class Video(models.Model):
+    user = models.ForeignKey(User,related_name="video_user",on_delete=models.CASCADE,to_field="username")
+    description = models.CharField(max_length=10000,blank = False)
+    tags = models.CharField(max_length=1000,blank = True,null = True)
+    created = models.DateTimeField(auto_now_add=True,null=True)
+    video_file = models.FileField(upload_to='users/videos', null=True, verbose_name="")
+    like = models.ManyToManyField(User,default=None,blank=True,related_name="video_like")
+    dislike = models.ManyToManyField(User,default=None,blank=True,related_name="video_dislike")
+    def __str__(self):
+        return self.user.username
 class Homepage_Activity(models.Model):
     CHOICE = (
-        ('Blog','Blog'),('Post','Post'),('Career','Career'),
+        ('Blog','Blog'),('Post','Post'),('Career','Career'),('Photo','Photo'),('Video','Video')
     )
     category = models.CharField(max_length=1000,choices = CHOICE)
     blog = models.ForeignKey(Articles,related_name = "homepage_blog",to_field="title",on_delete = models.CASCADE,null=True)
     post = models.ForeignKey(Quora,related_name = "homepage_post",on_delete = models.CASCADE,null=True)
+    photo = models.ForeignKey(Photo,related_name = "homepage_photo",on_delete = models.CASCADE,null=True)
+    video = models.ForeignKey(Video,related_name = "homepage_video",on_delete = models.CASCADE,null=True)
     def __str__(self):
         return self.category
+
+
+
+
 
 
 
