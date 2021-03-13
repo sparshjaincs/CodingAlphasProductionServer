@@ -177,55 +177,27 @@
                     </div>
                 </div>
                 <div class="card-body " style="">
-                    <div class="d-flex justify-content-between m-1">
-                       <div>
-                        <div class="d-flex justify-content-center align-items-center rounded-circle" style="width:30px; height:30px; border:1px solid #E57851"> 
-                            <i class="fa fa-thumbs-up" style="color: #E57851; font-size: 14px;"></i>
+                    {% for i in activity %}
+                    <div class="d-flex justify-content-start m-1 mt-2">
+                        <div>
+                         <div class="d-flex justify-content-center align-items-center rounded-circle" style="width:30px; height:30px; border:1px solid #E57851"> 
+                             <i class="{{i.activity_icon}}" style="color: #E57851; font-size: 14px;"></i>
+                         </div>
                         </div>
-                       </div>
-                        <div class="ml-2">
-                            <div style="font-size: 13px;" class="text-muted">
-                                You just liked a post posted by <a href="/profile/{{request.user}}/">Sparsh Jain</a>
-                                <div class="text-muted" style="font-size: 11px;">
-                                    May 09, 2019
-                                </div>
-                            </div>
-                            
-                        </div>
-                    </div>
+                         <div class="ml-2">
+                             <div style="font-size: 13px;" class="text-muted">
+                                {{i.user_activity|safe}}
+                                 <div class="text-muted" style="font-size: 11px;">
+                                     {{i.created}}
+                                 </div>
+                             </div>
+                             
+                         </div>
+                     </div>
+                    {% endfor %}
 
-                    <div class="d-flex justify-content-between m-1 mt-2">
-                        <div>
-                         <div class="d-flex justify-content-center align-items-center rounded-circle" style="width:30px; height:30px; border:1px solid #E57851"> 
-                             <i class="fa fa-comments" style="color: #E57851; font-size: 14px;"></i>
-                         </div>
-                        </div>
-                         <div class="ml-2">
-                             <div style="font-size: 13px;" class="text-muted">
-                                 You just commented on a post posted by <a href="/profile/{{request.user}}/">Sparsh Jain</a>
-                                 <div class="text-muted" style="font-size: 11px;">
-                                     May 09, 2019
-                                 </div>
-                             </div>
-                             
-                         </div>
-                     </div>
-                     <div class="d-flex justify-content-between m-1 mt-2">
-                        <div>
-                         <div class="d-flex justify-content-center align-items-center rounded-circle" style="width:30px; height:30px; border:1px solid #E57851"> 
-                             <i class="fa fa-thumbs-down" style="color: #E57851; font-size: 14px;"></i>
-                         </div>
-                        </div>
-                         <div class="ml-2">
-                             <div style="font-size: 13px;" class="text-muted">
-                                 You just disliked a post posted by <a href="/profile/{{request.user}}/">Sparsh Jain</a>
-                                 <div class="text-muted" style="font-size: 11px;">
-                                     May 09, 2019
-                                 </div>
-                             </div>
-                             
-                         </div>
-                     </div>
+                   
+                     
                     
                     
 
@@ -286,7 +258,7 @@
             <div id="myItems">
             {% for i in home %}
                     {% if i.category == 'Video' %}
-                    <div class="card mt-3 shadow-sm">
+                    <div class="card carding mt-3 shadow-sm">
                         <div class="card-body content">
                             <div class="d-flex justify-content-between">
                                 <div class="d-flex justify-content-start mb-3 align-items-center">
@@ -295,7 +267,7 @@
                                     </div>
                                     <div class="ml-2">
                                         <div class="text-muted" style="font-size: 13px; ">
-                                           <a href="/profile/{{i.video.user}}/" style="font-weight: 600;"> {{i.video.user.profile.first_name}} {{i.video.user.profile.last_name}}</a> posted a photo
+                                           <a href="/profile/{{i.video.user}}/" style="font-weight: 600;"> {{i.video.user.profile.first_name}} {{i.video.user.profile.last_name}}</a> shared a video
                                         </div>
                                         <div class="text-muted" style="font-size: 13px;">
                                             {{i.video.created}}
@@ -327,7 +299,7 @@
 
 
                             <div>
-                                <video style="width:100%; max-height: 300px;"  controls>
+                                <video style="width:100%; max-height: 300px;"  controls muted="muted">
                                     <source src="/media/{{i.video.video_file}}" >
                                     
                                   </video>
@@ -358,9 +330,10 @@
                                             <i class="fa fa-thumbs-down fa2"></i> {{i.video.dislike.all.count}} Dislike
                                         </div>
                                     </a>
-                                        <a href="#" class="btn btn-sm">
+                                    
+                                        <a class="btn btn-sm" data-toggle="collapse" href="#collapseExample{{i.id}}"  role="button" aria-expanded="false" aria-controls="collapseExample{{i.id}}" >
                                             <div class=" ml-2 mr-2" style="font-size: 13px;">
-                                                <i class="fa fa-comments fa2"></i> Comment
+                                                <i class="fa fa-comments fa2"></i> 12 Comment
                                             </div>
                                         </a>
                                         {% if request.user == i.video.user %}
@@ -379,11 +352,19 @@
                                         
                                     </div>
                                     
+                                <div class="collapse mt-3 " id="collapseExample{{i.id}}">
+                                    <div class="card card-body border-0" style="font-size: 12px;">
+                                       <div class=" d-flex justify-content-center">
+                                        <i class="fa fa-spinner fa-spin" style="color: #E57851;"></i>
+                                       </div>
+                                       </div>
+                                  </div>
                                 </div>
+
                         </div>
                     </div>
                     {% elif i.category == 'Photo' %}
-                    <div class="card shadow-sm mt-3">
+                    <div class="card carding shadow-sm mt-3">
                         <div class="card-body content">
                             <div class="d-flex justify-content-between">
                                 <div class="d-flex justify-content-start mb-3 align-items-center">
@@ -392,7 +373,7 @@
                                     </div>
                                     <div class="ml-2">
                                         <div class="text-muted" style="font-size: 13px; ">
-                                           <a href="/profile/{{i.photo.user}}/" style="font-weight: 600;"> {{i.photo.user.profile.first_name}} {{i.photo.user.profile.last_name}}</a> posted a photo
+                                           <a href="/profile/{{i.photo.user}}/" style="font-weight: 600;"> {{i.photo.user.profile.first_name}} {{i.photo.user.profile.last_name}}</a> shared a photo
                                         </div>
                                         <div class="text-muted" style="font-size: 13px;">
                                             {{i.photo.created}}
@@ -425,6 +406,7 @@
                             
                             {% if i.photo.photo_image.all.count == 1 %}
                             <div >
+                                
                                 <a href="/media/{{i.photo.photo_image.all.0.image}}/">  <img class="d-block w-100" src="/media/{{i.photo.photo_image.all.0.image}}" alt="First slide" style="max-height:250px; width:100%;"></a>
                                 </div>
                             {% else %}
@@ -477,11 +459,11 @@
                                             <i class="fa fa-thumbs-down fa2"></i> {{i.photo.dislike.all.count}} Dislike
                                         </div>
                                     </a>
-                                        <a href="#" class="btn btn-sm">
-                                            <div class=" ml-2 mr-2" style="font-size: 13px;">
-                                                <i class="fa fa-comments fa2"></i> Comment
-                                            </div>
-                                        </a>
+                                    <a class="btn btn-sm" data-toggle="collapse" href="#collapseExample{{i.id}}"  role="button" aria-expanded="false" aria-controls="collapseExample{{i.id}}" >
+                                        <div class=" ml-2 mr-2" style="font-size: 13px;">
+                                            <i class="fa fa-comments fa2"></i> 12 Comment
+                                        </div>
+                                    </a>
                                         {% if request.user == i.photo.user %}
                                         <a href="#" class="btn btn-sm">
                                             <div class=" ml-2 mr-2" style="font-size: 13px;">
@@ -497,12 +479,18 @@
                                     
                                         
                                     </div>
-                                    
+                                    <div class="collapse mt-3 " id="collapseExample{{i.id}}">
+                                        <div class="card card-body border-0" style="font-size: 12px;">
+                                            <div class=" d-flex justify-content-center">
+                                             <i class="fa fa-spinner fa-spin" style="color: #E57851;"></i>
+                                            </div>
+                                            </div>
+                                      </div>
                                 </div>
                         </div>
                     </div>
                     {% elif i.category == 'Blog' %}
-                        <div class="card  border shadow-sm mt-3 ">
+                        <div class="card carding border shadow-sm mt-3 ">
                             <div class="card-body content">
                             <div class="d-flex justify-content-between">
                                 <div class="d-flex justify-content-start mb-3 align-items-center">
@@ -558,11 +546,11 @@
                                         <i class="fa fa-thumbs-down fa2"></i> {{i.blog.disliked.all.count}} Dislike
                                     </div>
                                 </a>
-                                    <a href="#" class="btn btn-sm">
-                                        <div class=" ml-2 mr-2" style="font-size: 13px;">
-                                            <i class="fa fa-comments fa2"></i> Comment
-                                        </div>
-                                    </a>
+                                <a class="btn btn-sm" data-toggle="collapse" href="#collapseExample{{i.id}}"  role="button" aria-expanded="false" aria-controls="collapseExample{{i.id}}" >
+                                    <div class=" ml-2 mr-2" style="font-size: 13px;">
+                                        <i class="fa fa-comments fa2"></i> 12 Comment
+                                    </div>
+                                </a>
                                     {% if request.user == i.blog.user_name2 %}
                                     <a href="#" class="btn btn-sm">
                                         <div class=" ml-2 mr-2" style="font-size: 13px;">
@@ -578,7 +566,13 @@
                                 
                                     
                                 </div>
-                                
+                                <div class="collapse mt-3 " id="collapseExample{{i.id}}">
+                                    <div class="card card-body border-0" style="font-size: 12px;">
+                                        <div class=" d-flex justify-content-center">
+                                         <i class="fa fa-spinner fa-spin" style="color: #E57851;"></i>
+                                        </div>
+                                        </div>
+                                  </div>
                             </div>
                             
                         </div>
@@ -810,7 +804,7 @@
     <div class="modal fade" id="Post" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
           <div class="modal-content border-0">
-              <div class="modal-header p-3" style="background-color: #FBFAF9;">
+              <div class="modal-header p-3 d-flex justify-content-between align-items-center" style="background-color: #FBFAF9;">
                 <div class="d-flex justify-content-start align-items-center">
                     <div>
                         <img src="/media/{{request.user.profile.avatar}}" style="width:30px;" class="rounded-circle">
@@ -818,6 +812,9 @@
                     <div class="ml-2" style="font-size: 13px; letter-spacing: 0.3px; font-weight: 600; color:#546E7A">
                        <a href="/profile/{{request.user}}/" style="">{{request.user.profile.first_name}} {{request.user.profile.last_name}}</a>
                     </div>
+                   </div>
+                   <div class="mr-2" style="font-size: 13px; letter-spacing: 0.3px; font-weight: 600; color:#546E7A">
+                    Create a post
                    </div>
               </div>
             <div class="modal-body">
@@ -856,6 +853,7 @@
                     </div>
 
                     <div class="d-flex justify-content-end">
+                       
                         <div>
                             <a class="btn btn-sm text-muted close mt-1" data-dismiss="modal" aria-label="Close" style="font-size: 12px;">Cancel</a>
                         </div>
@@ -873,7 +871,7 @@
       <div class="modal fade" id="Photo" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
           <div class="modal-content border-0">
-            <div class="modal-header p-3" style="background-color: #FBFAF9;">
+            <div class="modal-header p-3 d-flex justify-content-between align-items-center" style="background-color: #FBFAF9;">
                 <div class="d-flex justify-content-start align-items-center">
                     <div>
                         <img src="/media/{{request.user.profile.avatar}}" style="width:30px;" class="rounded-circle">
@@ -881,6 +879,9 @@
                     <div class="ml-2" style="font-size: 13px; letter-spacing: 0.3px; font-weight: 600; color:#546E7A">
                        <a href="/profile/{{request.user}}/" style="">{{request.user.profile.first_name}} {{request.user.profile.last_name}}</a>
                     </div>
+                   </div>
+                   <div class="mr-2" style="font-size: 13px; letter-spacing: 0.3px; font-weight: 600; color:#546E7A">
+                    Share a photo
                    </div>
               </div>
             <div class="modal-body">
@@ -893,6 +894,9 @@
                 <input type="text" name="photo_text" class="form-control border mt-2" placeholder="Text describing what's in the photo..." style="font-size: 13px; height:50px;" required>
                 <input type="text" name="photo_taggs" class="form-control border mt-2" placeholder="Add comma (,) seperated tags..." style="font-size: 12px;">
                 <div class="d-flex justify-content-end mt-2">
+                    <div class="d-flex align-items-center" id="image_loader" >
+                        <i class="fa fa-spinner fa-spin" id="image_loader_spinner" style="color: #E57851;display: none;"></i>
+                    </div> 
                     <div>
                         <a class="btn btn-sm text-muted close mt-1" data-dismiss="modal" aria-label="Close" style="font-size: 12px;">Cancel</a>
                     </div>
@@ -910,7 +914,7 @@
        <div class="modal fade" id="Video" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
           <div class="modal-content border-0">
-            <div class="modal-header p-3" style="background-color: #FBFAF9;">
+            <div class="modal-header p-3 d-flex justify-content-between align-items-center" style="background-color: #FBFAF9;">
                 <div class="d-flex justify-content-start align-items-center">
                     <div>
                         <img src="/media/{{request.user.profile.avatar}}" style="width:30px;" class="rounded-circle" >
@@ -918,6 +922,9 @@
                     <div class="ml-2" style="font-size: 13px; letter-spacing: 0.3px; font-weight: 600; color:#546E7A">
                        <a href="/profile/{{request.user}}/" style="">{{request.user.profile.first_name}} {{request.user.profile.last_name}}</a>
                     </div>
+                   </div>
+                   <div class="mr-2" style="font-size: 13px; letter-spacing: 0.3px; font-weight: 600; color:#546E7A">
+                    Share a video
                    </div>
               </div>
             <div class="modal-body">
@@ -930,6 +937,9 @@
                 <input type="text" name="video_text" required class="form-control border mt-2" placeholder="Text describing what's in the video..." style="font-size: 13px; height:50px;">
                 <input type="text" name="video_tags" class="form-control border mt-2" placeholder="Add comma (,) seperated tags..." style="font-size: 12px;">
                 <div class="d-flex justify-content-end mt-2">
+                    <div class="d-flex align-items-center" id="video_loader" >
+                        <i class="fa fa-spinner fa-spin" id="video_loader_spinner" style="color: #E57851;display: none;"></i>
+                    </div> 
                     <div>
                         <a class="btn btn-sm text-muted close mt-1" data-dismiss="modal" aria-label="Close" style="font-size: 12px;">Cancel</a>
                     </div>
@@ -1027,7 +1037,7 @@
  
         $(document).ready(function (e) {
     $('#imageUploadForm').on('submit',(function(e) {
-        $('#Photo').modal('hide');
+        document.getElementById('image_loader_spinner').style.display="block";
         e.preventDefault();
         document.getElementById('loader').style.display = 'block';
         document.getElementById('loader_bar').style.display = 'block';
@@ -1039,7 +1049,8 @@
     contentType: false,
             success:function(data){
                 
-                
+                document.getElementById("image_loader").innerHTML = "<span class='badge badge-sm badge-success'>Posted Successfully!!</span>";
+                $('#Photo').modal('hide');
                 data = JSON.parse(data);
                 if(data == 'Success'){
                     var notfy = new Notyf();
@@ -1069,7 +1080,8 @@
 
 $(document).ready(function (e) {
     $('#VideoUploadForm').on('submit',(function(e) {
-        $('#Video').modal('hide');
+        document.getElementById('video_loader_spinner').style.display="block";
+        
         e.preventDefault();
         document.getElementById('loader').style.display = 'block';
         document.getElementById('loader_bar').style.display = 'block';
@@ -1080,8 +1092,8 @@ $(document).ready(function (e) {
             processData: false,
     contentType: false,
             success:function(data){
-                
-                
+                document.getElementById("video_loader").innerHTML = "<span class='badge badge-sm badge-success'>Posted Successfully!!</span>";
+                $('#Video').modal('hide');
                 data = JSON.parse(data);
                 if(data == 'Success'){
                     var notfy = new Notyf();
@@ -1112,7 +1124,7 @@ function myFunction() {
     input = document.getElementById("myFilter");
     filter = input.value.toUpperCase();
     cardContainer = document.getElementById("myItems");
-    cards = cardContainer.getElementsByClassName("card");
+    cards = cardContainer.getElementsByClassName("carding");
     for (i = 0; i < cards.length; i++) {
         title = cards[i].querySelector(".content");
         if (title.innerText.toUpperCase().indexOf(filter) > -1) {

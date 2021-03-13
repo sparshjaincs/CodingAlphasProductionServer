@@ -178,19 +178,13 @@ class my_comment(models.Model):
     
 
 class activity(models.Model):
-    CHOICE = (
-        ('User','User'),
-    )
-    user_name3 = models.ForeignKey(User, related_name='project_username_3', to_field='username', on_delete=models.CASCADE)
-    user_activity = models.CharField(max_length=200,blank=True)
+    user = models.ForeignKey(User, related_name='user_activity', to_field='username', on_delete=models.CASCADE,default="")
+    user_activity = models.CharField(max_length=1000,blank=True)
     activity_icon = models.CharField(max_length=200,blank=True)
-    category = models.CharField(max_length=1000,choices=CHOICE,default="User")
-    activity_time= models.TimeField(blank=False,default=datetime.now())
-    color =  models.CharField(blank=False,default="text-info",max_length=100)
-    date_activity = models.DateField(default=datetime.now)
-    activity_count = models.IntegerField(default =0,null=True)
+    created= models.DateTimeField(auto_now_add=True,null=True)
+
     def __str__(self):
-        return f'{self.user_name3}  -- > Activty {self.user_activity}'
+        return f'{self.user}  -- > Activty {self.user_activity}'
 class Notifications(models.Model):
       user_name4 = models.ForeignKey(User,related_name="user_name4_notification",to_field='username',on_delete=models.CASCADE)
       activity_count = models.IntegerField(default =0)

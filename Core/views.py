@@ -26,8 +26,7 @@ def homepage(request):
     if request.user.is_authenticated:
         context['home'] = Homepage_Activity.objects.all().order_by('-id')
         context['day'] = date.today()
-        context['photo_form'] = Photo_Form()
-        context['photo_extend_form'] = Photo_Extend_Form()
+        context['activity'] = activity.objects.all().order_by('-id')[:5]
         #job = Jobs('SDE',"",1)
         #data = job.select()
         #context['jobs'] = data[:5]
@@ -170,8 +169,10 @@ def photo_upload(request):
         for i in data:
             ins1 = Photo_Image(instance = ins,image = i)
             ins1.save()
-        ins = Homepage_Activity(category = 'Photo',photo = ins)
-        ins.save()
+        ins1 = Homepage_Activity(category = 'Photo',photo = ins)
+        ins1.save()
+        ins2 = activity(user = request.user,activity_icon = "fa fa-cloud-upload",user_activity=f"You have shared a <a href='/activities/photo/{ins.id}/'>photo</a>.")
+        ins2.save()
         return HttpResponse(json.dumps("Success"))
     else:
         return HttpResponse(json.dumps("Error"))
@@ -184,8 +185,10 @@ def video_upload(request):
         tags = request.POST.get('video_tags')
         ins = Video(user = request.user,description = text,tags = tags,video_file = data)
         ins.save()
-        ins = Homepage_Activity(category = 'Video',video = ins)
-        ins.save()
+        ins1 = Homepage_Activity(category = 'Video',video = ins)
+        ins1.save()
+        ins2 = activity(user = request.user,activity_icon = "fa fa-cloud-upload",user_activity=f"You have shared a <a href='/activities/video/{ins.id}/'>video</a>.")
+        ins2.save()
         return HttpResponse(json.dumps("Success"))
     else:
         return HttpResponse(json.dumps("Error"))
