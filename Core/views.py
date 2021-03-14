@@ -211,3 +211,25 @@ def video_upload(request):
     else:
         return HttpResponse(json.dumps("Error"))
 
+def post_upload(request):
+    if request.method == 'POST':
+        text = request.POST.get('editor1')
+        tags = request.POST.get('post_tags')
+        image = request.FILES.getlist('post_photo_files')
+        video = request.FILES.get('post_video_file')
+        document = request.FILES.get('post_doc_file')
+    
+        ins = Post(user = request.user,description = text,tags = tags,video_file = video,attachment = document)
+        ins.save()
+        for i in image:
+            ins1 = Post_Image(instance = ins,image = i)
+            ins1.save()
+        ins1 = Homepage_Activity(user=request.user,category = 'Post',post = ins)
+        ins1.save()
+        ins2 = activity(user = request.user,activity_icon = "fa fa-cloud-upload",user_activity=f"You have shared a <a href='/activities/post/{ins.id}/'>post</a>.")
+        ins2.save()
+        return HttpResponse(json.dumps("Success"))
+    else:
+       return HttpResponse(json.dumps("Error"))
+
+

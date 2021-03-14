@@ -259,7 +259,180 @@
             </div>
             <div id="myItems">
             {% for i in home %}
-                    {% if i.category == 'Video' %}
+                    {% if i.category == 'Post' %}
+                    <div class="card carding mt-3 shadow-sm">
+                        <div class="card-body content">
+                            <div class="d-flex justify-content-between">
+                                <div class="d-flex justify-content-start mb-3 align-items-center">
+                                    <div>
+                                            <img src="/media/{{i.post.user.profile.avatar}}" class="rounded-circle" style="width:35px; height:35px;">
+                                    </div>
+                                    <div class="ml-2">
+                                        <div class="text-muted" style="font-size: 13px; ">
+                                           <a href="/profile/{{i.post.user}}/" style="font-weight: 600;"> {{i.post.user.profile.first_name}} {{i.post.user.profile.last_name}}</a> shared a post.
+                                        </div>
+                                        <div class="text-muted" style="font-size: 13px;">
+                                            {{i.post.created}}
+                                        </div>
+
+                                       
+                                    </div>
+                                </div>
+                                <div class="d-flex justify-content-end">
+
+                                {% if request.user != i.post.user %}
+                                <div>
+                                     
+                                    <a class="btn btn-sm border" style="font-size: 12px; background-color: #E57851; color: white;">Follow</a>
+                                    
+                                 </div>
+                                {% endif %}
+                                
+                                    <div>
+                                        <a class=" mt-1 ml-1 btn btn-sm d-flex justify-content-center align-items-center rounded-circle" style="width:20px;height:20px;" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
+                                    <div class="dropdown-menu dropdown-menu-right" style="font-size: 12px;" aria-labelledby="dropdownMenuLink">
+                                        {% if request.user == i.post.user %}
+                                        <a class="dropdown-item" href="#"><i class="fa fa-share-alt" style="color: #E57851;"></i> Share</a>
+                                        <a class="dropdown-item" href="#"><i class="fa fa-bookmark-o fa2" style="color: #E57851;"></i> Bookmark</a>
+                                        {% endif %}
+                                        <a class="dropdown-item" href="#"><i class="fa fa-exclamation-triangle" style="color: #E57851;"></i> Report</a>
+                                      
+                                      </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                             {% if i.post.post_image.all.count != 0 %}
+                            {% if i.post.post_image.all.count == 1 %}
+                            <div >
+                                
+                                <a href="/media/{{i.post.post_image.all.0.image}}/">  <img class="d-block w-100" src="/media/{{i.post.post_image.all.0.image}}" alt="First slide" style="max-height:250px; width:100%;"></a>
+                                </div>
+                            {% else %}
+
+                            <div id="carouselExampleIndicators{{i.id}}" class="carousel slide" data-ride="carousel">
+                               
+                                <div class="carousel-inner">
+                                    {% for j in i.post.post_image.all %}
+                                    <div class="carousel-item {% if forloop.counter == 1%}active{% endif %}">
+                                      <a href="/media/{{j.image}}/">  <img class="d-block w-100" src="/media/{{j.image}}" alt="First slide" style="max-height:250px; width:100%;"></a>
+                                      </div>
+                                    {% endfor %}
+                                  
+                                </div>
+                                <a class="carousel-control-prev" href="#carouselExampleIndicators{{i.id}}" role="button" data-slide="prev">
+                                  <span class="rounded d-flex align-items-center justify-content-center" style="background-color:#546E7A; height:50px; width:22px; " aria-hidden="true"><i class="fa fa-angle-left" style="font-size: 22px;"></i></span>
+                                 
+                                </a>
+                                <a class="carousel-control-next" href="#carouselExampleIndicators{{i.id}}" role="button" data-slide="next">
+                                    <span class="rounded d-flex align-items-center justify-content-center" style="background-color:#546E7A; height:50px; width:22px; " aria-hidden="true"><i class="fa fa-angle-right" style="font-size: 22px;"></i></span>
+                                 
+                                  
+                                </a>
+                              </div>
+                            {% endif %}
+                            {% endif %}
+                            {% if i.post.video_file %}
+                            <div class="mt-4">
+                                <video style="width:100%; max-height: 300px;"  controls muted="muted">
+                                    <source src="/media/{{i.post.video_file}}" >
+                                    
+                                  </video>
+                            </div>
+                            {% endif %}
+                            {% if i.post.attachment %}
+                            <div class="mt-4 card card-body ">
+                                <div class=" d-flex justify-content-between align-items-center">
+                                <div class="d-flex justify-content-start">
+                                    <div>
+                                        <i class="fa fa-files-o fa2 mr-2"></i>
+                                    </div>
+                                    <div>
+                                        <a  style="font-size:14px; font-weight:600; color: #546E7A;" download> {{i.post.attachment|getfile}}</a>
+                                       <div class="text-muted" style="font-size: 12px;" >
+                                        {{i.post.attachment.size|filesizeformat}}<span class="ml-2" style="color: #E57851;"><i class="fa fa-cogs"></i> {{i.post.attachment|extension}}</span>
+                                       </div>
+                                    </div>
+                                </div>
+                                <div class="" title="Download" data-toggle="tooltip">
+                                    <a href="/media/{{i.post.attachment}}" download class="fa fa-cloud-download btn btn-sm border" style="color: #E57851;"></a>
+                                </div>
+                            </div>
+                             
+                            </div>
+                            {% endif %}
+
+                            <div style="font-size: 13px;" class="text-muted mt-2">
+                                <center>
+                                 {{i.post.description|safe}}
+                                </center>
+                             </div>
+                             
+                             <div class="d-flex justify-content-center flex-wrap" > 
+                                {% for j in i.post.tags|split:"," %}
+                                {% if j %}
+                                <a href="#" style="font-size: 10px;" class="btn btn-sm tag m-1">{{j}}</a>
+                                {% endif %}
+                                {% endfor %}
+                                
+                                </div>
+                                <hr>
+                                <div class="">
+                                    <div class="" style="display: flex; justify-content: center; flex-wrap: wrap;">
+                                        <a href="#" class="btn btn-sm">
+                                            <div class=" mr-2" style="font-size: 13px;">
+                                                <i class="fa fa-thumbs-up fa2"></i> {{i.post.like.all.count}} Like
+                                            </div>
+                                        </a>
+                                        <a href="#" class="btn btn-sm">
+                                        <div class="ml-2 mr-2" style="font-size: 13px;">
+                                            <i class="fa fa-thumbs-down fa2"></i> {{i.post.dislike.all.count}} Dislike
+                                        </div>
+                                    </a>
+                                    <a class="btn btn-sm" data-toggle="collapse" href="#collapseExample{{i.id}}"  role="button" aria-expanded="false" aria-controls="collapseExample{{i.id}}" >
+                                        <div class=" ml-2 mr-2" style="font-size: 13px;">
+                                            <i class="fa fa-comments fa2"></i> 12 Comment
+                                        </div>
+                                    </a>
+                                        {% if request.user == i.post.user %}
+                                        <a href="#" class="btn btn-sm">
+                                            <div class=" ml-2 mr-2" style="font-size: 13px;">
+                                                <i class="fa fa-pencil fa2"></i> Edit
+                                            </div>
+                                        </a>
+                                        <a href="#" class="btn btn-sm">
+                                            <div class=" ml-2 mr-2" style="font-size: 13px;">
+                                                <i class="fa fa-trash fa2"></i> Delete
+                                            </div>
+                                        </a>
+                                        {% else %}
+                                        <a href="#" class="btn btn-sm">
+                                            <div class=" ml-2 mr-2" style="font-size: 13px;">
+                                                <i class="fa fa-share-alt"></i> Share
+                                            </div>
+                                        </a>
+                                        <a href="#" class="btn btn-sm">
+                                            <div class=" ml-2 mr-2" style="font-size: 13px;">
+                                                <i class="fa fa-bookmark fa2"></i> Bookmark
+                                            </div>
+                                        </a>
+                                        {% endif %}
+                                    
+                                        
+                                    </div>
+                                    <div class="collapse mt-3 " id="collapseExample{{i.id}}">
+                                        <div class="card card-body border-0" style="font-size: 12px;">
+                                            <div class=" d-flex justify-content-center">
+                                             <i class="fa fa-spinner fa-spin" style="color: #E57851;"></i>
+                                            </div>
+                                            </div>
+                                      </div>
+                                </div>
+                        </div>
+                    </div>
+
+
+                    {% elif i.category == 'Video' %}
                     <div class="card carding mt-3 shadow-sm">
                         <div class="card-body content">
                             <div class="d-flex justify-content-between">
@@ -318,7 +491,9 @@
                          
                              <div class="d-flex justify-content-center flex-wrap" > 
                                 {% for j in i.video.tags|split:"," %}
+                                {% if j %}
                                 <a href="#" style="font-size: 10px;" class="btn btn-sm tag m-1">{{j}}</a>
+                                {% endif %}
                                 {% endfor %}
                                 
                                 </div>
@@ -461,7 +636,9 @@
                          
                              <div class="d-flex justify-content-center flex-wrap" > 
                                 {% for j in i.photo.tags|split:"," %}
+                                {% if j %}
                                 <a href="#" style="font-size: 10px;" class="btn btn-sm tag m-1">{{j}}</a>
+                                {% endif %}
                                 {% endfor %}
                                 
                                 </div>
@@ -848,14 +1025,16 @@
                    </div>
               </div>
             <div class="modal-body">
-                <form method="POST" id="PostUploadForm" enctype="multipart/form-data">
+                <div class="alert alert-danger" id="post_field_validate" style="display: none;">
+                </div>
+                <form method="POST" id="PostUploadForm" action="" enctype="multipart/form-data">
                     {% csrf_token %}
-                    <textarea placeholder="Write here..." class="editor" style="font-size: 12px; border:none; "  name="post_content"></textarea>
-                    <input type="text" name="post_tags" class="form-control border mt-2" placeholder="Add comma (,) seperated tags..." style="font-size: 12px;">
+                    <textarea placeholder="Write here..." class="editor" name="editor1" id="editor2" style="font-size: 12px; border:none; "  name="post_content"></textarea>
+                    <input type="text" name="post_tags" class="form-control border mt-2" placeholder="Add comma (,) seperated tags..." style="font-size: 12px;" >
                     <div style="width:100%; height:100px; display: none;" class="border mt-2 rounded" id="post_image_uploader" >
                         <div class="" style="cursor:pointer;">
                             <img src="/static/svg/undraw_image_upload_wqh3.svg" style=" position: absolute; width:110px; text-align: center; margin-left: auto; margin-right:auto; left:0; right:0; margin-top: 16px; ">
-                            <input type="file" name="post_photo_files" multiple id="image_photo_upload" style="cursor: pointer;" class="form-control image_photo_uploader" accept="image/*">
+                            <input type="file" name="post_photo_files" multiple id="image_post_upload" style="cursor: pointer;" class="form-control image_photo_uploader" accept="image/*">
                         </div>
                     </div>
                     <div style="width:100%; height:100px;display: none;" class="border mt-2 rounded" id="post_video_uploader" >
@@ -867,7 +1046,7 @@
                     <div style="width:100%; height:100px;display: none;" class="border mt-2 rounded" id="post_file_uploader" >
                         <div class="" style="cursor:pointer;">
                             <img src="/static/svg/undraw_file_sync_ot38.svg" style=" position: absolute; width:70px; text-align: center; margin-left: auto; margin-right:auto; left:0; right:0; margin-top: 16px; ">
-                            <input type="file"  accept="video/*" name="post_doc_file" style="cursor: pointer;" class="form-control image_photo_uploader">
+                            <input type="file"  accept="file_extension|.docx|.csv|.xlsx|.css|.html|.js|.py|.c|.cpp|.pdf" name="post_doc_file" style="cursor: pointer;" class="form-control image_photo_uploader">
                         </div>
                     </div>
                     <div style="width:100%; height:100px;display: none;" class="border mt-2" id="post_gif_uploader" >
@@ -942,7 +1121,7 @@
                         <a class="btn btn-sm text-muted close mt-1" data-dismiss="modal" aria-label="Close" style="font-size: 12px;">Cancel</a>
                     </div>
                     <div>
-                        <button type="submit" class="btn btn-sm text-white" style="border-radius:20px; background-color:#E57851; font-size: 12px;"><i class="fa fa-paper-plane"></i> Post Update</button>
+                        <button  class="btn btn-sm text-white" style="border-radius:20px; background-color:#E57851; font-size: 12px;"><i class="fa fa-paper-plane"></i> Post Update</button>
                     </div>
                 </div>    
             </form>
@@ -985,7 +1164,7 @@
                         <a class="btn btn-sm text-muted close mt-1" data-dismiss="modal" aria-label="Close" style="font-size: 12px;">Cancel</a>
                     </div>
                     <div>
-                        <button type="submit" class="btn btn-sm text-white" style="border-radius:20px; background-color:#E57851; font-size: 12px;"><i class="fa fa-paper-plane"></i> Post Update</button>
+                        <button class="btn btn-sm text-white" style="border-radius:20px; background-color:#E57851; font-size: 12px;"><i class="fa fa-paper-plane"></i> Post Update</button>
                     </div>
                 </div>    
             </form>
@@ -1168,17 +1347,18 @@ $(document).ready(function (e) {
         document.getElementById('post_loader_spinner').style.display="block";
         
         e.preventDefault();
+        e.stopPropagation(); 
         document.getElementById('loader').style.display = 'block';
         document.getElementById('loader_bar').style.display = 'block';
         $.ajax({
             type:'POST',
             url: '/post/upload/list/',
-            data:new FormData($('#VideoUploadForm')[0]),
+            data:new FormData($('#PostUploadForm')[0]),
             processData: false,
     contentType: false,
             success:function(data){
-                document.getElementById("video_loader").innerHTML = "<span class='badge badge-sm badge-success'>Posted Successfully!!</span>";
-                $('#Video').modal('hide');
+                document.getElementById("post_loader").innerHTML = "<span class='badge badge-sm badge-success'>Posted Successfully!!</span>";
+                $('#Post').modal('hide');
                 data = JSON.parse(data);
                 if(data == 'Success'){
                     var notfy = new Notyf();

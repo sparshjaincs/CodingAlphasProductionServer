@@ -321,6 +321,7 @@ class Video(models.Model):
 class Post(models.Model):
     user = models.ForeignKey(User,related_name="post_user",on_delete=models.CASCADE,to_field="username")
     description = models.TextField(blank = False, null = False)
+    tags = models.CharField(max_length=1000,blank = True,null = True)
     video_file = models.FileField(upload_to='users/videos', null=True, verbose_name="")
     attachment = models.FileField(upload_to='users/attachments', null=True, verbose_name="")
     gifs = models.FileField(upload_to='users/gifs', null=True, verbose_name="")
@@ -329,8 +330,12 @@ class Post(models.Model):
     created = models.DateTimeField(auto_now_add=True,null=True)
     def __str__(self):
         return self.user.username
+    @property
+    def extension(self):
+        name, extension = os.path.splitext(self.attachment.name)
+        return extension
 class Post_Image(models.Model):
-    instance = models.ForeignKey(Photo,related_name="post_image",on_delete=models.CASCADE)
+    instance = models.ForeignKey(Post,related_name="post_image",on_delete=models.CASCADE)
     image = models.ImageField(upload_to='users/images',blank=False)
     def __str__(self):
         return self.instance.user.username
@@ -344,7 +349,7 @@ class Homepage_Activity(models.Model):
     
     category = models.CharField(max_length=1000,choices = CHOICE)
     blog = models.ForeignKey(Articles,related_name = "homepage_blog",to_field="title",on_delete = models.CASCADE,null=True)
-    post = models.ForeignKey(Quora,related_name = "homepage_post",on_delete = models.CASCADE,null=True)
+    post = models.ForeignKey(Post,related_name = "homepage_post",on_delete = models.CASCADE,null=True)
     photo = models.ForeignKey(Photo,related_name = "homepage_photo",on_delete = models.CASCADE,null=True)
     video = models.ForeignKey(Video,related_name = "homepage_video",on_delete = models.CASCADE,null=True)
     def __str__(self):

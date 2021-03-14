@@ -1,5 +1,6 @@
 from django import template
 import json as js
+import mimetypes 
 register = template.Library()
 
 @register.filter
@@ -92,3 +93,22 @@ def compare_length(value,arg):
         return True
     else:
         return False
+
+@register.filter
+def getfile(value):
+    return str(value).split("/")[-1]
+
+@register.filter
+def extension(value):
+    val = str(value).split(".")[-1]
+    if val == 'py':
+        data = 'Python'
+    elif val == 'pdf':
+        data = 'PDF'
+    elif val == 'cpp':
+        data = 'C++'
+    elif val == 'xlsx':
+        data = 'Spreadsheet'
+    else:
+        data = val.capitalize()
+    return data
