@@ -154,6 +154,24 @@ def mark(request):
 
 def profile(request,user):
     context = {}
+    method = request.GET.get('method')
+    if method is None or method == 'Profile':
+        context['method'] = 'Profile'
+    elif method == 'Timeline':
+        context['method'] = 'Timeline'
+        context['home'] = Homepage_Activity.objects.filter(user = request.user).order_by('-id')
+        context['activity'] = activity.objects.all().order_by('-id')[:5]
+    elif method == 'Photos':
+        context['method'] = 'Photos'
+        context['home'] = Homepage_Activity.objects.filter(user = request.user,category = 'Photo').order_by('-id')
+    elif method == 'Videos':
+        context['method'] = 'Videos'
+        context['home'] = Homepage_Activity.objects.filter(user = request.user,category = 'Video').order_by('-id')
+    elif method == 'Articles':
+        context['method'] = 'Articles'
+        context['home'] = Homepage_Activity.objects.filter(user = request.user,category = 'Blog').order_by('-id')
+    else:
+        context['method'] = method
     context['article'] = Articles.objects.filter(user_name2 = request.user).order_by('-date_Publish','-time')
     context['post'] = Quora.objects.filter(user = request.user).order_by("-created")
     return render(request,'Core/profile.html',context)
@@ -169,7 +187,7 @@ def photo_upload(request):
         for i in data:
             ins1 = Photo_Image(instance = ins,image = i)
             ins1.save()
-        ins1 = Homepage_Activity(category = 'Photo',photo = ins)
+        ins1 = Homepage_Activity(user=request.user,category = 'Photo',photo = ins)
         ins1.save()
         ins2 = activity(user = request.user,activity_icon = "fa fa-cloud-upload",user_activity=f"You have shared a <a href='/activities/photo/{ins.id}/'>photo</a>.")
         ins2.save()
@@ -185,7 +203,7 @@ def video_upload(request):
         tags = request.POST.get('video_tags')
         ins = Video(user = request.user,description = text,tags = tags,video_file = data)
         ins.save()
-        ins1 = Homepage_Activity(category = 'Video',video = ins)
+        ins1 = Homepage_Activity(user=request.user,category = 'Video',video = ins)
         ins1.save()
         ins2 = activity(user = request.user,activity_icon = "fa fa-cloud-upload",user_activity=f"You have shared a <a href='/activities/video/{ins.id}/'>video</a>.")
         ins2.save()

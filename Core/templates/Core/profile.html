@@ -5,215 +5,1090 @@
 {% include 'Core/snippets/header.html' %}
 {% endblock %}
 {% block style %}
-a{
-    color:#555555;
+.content{
+    width:90px;
+    font-size: 13px;
+     font-weight: 600;
+     letter-spacing: 0.5px; 
+     color:rgb(81,106,118,0.3); 
+    
+   
 }
 {% endblock %}
+{% block jscss %}
+
+<script src="{% static 'js/visible.js' %}"></script>
+{% endblock %}
 {% block body %}
-<div class="container pt-5">
-    <div class="row mt-5">
-        <div class="col-12 col-md-4 col-lg-4">
-            <div class="card border-0 shadow-sm rounded-0">
-                <div class="card-header bg-white">
-                    <div class="d-flex justify-content-between">
-                        <div class="text-dark d-flex align-items-center"  style="font-size: 14px;">
-                           <i class="fa fa-user mr-1"></i><span class="mt-1">Basic Profile</span>
-                        </div>
-                        <div>
-                            <a  href="/settings/" style="font-size: 12px;" class="btn btn-sm bg-light text-dark border shaodw-sm"><i class="fa fa-pencil"></i> Edit</a>
-                        </div>
+
+<div class="container">
+    <div class="row  mt-5 pt-5">
+    <div class="col-12 col-md-12 col-lg-9">
+        <div class="card shadow-sm">
+            <div class="card-body d-flex justify-content-start">
+                <div style="position: absolute; right:1rem;">
+                    <a href="/settings/" class="btn btn-sm" style="color:#E57851; border:1px solid #E57851;font-size: 12px;"><i class="fa fa-pencil fa2"></i> Edit Profile</a>
+                </div>
+                <div>
+                    <div class="border p-1 rounded shadow-sm">
+                        <img src="/media/{{request.user.profile.avatar}}" style="width:140px; height:140px;" class="rounded">
                     </div>
                 </div>
-                <div class="card-body">
-                    <div style="display: flex; justify-content: flex-start;">
-                        <div > 
-                            <img src="/media/{{request.user.profile.avatar}}" style="width:80px; border-radius:8px;">
+                <div class="ml-3">
+                    <div style="font-size: 20px; color:#393E41; font-weight:600;"  class="mt-1">
+                        {{request.user.profile.first_name}} {{request.user.profile.last_name}}
+                    </div>
+                    <div style="font-size: 13px; font-weight:500;"  class="text-muted mt-1">
+                       <i class="fa fa-user fa2"></i> {{request.user}}    <i class="fa fa-handshake-o ml-2 " style="color: #E57851;"></i> Joined on {{request.user.date_joined}}
+                   
+                    </div>
+                    <div style="font-size: 12px; font-weight:500;"  class="text-muted">
+                        <i class="fa fa-sign-in " style="color: #E57851;"></i> Last Login {{request.user.last_login}}
+                     
+                     </div>
+                     <div class="mt-2">
+                       <a class="btn btn-sm  shadow-sm" style="font-size: 12px; border-radius: 20px; color: #E57851; border:1px solid #E57851;">
+                           <i class="fa fa-star"></i> 0 Reputation
+                       </a>
+                     </div>
+                     <div class="mt-2 d-flex justify-content-start align-items-center">
+                        <div class="text-muted border-right pr-2" style="font-size: 13px; ">
+                            <span style="font-weight: 600;">{{request.user.profile.follow.all.count}}</span>  followers
                         </div>
-                        <div style="width:100%; " class="pl-3">
-                            <div style="font-size: 16px; font-weight: 600;" class="text-dark "> 
-                              {{request.user.profile.first_name}} {{request.user.profile.last_name}}
+                        <div class="text-muted ml-2" style="font-size: 13px; ">
+                            <span style="font-weight: 600;">{{request.user.profile.follow.all.count}}</span> following
+                        </div>
+                        <div class="ml-3 d-flex justify-content-start">
+                            {% if request.user.profile.facebook %}
+                            <div title="Facebook" data-toggle="tooltip">
+                                <a href="{{request.user.profile.facebook}}" class="btn btn-sm border  d-flex align-items-center justify-content-center rounded-circle text-white" style="font-size: 12px; width:30px; height:30px; background-color:#516A76;"><i class="fa fa-facebook"></i></a>
+                           
                             </div>
-                            <div style="font-size: 14px;" class="text-muted"> 
-                                {{request.user}} 
-                              </div>
-                            {% if request.user.profile.date_of_birth %}
-                            <div class="text-muted mt-1" style="font-size: 12px;"> 
-                                <i class="fa fa-calendar"></i> {{request.user.profile.date_of_birth}}
+                            {% endif %}
+
+                            {% if request.user.profile.linkedin %}
+                            <div title="Linkedin" data-toggle="tooltip">
+                            <a href="{{request.user.profile.linkedin}}" class="btn btn-sm border ml-1  d-flex align-items-center justify-content-center rounded-circle text-white" style="font-size: 12px; width:30px; height:30px; background-color:#516A76;"><i class="fa fa-linkedin"></i></a>
+                            </div>
+                            {% endif %}
+
+                            {% if request.user.profile.github %}
+                            <div title="Github" data-toggle="tooltip">
+                            <a href="{{request.user.profile.github}}" class="btn btn-sm border ml-1  d-flex align-items-center justify-content-center rounded-circle text-white" style="font-size: 12px; width:30px; height:30px; background-color:#516A76;"><i class="fa fa-github"></i></a>
+                            </div>
+                            {% endif %}
+
+                            {% if request.user.profile.medium %}
+                            <div title="Medium" data-toggle="tooltip">
+                            <a href="{{request.user.profile.medium}}" class="btn btn-sm border ml-1  d-flex align-items-center justify-content-center rounded-circle text-white" style="font-size: 12px; width:30px; height:30px; background-color:#516A76;"><i class="fa fa-medium"></i></a>
+                            </div>
+                            {% endif %}
+
+                            {% if request.user.profile.twitter %}
+                            <div title="Twitter" data-toggle="tooltip">
+                            <a href="{{request.user.profile.twitter}}" class="btn btn-sm border ml-1  d-flex align-items-center justify-content-center rounded-circle text-white" style="font-size: 12px; width:30px; height:30px; background-color:#516A76;"><i class="fa fa-twitter"></i></a>
+                            </div>
+                            {% endif %}
+
+                            {% if request.user.profile.quora %}
+                            <div title="Quora" data-toggle="tooltip">
+                            <a href="{{request.user.profile.quora}}" class="btn btn-sm border ml-1  d-flex align-items-center justify-content-center rounded-circle text-white" style="font-size: 12px; width:30px; height:30px; background-color:#516A76;"><i class="fa fa-quora"></i></a>
+                            </div>
+                            {% endif %}
+
+                            {% if request.user.profile.youtube %}
+                            <div title="Youtube" data-toggle="tooltip">
+                            <a href="{{request.user.profile.youtube}}" class="btn btn-sm border ml-1  d-flex align-items-center justify-content-center rounded-circle text-white" style="font-size: 12px; width:30px; height:30px; background-color:#516A76;"><i class="fa fa-youtube"></i></a>
+                            </div>
+                            {% endif %}
+                            {% if request.user.profile.other %}
+                            <div title="Website" data-toggle="tooltip">
+                            <a href="{{request.user.profile.other}}" class="btn btn-sm border ml-1  d-flex align-items-center justify-content-center rounded-circle text-white" style="font-size: 12px; width:30px; height:30px; background-color:#516A76;"><i class="fa fa-globe"></i></a>
                             </div>
                             {% endif %}
                         </div>
-                    </div>
-                    <hr>
-                    <div class="d-flex justify-content-between">
-                        <div class="text-muted" style="font-size: 14px;">
-                           <i class="fa fa-envelope-o"></i> Email
-                        </div>
-                        <div class="text-muted" style="font-size: 13px;">
-                            <a href="mailto:{{request.user.profile.email}}">{{request.user.profile.email}}</a>
-                        </div>
-                    </div>
-                    {% if request.user.profile.website %}
-                    <div class="d-flex justify-content-between mt-1">
-                        <div class="text-muted" style="font-size: 14px;">
-                           <i class="fa fa-link"></i> Website
-                        </div>
-                        <div class="text-muted" style="font-size: 13px;">
-                            <a href="{{request.user.profile.website}}">{{request.user.profile.website}}</a>
-                        </div>
-                    </div>
-                    {% endif %}
-                    <hr>
-                    <div class="d-flex justify-content-between">
-                        <div class="text-muted" style="font-size: 14px;">
-                           <i class="fa fa-globe"></i> Location
-                        </div>
-                        <div class="text-muted" style="font-size: 13px;">
-                            {{request.user.profile.city}}, {{request.user.profile.state}}, {{request.user.profile.country}}
-                        </div>
-                    </div>
-                    {% if request.user.profile.github or request.user.profile.linkedin or request.user.profile.twitter or request.user.profile.medium or request.user.profile.quora or request.user.profile.facebook %}
-                    <hr>
-                    <div class="d-flex justify-content-center">
-                        {% if request.user.profile.github %}
-                        <div class="mr-2 ml-2" style="font-size: 24px;">
-                            <a href="{{request.user.profile.github}}"><i class="fa fa-github"></i></a>
-                        </div>
-                        {% endif %}
-                        {% if request.user.profile.linkedin %}
-                        <div class="mr-2 ml-2" style="font-size: 24px;">
-                            <a href="{{request.user.profile.linkedin}}"><i class="fa fa-linkedin"></i></a>
-                        </div>
-                        {% endif %}
-                        {% if request.user.profile.twitter %}
-                        <div class="mr-2 ml-2" style="font-size: 24px;">
-                            <a href="{{request.user.profile.twitter}}"><i class="fa fa-twitter"></i></a>
-                        </div>
-                        {% endif %}
-                        {% if request.user.profile.medium %}
-                        <div class="mr-2 ml-2" style="font-size: 24px;">
-                            <a href="{{request.user.profile.medium}}"><i class="fa fa-medium"></i></a>
-                        </div>
-                        {% endif %}
-                        {% if request.user.profile.quora %}
-                        <div class="mr-2 ml-2" style="font-size: 24px;">
-                            <a href="{{request.user.profile.quora}}"><i class="fa fa-quora"></i></a>
-                        </div>
-                        {% endif %}
-                        {% if request.user.profile.facebook %}
-                        <div class="mr-2 ml-2" style="font-size: 24px;">
-                            <a href="{{request.user.profile.facebook}}"><i class="fa fa-facebook"></i></a>
-                        </div>
-                        {% endif %}
-                        
-                    </div>
-                    {% endif %}
-                </div>
-            </div>
-            <div class="card mt-3 border-0 shadow-sm">
-                <div class="card-body"></div>
-            </div>
-            <div class="card mt-3 border-0 shadow-sm">
-                <div class="card-body"></div>
-            </div>
-        </div>
-        
-        <div class="col-12 col-md col-lg">
-            <div class="row mb-3">
-                <div class="col-12 col-md-6 col-lg-6">
-                    <div class="card border-0 shadow-sm">
-                        <div class="card-body">
-                            
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-md-6 col-lg-6">
-                    <div class="card border-0 shadow-sm">
-                        <div class="card-body">
-                            
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="card mb-3 border-0 shadow-sm">
-                <div class="card-body">
+                     </div>
+                    
+                    
 
                 </div>
             </div>
-            {% if article %}
-           
-            <div class="card border-0 shadow-sm" id="Article">
-                <div class="card-header bg-white d-flex justify-content-between">
-                    <div style="font-size: 15px; font-weight: 600;" class="text-dark ">
-                        <i class="fa fa-history"></i> Recent Article
-                    </div>
-                    <div style="font-size: 15px; font-weight: 600;" class="text-dark ">
-                        <a class=" p-0" title="Write Blogs" data-toggle="tooltip" href="/blog/create/" style=""><i class="fa fa-plus"></i></a>
-                    </div>
+            <div class="card-footer border-0 pb-0 d-flex justify-content-between">
+                <div>
+                    <a href="/profile/{{request.user}}/?method=Timeline" class="btn btn-sm rounded-0 content  " style="{% if method == 'Timeline' %} border-bottom: 1.5px solid #E57851; color: #E57851; {% endif %}"><i class="fa fa-bezier-curve"></i>Timeline</a>
                 </div>
-                <div class="card-body p-1 pl-4 pr-4 pb-2">
-                    {% for i in article %}
-                    <div style="display: flex; justify-content: space-between;" class="pt-2 pb-2 border-bottom"> 
-                        <div style="display: flex; justify-content: flex-start;">
-                            
-                            <div class="text-dark" style="font-weight: 600; font-size: 14px;">
-                                <a href="/blog/{{i.title|replace}}/{{i.id}}/">{{i.title}}</a> 
-                                <div>
-                                    <span style="font-size: 10px; font-weight: 500;">{{i.date_Publish}}, {{i.time}}, {{i.status|capfirst}}</span>
-                                </div>
-                            </div>
-                           
-                        </div>
-                        <div >
-                            <a class="btn btn-sm" title="Edit" data-toggle="tooltip" href="/blog/edit/content/{{i.id}}/" style="font-size: 12px;"><i class="fa fa-pencil"></i></a>
-                            <a class="btn btn-sm" onclick="return confirm('Are you sure you want to delete this post?')" title="Delete" data-toggle="tooltip" href="/blog/delete/content/{{i.id}}/" style="font-size: 12px;"><i class="fa fa-trash"></i></a>
-                        
-                        </div>
-                    </div>
-                
-                    {% endfor %}
+                <div>
+                    <a href="/profile/{{request.user}}/?method=Profile" class="btn btn-sm rounded-0 content" style="{% if method == 'Profile' %} border-bottom: 1.5px solid #E57851; color: #E57851; {% endif %}">Profile</a>
+                </div>
+                <div>
+                    <a href="/profile/{{request.user}}/?method=Followers" class="btn btn-sm rounded-0 content" style="{% if method == 'Followers' %} border-bottom: 1.5px solid #E57851; color: #E57851; {% endif %}">Followers
+                        <span>{{request.user.profile.follow.all.count}}</span>
+                    </a>
+                </div>
+                <div>
+                    <a href="/profile/{{request.user}}/?method=Following" class="btn btn-sm rounded-0 content" style="{% if method == 'Followings' %} border-bottom: 1.5px solid #E57851; color: #E57851; {% endif %}">Followings 
+                        <span>{{request.user.profile.following.all.count}}</span></a>
+                </div>
+                <div>
+                    <a href="/profile/{{request.user}}/?method=Photos" class="btn btn-sm rounded-0 content" style="{% if method == 'Photos' %} border-bottom: 1.5px solid #E57851; color: #E57851; {% endif %}">Photos</a>
+                </div>
+                <div>
+                    <a href="/profile/{{request.user}}/?method=Videos" class="btn btn-sm rounded-0 content" style="{% if method == 'Videos' %} border-bottom: 1.5px solid #E57851; color: #E57851; {% endif %}">Videos</a>
+                </div>
+                <div>
+                    <a href="/profile/{{request.user}}/?method=Articles" class="btn btn-sm rounded-0 content" style="{% if method == 'Articles' %} border-bottom: 1.5px solid #E57851; color: #E57851; {% endif %}">Articles</a>
+                </div>
+                <div>
+                    <a href="/profile/{{request.user}}/?method=Documents" class="btn btn-sm rounded-0 content" style="{% if method == 'Documents' %} border-bottom: 1.5px solid #E57851; color: #E57851; {% endif %}">Documents</a>
                 </div>
             </div>
-           
-            {% endif %}
-            {% if post %}
-           
-            <div class="card border-0 shadow-sm mt-3 ">
-                <div class="card-header bg-white d-flex justify-content-between">
-                    <div style="font-size: 15px; font-weight: 600;" class="text-dark ">
-                        <i class="fa fa-paper-plane"></i> Recent Post
-                    </div>
-                    <div style="font-size: 15px; font-weight: 600;" class="text-dark ">
-                        <a class=" p-0" title="Write Post" data-toggle="tooltip" href="/discuss/" style=""><i class="fa fa-plus"></i></a>
-                    </div>
-                </div>
-                <div class="card-body p-1 pl-4 pr-4 pb-2">
-                    {% for i in post %}
-                    <div style="display: flex; justify-content: space-between;" class="pt-2 pb-2 border-bottom"> 
-                        <div style="display: flex; justify-content: flex-start;">
-                            
-                            <div class="text-dark" style="font-weight: 600; font-size: 14px; ">
-                      <div>
-                        <a href="/discuss/{{i.category}}/inbox/{{i.id}}/">{% if i.category != 'General' %}{{i.title2|safe}}{% else %} {{i.title|safe}}{% endif %}</a> 
-                      </div>
-                                <div >
-                                    <span style="font-size: 10px; font-weight: 500;">{{i.created}}, {{i.category}} <i class="fa fa-thumbs-up fa2 ml-2 mr-1"></i>{{i.like.all.count}} <i class="fa fa-thumbs-down fa2 ml-2 mr-1"></i>{{i.dislike.all.count}} <i class="fa fa-comments fa2 ml-2 mr-1"></i>{{i.quora_comment.all.count}} </span>
-                                </div>
-                            </div>
-                           
-                        </div>
-                        <div  style="" class="d-flex justify-content-between">
-                            <a class="btn btn-sm" title="Edit" data-toggle="tooltip" href="/blog/edit/content/{{i.id}}/" style="font-size: 12px;"><i class="fa fa-pencil"></i></a>
-                            <a class="btn btn-sm" onclick="return confirm('Are you sure you want to delete this post?')" title="Delete" data-toggle="tooltip" href="/blog/delete/content/{{i.id}}/" style="font-size: 12px;"><i class="fa fa-trash"></i></a>
-                        
-                        </div>
-                    </div>
-                   
-                    {% endfor %}
-                </div>
-            </div>
-           
-            {% endif %}
         </div>
+        {% if method == 'Articles' %}
+        <div class="row">
+            <div class="col-12">
+                <div class="mt-3 d-flex justify-content-between">
+                    <div>
+                        <div style="font-size: 13px;">
+                           <a class="btn btn-sm rounded-0" href="#" style="color:#E57851; border:1px solid #E57851; border-top: none;  border-left: none;  border-right: none; "><i class="fa fa-newspaper-o"></i> Articles</a>
+                        </div>
+                    </div>
+                    <div>
+                        <input onkeyup="myFunction()" id="myFilter"  class="form-control text-muted" type="text" style="font-size: 13px; border-radius:20px; width:260px;" placeholder="Search Tags, Keyword, User, Anything...">
+                    </div>
+                </div>
+            </div>
+            <div class="col-12  col-md-12 col-lg-12 " id="myItems">
+                {% for i in home %}
+                <div class="card carding border shadow-sm mt-3 ">
+                    <div class="card-body content1">
+                    <div class="d-flex justify-content-between">
+                        <div class="d-flex justify-content-start mb-3 align-items-center">
+                            <div>
+                                    <img src="/media/{{i.blog.user_name2.profile.avatar}}" class="rounded-circle" style="width:35px; height:35px;">
+                            </div>
+                            <div class="ml-2">
+                                <div class="text-muted" style="font-size: 13px; ">
+                                   <a href="/profile/{{i.blog.user_name2}}/" style="font-weight: 600;"> {{i.blog.user_name2.profile.first_name}} {{i.blog.user_name2.profile.last_name}}</a> posted an article
+                                </div>
+                                <div class="text-muted" style="font-size: 13px;">
+                                    {{i.blog.date_Publish}}, {{i.blog.time}}
+                                </div>
+
+                               
+                            </div>
+                        </div>
+                        <div>
+
+                            {% if request.user != i.blog.user_name2 %}
+                            <a class="btn btn-sm border" style="font-size: 12px; background-color: #E57851; color: white;">Follow</a>
+                            
+                            {% endif %}
+                            <a class="btn btn-sm d-flex justify-content-center align-items-center rounded-circle" style="width:20px;height:20px;" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
+                            <div class="dropdown-menu dropdown-menu-right" style="font-size: 12px;" aria-labelledby="dropdownMenuLink">
+                                <a class="dropdown-item" href="#"><i class="fa fa-share-alt" style="color: #E57851;"></i> Share</a>
+                                <a class="dropdown-item" href="#"><i class="fa fa-exclamation-triangle" style="color: #E57851;"></i> Report</a>
+                              
+                              </div>
+                        </div>
+                    </div>
+                    <div style="font-size: 14px; font-weight: 600;" class="text-dark mb-2">
+                       <a href="/blog/{{i.blog.title|replace}}/{{i.blog.id}}/"><center>{{i.blog.title}}</center></a> 
+                    </div>
+                    <div>
+                        <a href="/blog/{{i.blog.title|replace}}/{{i.blog.id}}/"><img src="/media/{{i.blog.image}}/" style="width: 100%; max-height:350px;"></a>
+                    </div>
+                    <div style="font-size: 13px;" class="text-muted">
+                       <center>
+                        {{i.blog.description}}
+                       </center>
+                    </div>
+                    <hr>
+                    <div class="">
+                        <div class="" style="display: flex; justify-content: center; flex-wrap: wrap;">
+                            <a href="#" class="btn btn-sm">
+                                <div class=" mr-2" style="font-size: 13px;">
+                                    <i class="fa fa-thumbs-up fa2"></i> {{i.blog.liked.all.count}} Like
+                                </div>
+                            </a>
+                            <a href="#" class="btn btn-sm">
+                            <div class="ml-2 mr-2" style="font-size: 13px;">
+                                <i class="fa fa-thumbs-down fa2"></i> {{i.blog.disliked.all.count}} Dislike
+                            </div>
+                        </a>
+                        <a class="btn btn-sm" data-toggle="collapse" href="#collapseExample{{i.id}}"  role="button" aria-expanded="false" aria-controls="collapseExample{{i.id}}" >
+                            <div class=" ml-2 mr-2" style="font-size: 13px;">
+                                <i class="fa fa-comments fa2"></i> 12 Comment
+                            </div>
+                        </a>
+                            {% if request.user == i.blog.user_name2 %}
+                            <a href="#" class="btn btn-sm">
+                                <div class=" ml-2 mr-2" style="font-size: 13px;">
+                                    <i class="fa fa-pencil fa2"></i> Edit
+                                </div>
+                            </a>
+                            <a href="#" class="btn btn-sm">
+                                <div class=" ml-2 mr-2" style="font-size: 13px;">
+                                    <i class="fa fa-trash fa2"></i> Delete
+                                </div>
+                            </a>
+                            {% endif %}
+                        
+                            
+                        </div>
+                        <div class="collapse mt-3 " id="collapseExample{{i.id}}">
+                            <div class="card card-body border-0" style="font-size: 12px;">
+                                <div class=" d-flex justify-content-center">
+                                 <i class="fa fa-spinner fa-spin" style="color: #E57851;"></i>
+                                </div>
+                                </div>
+                          </div>
+                    </div>
+                    
+                </div>
+            </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% elif method == 'Videos' %}
+        <div class="row">
+            <div class="col-12">
+                <div class="mt-3 d-flex justify-content-between">
+                    <div>
+                        <div style="font-size: 13px;">
+                           <a class="btn btn-sm rounded-0" href="#" style="color:#E57851; border:1px solid #E57851; border-top: none;  border-left: none;  border-right: none; "><i class="fa fa-video-camera fa2"></i> Videos</a>
+                        </div>
+                    </div>
+                    <div>
+                        <input onkeyup="myFunction()" id="myFilter"  class="form-control text-muted" type="text" style="font-size: 13px; border-radius:20px; width:260px;" placeholder="Search Tags, Keyword, User, Anything...">
+                    </div>
+                </div>
+            </div>
+            <div class="col-12  col-md-12 col-lg-12 " id="myItems">
+                {% for i in home %}
+                <div class="card carding mt-3 shadow-sm">
+                    <div class="card-body content1">
+                        <div class="d-flex justify-content-between">
+                            <div class="d-flex justify-content-start mb-3 align-items-center">
+                                <div>
+                                        <img src="/media/{{i.video.user.profile.avatar}}" class="rounded-circle" style="width:35px; height:35px;">
+                                </div>
+                                <div class="ml-2">
+                                    <div class="text-muted" style="font-size: 13px; ">
+                                       <a href="/profile/{{i.video.user}}/" style="font-weight: 600;"> {{i.video.user.profile.first_name}} {{i.video.user.profile.last_name}}</a> shared a video
+                                    </div>
+                                    <div class="text-muted" style="font-size: 13px;">
+                                        {{i.video.created}}
+                                    </div>
+    
+                                   
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-end">
+    
+                            {% if request.user != i.video.user %}
+                            <div>
+                                 
+                                <a class="btn btn-sm border" style="font-size: 12px; background-color: #E57851; color: white;">Follow</a>
+                                
+                             </div>
+                            {% endif %}
+                            
+                                <div>
+                                    <a class=" mt-1 ml-1 btn btn-sm d-flex justify-content-center align-items-center rounded-circle" style="width:20px;height:20px;" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
+                                <div class="dropdown-menu dropdown-menu-right" style="font-size: 12px;" aria-labelledby="dropdownMenuLink">
+                                    {% if request.user == i.video.user %}
+                                    <a class="dropdown-item" href="#"><i class="fa fa-share-alt" style="color: #E57851;"></i> Share</a>
+                                    <a class="dropdown-item" href="#"><i class="fa fa-bookmark-o fa2" style="color: #E57851;"></i> Bookmark</a>
+                                    {% endif %}
+                                    <a class="dropdown-item" href="#"><i class="fa fa-exclamation-triangle" style="color: #E57851;"></i> Report</a>
+                                  
+                                  </div>
+                                </div>
+                            </div>
+                        </div>
+    
+    
+                        <div>
+                            <video style="width:100%; max-height: 300px;"  controls muted="muted">
+                                <source src="/media/{{i.video.video_file}}" >
+                                
+                              </video>
+                        </div>
+                        
+                        <div style="font-size: 13px;" class="text-muted mt-2">
+                            <center>
+                             {{i.video.description}}
+                            </center>
+                         </div>
+                     
+                         <div class="d-flex justify-content-center flex-wrap" > 
+                            {% for j in i.video.tags|split:"," %}
+                            <a href="#" style="font-size: 10px;" class="btn btn-sm tag m-1">{{j}}</a>
+                            {% endfor %}
+                            
+                            </div>
+                            <hr>
+                            <div class="">
+                                <div class="" style="display: flex; justify-content: center; flex-wrap: wrap;">
+                                    <a href="#" class="btn btn-sm">
+                                        <div class=" mr-2" style="font-size: 13px;">
+                                            <i class="fa fa-thumbs-up fa2"></i> {{i.video.like.all.count}} Like
+                                        </div>
+                                    </a>
+                                    <a href="#" class="btn btn-sm">
+                                    <div class="ml-2 mr-2" style="font-size: 13px;">
+                                        <i class="fa fa-thumbs-down fa2"></i> {{i.video.dislike.all.count}} Dislike
+                                    </div>
+                                </a>
+                                
+                                    <a class="btn btn-sm" data-toggle="collapse" href="#collapseExample{{i.id}}"  role="button" aria-expanded="false" aria-controls="collapseExample{{i.id}}" >
+                                        <div class=" ml-2 mr-2" style="font-size: 13px;">
+                                            <i class="fa fa-comments fa2"></i> 12 Comment
+                                        </div>
+                                    </a>
+                                    {% if request.user == i.video.user %}
+                                    <a href="#" class="btn btn-sm">
+                                        <div class=" ml-2 mr-2" style="font-size: 13px;">
+                                            <i class="fa fa-pencil fa2"></i> Edit
+                                        </div>
+                                    </a>
+                                    <a href="#" class="btn btn-sm">
+                                        <div class=" ml-2 mr-2" style="font-size: 13px;">
+                                            <i class="fa fa-trash fa2"></i> Delete
+                                        </div>
+                                    </a>
+                                    {% else %}
+                                    <a href="#" class="btn btn-sm">
+                                        <div class=" ml-2 mr-2" style="font-size: 13px;">
+                                            <i class="fa fa-share-alt"></i> Share
+                                        </div>
+                                    </a>
+                                    <a href="#" class="btn btn-sm">
+                                        <div class=" ml-2 mr-2" style="font-size: 13px;">
+                                            <i class="fa fa-bookmark fa2"></i> Bookmark
+                                        </div>
+                                    </a>
+                                    {% endif %}
+                                
+                                    
+                                </div>
+                                
+                            <div class="collapse mt-3 " id="collapseExample{{i.id}}">
+                                <div class="card card-body border-0" style="font-size: 12px;">
+                                   <div class=" d-flex justify-content-center">
+                                    <i class="fa fa-spinner fa-spin" style="color: #E57851;"></i>
+                                   </div>
+                                   </div>
+                              </div>
+                            </div>
+    
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% elif method == 'Photos' %}
+        <div class="row">
+            <div class="col-12">
+                <div class="mt-3 d-flex justify-content-between">
+                    <div>
+                        <div style="font-size: 13px;">
+                           <a class="btn btn-sm rounded-0" href="#" style="color:#E57851; border:1px solid #E57851; border-top: none;  border-left: none;  border-right: none; "><i class="fa fa-photo"></i> Photos</a>
+                        </div>
+                    </div>
+                    <div>
+                        <input onkeyup="myFunction()" id="myFilter"  class="form-control text-muted" type="text" style="font-size: 13px; border-radius:20px; width:260px;" placeholder="Search Tags, Keyword, User, Anything...">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-12  col-md-12 col-lg-12 " id="myItems">
+                {% for i in home %}
+                <div class="card carding shadow-sm mt-3">
+                    <div class="card-body content1">
+                        <div class="d-flex justify-content-between">
+                            <div class="d-flex justify-content-start mb-3 align-items-center">
+                                <div>
+                                        <img src="/media/{{i.photo.user.profile.avatar}}" class="rounded-circle" style="width:35px; height:35px;">
+                                </div>
+                                <div class="ml-2">
+                                    <div class="text-muted" style="font-size: 13px; ">
+                                       <a href="/profile/{{i.photo.user}}/" style="font-weight: 600;"> {{i.photo.user.profile.first_name}} {{i.photo.user.profile.last_name}}</a> shared a photo
+                                    </div>
+                                    <div class="text-muted" style="font-size: 13px;">
+                                        {{i.photo.created}}
+                                    </div>
+    
+                                   
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-end">
+    
+                            {% if request.user != i.photo.user %}
+                            <div>
+                                 
+                                <a class="btn btn-sm border" style="font-size: 12px; background-color: #E57851; color: white;">Follow</a>
+                                
+                             </div>
+                            {% endif %}
+                            
+                                <div>
+                                    <a class=" mt-1 ml-1 btn btn-sm d-flex justify-content-center align-items-center rounded-circle" style="width:20px;height:20px;" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
+                                <div class="dropdown-menu dropdown-menu-right" style="font-size: 12px;" aria-labelledby="dropdownMenuLink">
+                                    {% if request.user == i.video.user %}
+                                    <a class="dropdown-item" href="#"><i class="fa fa-share-alt" style="color: #E57851;"></i> Share</a>
+                                    <a class="dropdown-item" href="#"><i class="fa fa-bookmark-o fa2" style="color: #E57851;"></i> Bookmark</a>
+                                    {% endif %} 
+                                    <a class="dropdown-item" href="#"><i class="fa fa-exclamation-triangle" style="color: #E57851;"></i> Report</a>
+                                  
+                                  </div>
+                                </div>
+                            </div>
+                        </div>
+    
+                        
+                        {% if i.photo.photo_image.all.count == 1 %}
+                        <div >
+                            
+                            <a href="/media/{{i.photo.photo_image.all.0.image}}/">  <img class="d-block w-100" src="/media/{{i.photo.photo_image.all.0.image}}" alt="First slide" style="max-height:350px; width:100%;"></a>
+                            </div>
+                        {% else %}
+    
+                        <div id="carouselExampleIndicators{{i.id}}" class="carousel slide" data-ride="carousel">
+                           
+                            <div class="carousel-inner">
+                                {% for j in i.photo.photo_image.all %}
+                                <div class="carousel-item {% if forloop.counter == 1%}active{% endif %}">
+                                  <a href="/media/{{j.image}}/">  <img class="d-block w-100" src="/media/{{j.image}}" alt="First slide" style="max-height:350px; width:100%;"></a>
+                                  </div>
+                                {% endfor %}
+                              
+                            </div>
+                            <a class="carousel-control-prev" href="#carouselExampleIndicators{{i.id}}" role="button" data-slide="prev">
+                              <span class="rounded d-flex align-items-center justify-content-center" style="background-color:#546E7A; height:50px; width:22px; " aria-hidden="true"><i class="fa fa-angle-left" style="font-size: 22px;"></i></span>
+                             
+                            </a>
+                            <a class="carousel-control-next" href="#carouselExampleIndicators{{i.id}}" role="button" data-slide="next">
+                                <span class="rounded d-flex align-items-center justify-content-center" style="background-color:#546E7A; height:50px; width:22px; " aria-hidden="true"><i class="fa fa-angle-right" style="font-size: 22px;"></i></span>
+                             
+                              
+                            </a>
+                          </div>
+                        {% endif %}
+                        
+                       
+                        <div style="font-size: 13px;" class="text-muted mt-2">
+                            <center>
+                             {{i.photo.description}}
+                            </center>
+                         </div>
+                     
+                         <div class="d-flex justify-content-center flex-wrap" > 
+                            {% for j in i.photo.tags|split:"," %}
+                            <a href="#" style="font-size: 10px;" class="btn btn-sm tag m-1">{{j}}</a>
+                            {% endfor %}
+                            
+                            </div>
+                            <hr>
+                            <div class="">
+                                <div class="" style="display: flex; justify-content: center; flex-wrap: wrap;">
+                                    <a href="#" class="btn btn-sm">
+                                        <div class=" mr-2" style="font-size: 13px;">
+                                            <i class="fa fa-thumbs-up fa2"></i> {{i.photo.like.all.count}} Like
+                                        </div>
+                                    </a>
+                                    <a href="#" class="btn btn-sm">
+                                    <div class="ml-2 mr-2" style="font-size: 13px;">
+                                        <i class="fa fa-thumbs-down fa2"></i> {{i.photo.dislike.all.count}} Dislike
+                                    </div>
+                                </a>
+                                <a class="btn btn-sm" data-toggle="collapse" href="#collapseExample{{i.id}}"  role="button" aria-expanded="false" aria-controls="collapseExample{{i.id}}" >
+                                    <div class=" ml-2 mr-2" style="font-size: 13px;">
+                                        <i class="fa fa-comments fa2"></i> 12 Comment
+                                    </div>
+                                </a>
+                                    {% if request.user == i.photo.user %}
+                                    <a href="#" class="btn btn-sm">
+                                        <div class=" ml-2 mr-2" style="font-size: 13px;">
+                                            <i class="fa fa-pencil fa2"></i> Edit
+                                        </div>
+                                    </a>
+                                    <a href="#" class="btn btn-sm">
+                                        <div class=" ml-2 mr-2" style="font-size: 13px;">
+                                            <i class="fa fa-trash fa2"></i> Delete
+                                        </div>
+                                    </a>
+                                    {% else %}
+                                    <a href="#" class="btn btn-sm">
+                                        <div class=" ml-2 mr-2" style="font-size: 13px;">
+                                            <i class="fa fa-share-alt"></i> Share
+                                        </div>
+                                    </a>
+                                    <a href="#" class="btn btn-sm">
+                                        <div class=" ml-2 mr-2" style="font-size: 13px;">
+                                            <i class="fa fa-bookmark fa2"></i> Bookmark
+                                        </div>
+                                    </a>
+                                    {% endif %}
+                                
+                                    
+                                </div>
+                                <div class="collapse mt-3 " id="collapseExample{{i.id}}">
+                                    <div class="card card-body border-0" style="font-size: 12px;">
+                                        <div class=" d-flex justify-content-center">
+                                         <i class="fa fa-spinner fa-spin" style="color: #E57851;"></i>
+                                        </div>
+                                        </div>
+                                  </div>
+                            </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% elif method == 'Timeline' %}
+            <div class="row">
+                <div class="col-12">
+                    <div class="mt-3 d-flex justify-content-between">
+                        <div>
+                            <div style="font-size: 13px;">
+                               <a class="btn btn-sm rounded-0" href="#" style="color:#E57851; border:1px solid #E57851; border-top: none;  border-left: none;  border-right: none; ">My Timeline</a>
+                            </div>
+                        </div>
+                        <div>
+                            <input onkeyup="myFunction()" id="myFilter"  class="form-control text-muted" type="text" style="font-size: 13px; border-radius:20px; width:260px;" placeholder="Search Tags, Keyword, User, Anything...">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-12 col-lg-4">
+                    
+            <div class="card mt-3 shadow-sm">
+                <div class="card-header border-0">
+                    <div style="font-size: 13px;" class="text-muted">
+                       <i class="fa fa-user-plus" style="color:#E57851"></i> I am Following 16
+                    </div>
+                </div>
+                <div class="card-body " style="display: flex; flex-wrap: wrap; justify-content: center;">
+                <div title="Sparsh" data-toggle="tooltip" class="m-1">
+                    <a href="/profile/{{request.user}}/"><img src="/media/uploads/2021/01/29/animatedsvgicons.jpg" style="width:40px; height:40px;" class="rounded-circle"></a>
+                </div>
+                <div title="Sparsh" data-toggle="tooltip" class="m-1">
+                    <img src="/media/uploads/2021/01/29/animatedsvgicons.jpg" style="width:40px; height:40px;" class="rounded-circle">
+                </div>
+                <div title="Sparsh" data-toggle="tooltip" class="m-1">
+                    <img src="/media/uploads/2021/01/29/animatedsvgicons.jpg" style="width:40px; height:40px;" class="rounded-circle">
+                </div>
+                <div title="Sparsh" data-toggle="tooltip" class="m-1">
+                    <img src="/media/uploads/2021/01/29/animatedsvgicons.jpg" style="width:40px; height:40px;" class="rounded-circle">
+                </div>
+                <div title="Sparsh" data-toggle="tooltip" class="m-1">
+                    <img src="/media/uploads/2021/01/29/animatedsvgicons.jpg" style="width:40px; height:40px;" class="rounded-circle">
+                </div>
+                </div>
+                <div class="card-footer border-0 d-flex justify-content-center p-2">
+                    <a href="/blog/" class="btn btn-sm" style="font-size: 13px;">See More ...</a>
+                  </div>
+            </div>
+            {% if activity %}
+            <div class="card mt-3 shadow-sm">
+                <div class="card-header border-0">
+                    <div style="font-size: 13px;" class="text-muted">
+                       <i class="fa fa-tasks" style="color:#E57851"></i> My Recent Activities
+                    </div>
+                </div>
+                <div class="card-body " style="">
+                    {% for i in activity %}
+                    <div class="d-flex justify-content-start m-1 mt-2">
+                        <div>
+                         <div class="d-flex justify-content-center align-items-center rounded-circle" style="width:30px; height:30px; border:1px solid #E57851"> 
+                             <i class="{{i.activity_icon}}" style="color: #E57851; font-size: 14px;"></i>
+                         </div>
+                        </div>
+                         <div class="ml-2">
+                             <div style="font-size: 13px;" class="text-muted">
+                                {{i.user_activity|safe}}
+                                 <div class="text-muted" style="font-size: 11px;">
+                                     {{i.created}}
+                                 </div>
+                             </div>
+                             
+                         </div>
+                     </div>
+                    {% endfor %}
+
+                   
+                     
+                    
+                    
+
+                </div>
+                <div class="card-footer border-0 d-flex justify-content-center p-2">
+                    <a href="/activities/" class="btn btn-sm" style="font-size: 13px;">See More ...</a>
+                  </div>
+            </div>
+            {% endif %}
+                </div>
+                <div class="col-12 col-md-12 col-lg-8 " id="myItems">
+                        
+            {% for i in home %}
+            {% if i.category == 'Video' %}
+            <div class="card carding mt-3 shadow-sm">
+                <div class="card-body content1">
+                    <div class="d-flex justify-content-between">
+                        <div class="d-flex justify-content-start mb-3 align-items-center">
+                            <div>
+                                    <img src="/media/{{i.video.user.profile.avatar}}" class="rounded-circle" style="width:35px; height:35px;">
+                            </div>
+                            <div class="ml-2">
+                                <div class="text-muted" style="font-size: 13px; ">
+                                   <a href="/profile/{{i.video.user}}/" style="font-weight: 600;"> {{i.video.user.profile.first_name}} {{i.video.user.profile.last_name}}</a> shared a video
+                                </div>
+                                <div class="text-muted" style="font-size: 13px;">
+                                    {{i.video.created}}
+                                </div>
+
+                               
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-end">
+
+                        {% if request.user != i.video.user %}
+                        <div>
+                             
+                            <a class="btn btn-sm border" style="font-size: 12px; background-color: #E57851; color: white;">Follow</a>
+                            
+                         </div>
+                        {% endif %}
+                        
+                            <div>
+                                <a class=" mt-1 ml-1 btn btn-sm d-flex justify-content-center align-items-center rounded-circle" style="width:20px;height:20px;" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
+                            <div class="dropdown-menu dropdown-menu-right" style="font-size: 12px;" aria-labelledby="dropdownMenuLink">
+                                {% if request.user == i.video.user %}
+                                <a class="dropdown-item" href="#"><i class="fa fa-share-alt" style="color: #E57851;"></i> Share</a>
+                                <a class="dropdown-item" href="#"><i class="fa fa-bookmark-o fa2" style="color: #E57851;"></i> Bookmark</a>
+                                {% endif %}
+                                <a class="dropdown-item" href="#"><i class="fa fa-exclamation-triangle" style="color: #E57851;"></i> Report</a>
+                              
+                              </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div>
+                        <video style="width:100%; max-height: 300px;"  controls muted="muted">
+                            <source src="/media/{{i.video.video_file}}" >
+                            
+                          </video>
+                    </div>
+                    
+                    <div style="font-size: 13px;" class="text-muted mt-2">
+                        <center>
+                         {{i.video.description}}
+                        </center>
+                     </div>
+                 
+                     <div class="d-flex justify-content-center flex-wrap" > 
+                        {% for j in i.video.tags|split:"," %}
+                        <a href="#" style="font-size: 10px;" class="btn btn-sm tag m-1">{{j}}</a>
+                        {% endfor %}
+                        
+                        </div>
+                        <hr>
+                        <div class="">
+                            <div class="" style="display: flex; justify-content: center; flex-wrap: wrap;">
+                                <a href="#" class="btn btn-sm">
+                                    <div class=" mr-2" style="font-size: 13px;">
+                                        <i class="fa fa-thumbs-up fa2"></i> {{i.video.like.all.count}} Like
+                                    </div>
+                                </a>
+                                <a href="#" class="btn btn-sm">
+                                <div class="ml-2 mr-2" style="font-size: 13px;">
+                                    <i class="fa fa-thumbs-down fa2"></i> {{i.video.dislike.all.count}} Dislike
+                                </div>
+                            </a>
+                            
+                                <a class="btn btn-sm" data-toggle="collapse" href="#collapseExample{{i.id}}"  role="button" aria-expanded="false" aria-controls="collapseExample{{i.id}}" >
+                                    <div class=" ml-2 mr-2" style="font-size: 13px;">
+                                        <i class="fa fa-comments fa2"></i> 12 Comment
+                                    </div>
+                                </a>
+                                {% if request.user == i.video.user %}
+                                <a href="#" class="btn btn-sm">
+                                    <div class=" ml-2 mr-2" style="font-size: 13px;">
+                                        <i class="fa fa-pencil fa2"></i> Edit
+                                    </div>
+                                </a>
+                                <a href="#" class="btn btn-sm">
+                                    <div class=" ml-2 mr-2" style="font-size: 13px;">
+                                        <i class="fa fa-trash fa2"></i> Delete
+                                    </div>
+                                </a>
+                                {% else %}
+                                <a href="#" class="btn btn-sm">
+                                    <div class=" ml-2 mr-2" style="font-size: 13px;">
+                                        <i class="fa fa-share-alt"></i> Share
+                                    </div>
+                                </a>
+                                <a href="#" class="btn btn-sm">
+                                    <div class=" ml-2 mr-2" style="font-size: 13px;">
+                                        <i class="fa fa-bookmark fa2"></i> Bookmark
+                                    </div>
+                                </a>
+                                {% endif %}
+                            
+                                
+                            </div>
+                            
+                        <div class="collapse mt-3 " id="collapseExample{{i.id}}">
+                            <div class="card card-body border-0" style="font-size: 12px;">
+                               <div class=" d-flex justify-content-center">
+                                <i class="fa fa-spinner fa-spin" style="color: #E57851;"></i>
+                               </div>
+                               </div>
+                          </div>
+                        </div>
+
+                </div>
+            </div>
+            {% elif i.category == 'Photo' %}
+            <div class="card carding shadow-sm mt-3">
+                <div class="card-body content1">
+                    <div class="d-flex justify-content-between">
+                        <div class="d-flex justify-content-start mb-3 align-items-center">
+                            <div>
+                                    <img src="/media/{{i.photo.user.profile.avatar}}" class="rounded-circle" style="width:35px; height:35px;">
+                            </div>
+                            <div class="ml-2">
+                                <div class="text-muted" style="font-size: 13px; ">
+                                   <a href="/profile/{{i.photo.user}}/" style="font-weight: 600;"> {{i.photo.user.profile.first_name}} {{i.photo.user.profile.last_name}}</a> shared a photo
+                                </div>
+                                <div class="text-muted" style="font-size: 13px;">
+                                    {{i.photo.created}}
+                                </div>
+
+                               
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-end">
+
+                        {% if request.user != i.photo.user %}
+                        <div>
+                             
+                            <a class="btn btn-sm border" style="font-size: 12px; background-color: #E57851; color: white;">Follow</a>
+                            
+                         </div>
+                        {% endif %}
+                        
+                            <div>
+                                <a class=" mt-1 ml-1 btn btn-sm d-flex justify-content-center align-items-center rounded-circle" style="width:20px;height:20px;" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
+                            <div class="dropdown-menu dropdown-menu-right" style="font-size: 12px;" aria-labelledby="dropdownMenuLink">
+                                {% if request.user == i.video.user %}
+                                <a class="dropdown-item" href="#"><i class="fa fa-share-alt" style="color: #E57851;"></i> Share</a>
+                                <a class="dropdown-item" href="#"><i class="fa fa-bookmark-o fa2" style="color: #E57851;"></i> Bookmark</a>
+                                {% endif %} 
+                                <a class="dropdown-item" href="#"><i class="fa fa-exclamation-triangle" style="color: #E57851;"></i> Report</a>
+                              
+                              </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    
+                    {% if i.photo.photo_image.all.count == 1 %}
+                    <div >
+                        
+                        <a href="/media/{{i.photo.photo_image.all.0.image}}/">  <img class="d-block w-100" src="/media/{{i.photo.photo_image.all.0.image}}" alt="First slide" style="max-height:250px; width:100%;"></a>
+                        </div>
+                    {% else %}
+
+                    <div id="carouselExampleIndicators{{i.id}}" class="carousel slide" data-ride="carousel">
+                       
+                        <div class="carousel-inner">
+                            {% for j in i.photo.photo_image.all %}
+                            <div class="carousel-item {% if forloop.counter == 1%}active{% endif %}">
+                              <a href="/media/{{j.image}}/">  <img class="d-block w-100" src="/media/{{j.image}}" alt="First slide" style="max-height:250px; width:100%;"></a>
+                              </div>
+                            {% endfor %}
+                          
+                        </div>
+                        <a class="carousel-control-prev" href="#carouselExampleIndicators{{i.id}}" role="button" data-slide="prev">
+                          <span class="rounded d-flex align-items-center justify-content-center" style="background-color:#546E7A; height:50px; width:22px; " aria-hidden="true"><i class="fa fa-angle-left" style="font-size: 22px;"></i></span>
+                         
+                        </a>
+                        <a class="carousel-control-next" href="#carouselExampleIndicators{{i.id}}" role="button" data-slide="next">
+                            <span class="rounded d-flex align-items-center justify-content-center" style="background-color:#546E7A; height:50px; width:22px; " aria-hidden="true"><i class="fa fa-angle-right" style="font-size: 22px;"></i></span>
+                         
+                          
+                        </a>
+                      </div>
+                    {% endif %}
+                    
+                   
+                    <div style="font-size: 13px;" class="text-muted mt-2">
+                        <center>
+                         {{i.photo.description}}
+                        </center>
+                     </div>
+                 
+                     <div class="d-flex justify-content-center flex-wrap" > 
+                        {% for j in i.photo.tags|split:"," %}
+                        <a href="#" style="font-size: 10px;" class="btn btn-sm tag m-1">{{j}}</a>
+                        {% endfor %}
+                        
+                        </div>
+                        <hr>
+                        <div class="">
+                            <div class="" style="display: flex; justify-content: center; flex-wrap: wrap;">
+                                <a href="#" class="btn btn-sm">
+                                    <div class=" mr-2" style="font-size: 13px;">
+                                        <i class="fa fa-thumbs-up fa2"></i> {{i.photo.like.all.count}} Like
+                                    </div>
+                                </a>
+                                <a href="#" class="btn btn-sm">
+                                <div class="ml-2 mr-2" style="font-size: 13px;">
+                                    <i class="fa fa-thumbs-down fa2"></i> {{i.photo.dislike.all.count}} Dislike
+                                </div>
+                            </a>
+                            <a class="btn btn-sm" data-toggle="collapse" href="#collapseExample{{i.id}}"  role="button" aria-expanded="false" aria-controls="collapseExample{{i.id}}" >
+                                <div class=" ml-2 mr-2" style="font-size: 13px;">
+                                    <i class="fa fa-comments fa2"></i> 12 Comment
+                                </div>
+                            </a>
+                                {% if request.user == i.photo.user %}
+                                <a href="#" class="btn btn-sm">
+                                    <div class=" ml-2 mr-2" style="font-size: 13px;">
+                                        <i class="fa fa-pencil fa2"></i> Edit
+                                    </div>
+                                </a>
+                                <a href="#" class="btn btn-sm">
+                                    <div class=" ml-2 mr-2" style="font-size: 13px;">
+                                        <i class="fa fa-trash fa2"></i> Delete
+                                    </div>
+                                </a>
+                                {% else %}
+                                <a href="#" class="btn btn-sm">
+                                    <div class=" ml-2 mr-2" style="font-size: 13px;">
+                                        <i class="fa fa-share-alt"></i> Share
+                                    </div>
+                                </a>
+                                <a href="#" class="btn btn-sm">
+                                    <div class=" ml-2 mr-2" style="font-size: 13px;">
+                                        <i class="fa fa-bookmark fa2"></i> Bookmark
+                                    </div>
+                                </a>
+                                {% endif %}
+                            
+                                
+                            </div>
+                            <div class="collapse mt-3 " id="collapseExample{{i.id}}">
+                                <div class="card card-body border-0" style="font-size: 12px;">
+                                    <div class=" d-flex justify-content-center">
+                                     <i class="fa fa-spinner fa-spin" style="color: #E57851;"></i>
+                                    </div>
+                                    </div>
+                              </div>
+                        </div>
+                </div>
+            </div>
+            {% elif i.category == 'Blog' %}
+                <div class="card carding border shadow-sm mt-3 ">
+                    <div class="card-body content1">
+                    <div class="d-flex justify-content-between">
+                        <div class="d-flex justify-content-start mb-3 align-items-center">
+                            <div>
+                                    <img src="/media/{{i.blog.user_name2.profile.avatar}}" class="rounded-circle" style="width:35px; height:35px;">
+                            </div>
+                            <div class="ml-2">
+                                <div class="text-muted" style="font-size: 13px; ">
+                                   <a href="/profile/{{i.blog.user_name2}}/" style="font-weight: 600;"> {{i.blog.user_name2.profile.first_name}} {{i.blog.user_name2.profile.last_name}}</a> posted an article
+                                </div>
+                                <div class="text-muted" style="font-size: 13px;">
+                                    {{i.blog.date_Publish}}, {{i.blog.time}}
+                                </div>
+
+                               
+                            </div>
+                        </div>
+                        <div>
+
+                            {% if request.user != i.blog.user_name2 %}
+                            <a class="btn btn-sm border" style="font-size: 12px; background-color: #E57851; color: white;">Follow</a>
+                            
+                            {% endif %}
+                            <a class="btn btn-sm d-flex justify-content-center align-items-center rounded-circle" style="width:20px;height:20px;" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
+                            <div class="dropdown-menu dropdown-menu-right" style="font-size: 12px;" aria-labelledby="dropdownMenuLink">
+                                <a class="dropdown-item" href="#"><i class="fa fa-share-alt" style="color: #E57851;"></i> Share</a>
+                                <a class="dropdown-item" href="#"><i class="fa fa-exclamation-triangle" style="color: #E57851;"></i> Report</a>
+                              
+                              </div>
+                        </div>
+                    </div>
+                    <div style="font-size: 14px; font-weight: 600;" class="text-dark mb-2">
+                       <a href="/blog/{{i.blog.title|replace}}/{{i.blog.id}}/"><center>{{i.blog.title}}</center></a> 
+                    </div>
+                    <div>
+                        <a href="/blog/{{i.blog.title|replace}}/{{i.blog.id}}/"><img src="/media/{{i.blog.image}}/" style="width: 100%; max-height:250px;"></a>
+                    </div>
+                    <div style="font-size: 13px;" class="text-muted">
+                       <center>
+                        {{i.blog.description}}
+                       </center>
+                    </div>
+                    <hr>
+                    <div class="">
+                        <div class="" style="display: flex; justify-content: center; flex-wrap: wrap;">
+                            <a href="#" class="btn btn-sm">
+                                <div class=" mr-2" style="font-size: 13px;">
+                                    <i class="fa fa-thumbs-up fa2"></i> {{i.blog.liked.all.count}} Like
+                                </div>
+                            </a>
+                            <a href="#" class="btn btn-sm">
+                            <div class="ml-2 mr-2" style="font-size: 13px;">
+                                <i class="fa fa-thumbs-down fa2"></i> {{i.blog.disliked.all.count}} Dislike
+                            </div>
+                        </a>
+                        <a class="btn btn-sm" data-toggle="collapse" href="#collapseExample{{i.id}}"  role="button" aria-expanded="false" aria-controls="collapseExample{{i.id}}" >
+                            <div class=" ml-2 mr-2" style="font-size: 13px;">
+                                <i class="fa fa-comments fa2"></i> 12 Comment
+                            </div>
+                        </a>
+                            {% if request.user == i.blog.user_name2 %}
+                            <a href="#" class="btn btn-sm">
+                                <div class=" ml-2 mr-2" style="font-size: 13px;">
+                                    <i class="fa fa-pencil fa2"></i> Edit
+                                </div>
+                            </a>
+                            <a href="#" class="btn btn-sm">
+                                <div class=" ml-2 mr-2" style="font-size: 13px;">
+                                    <i class="fa fa-trash fa2"></i> Delete
+                                </div>
+                            </a>
+                            {% endif %}
+                        
+                            
+                        </div>
+                        <div class="collapse mt-3 " id="collapseExample{{i.id}}">
+                            <div class="card card-body border-0" style="font-size: 12px;">
+                                <div class=" d-flex justify-content-center">
+                                 <i class="fa fa-spinner fa-spin" style="color: #E57851;"></i>
+                                </div>
+                                </div>
+                          </div>
+                    </div>
+                    
+                </div>
+            </div>
+            {% endif %}
+            
+           {% endfor %}
+                </div>
+            </div>
+        {% elif method == 'Profile' %}
+        <div class="card mt-3 shadow-sm">
+            <div class="card-header border-0">
+                <div style="color: #546E7A; font-size: 14px; font-weight: 600;">
+                    <i class="fa fa-user fa2"></i> View Profile
+                </div>
+            </div>
+            <div class="card-body pl-5 pr-5">
+                <div style="color: #546E7A; font-size: 16px; " class="border-bottom pb-2">
+                     General Information
+                </div>
+                <div class="mt-3">
+                    <div class="d-flex justify-content-start">
+                        <div style="width:150px;" class="content">Name</div>
+                        <div class="content" style="color: #546E7A;">{{request.user.profile.first_name}} {{request.user.profile.last_name}} </div>
+                    </div>
+                    <div class="d-flex justify-content-start mt-2">
+                        <div style="width:150px;" class="content">Birth Date</div>
+                        <div class="content" style="color: #546E7A;">{{request.user.profile.date_of_birth}} </div>
+                    </div>
+                    <div class="d-flex justify-content-start mt-2">
+                        <div style="width:150px;" class="content">Gender</div>
+                        <div class="content" style="color: #546E7A;">{{request.user.profile.gender}} </div>
+                    </div>
+                    <div class="d-flex justify-content-start mt-2">
+                        <div style="width:150px;" class="content">Email</div>
+                        <div class="content" style="color: #546E7A; width:300px;">{{request.user.profile.email}} </div>
+                    </div>
+                    <div class="d-flex justify-content-start mt-2">
+                        <div style="width:150px;" class="content">Contact No.</div>
+                        <div class="content" style="color: #546E7A; width:300px;">{{request.user.profile.phone_number}} </div>
+                    </div>
+                    <div class="d-flex justify-content-start mt-2">
+                        <div style="width:150px;" class="content">Address</div>
+                        <div class="content" style="color: #546E7A; width:300px;">{{request.user.profile.city}}, {{request.user.profile.state}}, {{request.user.profile.country}} </div>
+                    </div>
+                </div>
+                <div style="color: #546E7A; font-size: 16px; " class="border-bottom pb-2 mt-4">
+                    Biography
+               </div>
+               <div class="d-flex justify-content-start mt-2">
+                <div style="width:25%;" class="content">Headline</div>
+                <div class="content" style="color: #546E7A; width:100%;">{{request.user.profile.headline}} </div>
+            </div>
+            <div class="d-flex justify-content-start mt-2">
+                <div style="width:25%;" class="content">Biography</div>
+                <div class="content" style="color: #546E7A; width:100%;">{{request.user.profile.bio}} </div>
+            </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+    <div class="col-12 col-md-12 col-lg-3">
+        <div class="card mb-3 shadow-sm">
+              
+            <div class="card-header border-0" style="font-size: 13px; color: #546E7A;">
+                <i class="fa fa-user fa2"></i> Complete Your Profile
+            </div>
+            <div class="card-body">
+                <div class="progress" style=" height:5px;">
+                    <div class="progress-bar" role="progressbar" style="width: 75%; background-color: #E57851;" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                  <div style="font-size: 12px;" class="mt-1 text-muted">
+                      75% Complete
+                  </div>
+                  <div class="d-flex justify-content-end">
+                      <a href="/settings/" class="btn btn-sm border shadow-sm" style="font-size: 12px; background-color: #E57851; color: white;"><i class="fa fa-pencil"></i> Edit Profile </a>
+                  </div>
+            </div>
+     
+    </div>
     </div>
 </div>
+</div>
+{% endblock %}
+
+{% block script %}
+    <script>
+
+               // ----------------------- Video Autoplay --------------------
+
+               $(window).scroll(function() {
+    $('video').each(function() {
+        if ($(this).visible(true)) {
+            $(this)[0].play();
+        } else {
+            $(this)[0].pause();
+        }
+    })
+}); 
+        function myFunction() {
+    var input, filter, cards, cardContainer, h5, title, i;
+    input = document.getElementById("myFilter");
+    filter = input.value.toUpperCase();
+    cardContainer = document.getElementById("myItems");
+    cards = cardContainer.getElementsByClassName("carding");
+    for (i = 0; i < cards.length; i++) {
+        title = cards[i].querySelector(".content1");
+        if (title.innerText.toUpperCase().indexOf(filter) > -1) {
+            cards[i].style.display = "";
+        } else {
+            cards[i].style.display = "none";
+        }
+    }
+}
+
+    </script>
 {% endblock %}

@@ -25,7 +25,10 @@
     opacity:0;
   
 }
-
+.disabled {
+    pointer-events: none;
+    cursor: default;
+  }
 {% endblock %}
 {% block jscss %}
 <script src="https://cdn.ckeditor.com/ckeditor5/26.0.0/classic/ckeditor.js"></script>
@@ -169,7 +172,7 @@
                     <a href="/blog/" class="btn btn-sm" style="font-size: 13px;">See More ...</a>
                   </div>
             </div>
-
+            {% if activity %}
             <div class="card mt-3 shadow-sm">
                 <div class="card-header border-0">
                     <div style="font-size: 13px;" class="text-muted">
@@ -203,10 +206,10 @@
 
                 </div>
                 <div class="card-footer border-0 d-flex justify-content-center p-2">
-                    <a href="/blog/" class="btn btn-sm" style="font-size: 13px;">See More ...</a>
+                    <a href="/activities/" class="btn btn-sm" style="font-size: 13px;">See More ...</a>
                   </div>
             </div>
-            
+            {% endif %}
         </div>
         <div class="col-12 col-md-12 col-lg-6 mb-3">
             <div class="card border shadow-sm ">
@@ -228,15 +231,14 @@
                     <div class="" title="Share Photo" data-toggle="tooltip">
                         <a class="btn btn-sm bg-light pr-3 pl-3 pt-2 pb-2" style="border-radius: 20px; color:#546E7A; font-size: 13px; " data-toggle="modal" data-target="#Photo"><i class="fa fa-photo"></i> Photo</a>
                     </div>
-                    <div title="Share Video" data-toggle="tooltip">
-                        <a class="btn btn-sm bg-light pr-3 pl-3 pt-2 pb-2" style="border-radius: 20px; color:#546E7A; font-size: 13px; " data-toggle="modal" data-target="#Video"><i class="fa fa-video-camera"></i> Video</a>
-                    </div>
-                    <div title="Declare an event" data-toggle="tooltip">
-                        <a class="btn btn-sm bg-light pr-3 pl-3 pt-2 pb-2" style="border-radius: 20px; color:#546E7A; font-size: 13px; "><i class="fa fa-calendar-check-o"></i> Event</a>
-                    </div>
                     <div title="Post an article" data-toggle="tooltip">
                         <a href="/blog/create/" class="btn btn-sm bg-light pr-3 pl-3 pt-2 pb-2" style="border-radius: 20px; color:#546E7A; font-size: 13px; "><i class="fa fa-newspaper-o"></i> Write Article</a>
                     </div>
+                    <div title="Share Video" data-toggle="tooltip">
+                        <a class="btn btn-sm bg-light pr-3 pl-3 pt-2 pb-2" style="border-radius: 20px; color:#546E7A; font-size: 13px; " data-toggle="modal" data-target="#Video"><i class="fa fa-video-camera"></i> Video</a>
+                    </div>
+                   
+                    
                 </div>
 
             </div>
@@ -248,7 +250,7 @@
                     </div>
                 </div>
                 <div>
-                    <input onkeyup="myFunction()" id="myFilter"  class="form-control text-muted" type="text" style="font-size: 13px; border-radius:20px;" placeholder="Search...">
+                    <input onkeyup="myFunction()" id="myFilter"  class="form-control text-muted" type="text" style="font-size: 13px; border-radius:20px; width:260px;" placeholder="Search Tags, Keyword, User, Anything...">
                 </div>
             </div>
 
@@ -289,7 +291,10 @@
                                     <div>
                                         <a class=" mt-1 ml-1 btn btn-sm d-flex justify-content-center align-items-center rounded-circle" style="width:20px;height:20px;" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
                                     <div class="dropdown-menu dropdown-menu-right" style="font-size: 12px;" aria-labelledby="dropdownMenuLink">
+                                        {% if request.user == i.video.user %}
                                         <a class="dropdown-item" href="#"><i class="fa fa-share-alt" style="color: #E57851;"></i> Share</a>
+                                        <a class="dropdown-item" href="#"><i class="fa fa-bookmark-o fa2" style="color: #E57851;"></i> Bookmark</a>
+                                        {% endif %}
                                         <a class="dropdown-item" href="#"><i class="fa fa-exclamation-triangle" style="color: #E57851;"></i> Report</a>
                                       
                                       </div>
@@ -347,6 +352,17 @@
                                                 <i class="fa fa-trash fa2"></i> Delete
                                             </div>
                                         </a>
+                                        {% else %}
+                                        <a href="#" class="btn btn-sm">
+                                            <div class=" ml-2 mr-2" style="font-size: 13px;">
+                                                <i class="fa fa-share-alt"></i> Share
+                                            </div>
+                                        </a>
+                                        <a href="#" class="btn btn-sm">
+                                            <div class=" ml-2 mr-2" style="font-size: 13px;">
+                                                <i class="fa fa-bookmark fa2"></i> Bookmark
+                                            </div>
+                                        </a>
                                         {% endif %}
                                     
                                         
@@ -395,7 +411,10 @@
                                     <div>
                                         <a class=" mt-1 ml-1 btn btn-sm d-flex justify-content-center align-items-center rounded-circle" style="width:20px;height:20px;" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
                                     <div class="dropdown-menu dropdown-menu-right" style="font-size: 12px;" aria-labelledby="dropdownMenuLink">
+                                        {% if request.user == i.video.user %}
                                         <a class="dropdown-item" href="#"><i class="fa fa-share-alt" style="color: #E57851;"></i> Share</a>
+                                        <a class="dropdown-item" href="#"><i class="fa fa-bookmark-o fa2" style="color: #E57851;"></i> Bookmark</a>
+                                        {% endif %} 
                                         <a class="dropdown-item" href="#"><i class="fa fa-exclamation-triangle" style="color: #E57851;"></i> Report</a>
                                       
                                       </div>
@@ -473,6 +492,17 @@
                                         <a href="#" class="btn btn-sm">
                                             <div class=" ml-2 mr-2" style="font-size: 13px;">
                                                 <i class="fa fa-trash fa2"></i> Delete
+                                            </div>
+                                        </a>
+                                        {% else %}
+                                        <a href="#" class="btn btn-sm">
+                                            <div class=" ml-2 mr-2" style="font-size: 13px;">
+                                                <i class="fa fa-share-alt"></i> Share
+                                            </div>
+                                        </a>
+                                        <a href="#" class="btn btn-sm">
+                                            <div class=" ml-2 mr-2" style="font-size: 13px;">
+                                                <i class="fa fa-bookmark fa2"></i> Bookmark
                                             </div>
                                         </a>
                                         {% endif %}
@@ -801,8 +831,8 @@
 
     <!--Modals-->
 
-    <div class="modal fade" id="Post" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal fade bd-example-modal-lg" id="Post" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
           <div class="modal-content border-0">
               <div class="modal-header p-3 d-flex justify-content-between align-items-center" style="background-color: #FBFAF9;">
                 <div class="d-flex justify-content-start align-items-center">
@@ -818,47 +848,58 @@
                    </div>
               </div>
             <div class="modal-body">
-                <form method="POST" enctype="multipart/form-data">
-                    <textarea id="editor" style="font-size: 12px; border:none; outline:none;" name="post_content"></textarea>
-                    <div style="width:100%; height:100px; display: none;" class="border mt-2" id="post_file_box" >
-                        <div id="photo_image" style="display: none;">
-                            Image
+                <form method="POST" id="PostUploadForm" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <textarea placeholder="Write here..." class="editor" style="font-size: 12px; border:none; "  name="post_content"></textarea>
+                    <input type="text" name="post_tags" class="form-control border mt-2" placeholder="Add comma (,) seperated tags..." style="font-size: 12px;">
+                    <div style="width:100%; height:100px; display: none;" class="border mt-2 rounded" id="post_image_uploader" >
+                        <div class="" style="cursor:pointer;">
+                            <img src="/static/svg/undraw_image_upload_wqh3.svg" style=" position: absolute; width:110px; text-align: center; margin-left: auto; margin-right:auto; left:0; right:0; margin-top: 16px; ">
+                            <input type="file" name="post_photo_files" multiple id="image_photo_upload" style="cursor: pointer;" class="form-control image_photo_uploader" accept="image/*">
                         </div>
-                        <div id="photo_video"  style="display: none;">
-                            Video
+                    </div>
+                    <div style="width:100%; height:100px;display: none;" class="border mt-2 rounded" id="post_video_uploader" >
+                        <div class="" style="cursor:pointer;">
+                            <img src="/static/svg/undraw_video_upload_3d4u.svg" style=" position: absolute; width:70px; text-align: center; margin-left: auto; margin-right:auto; left:0; right:0; margin-top: 16px; ">
+                            <input type="file"  accept="video/*" name="post_video_file" style="cursor: pointer;" class="form-control image_photo_uploader">
                         </div>
-                        <div id="photo_attachment"  style="display: none;">
-                            Attachment
+                    </div>
+                    <div style="width:100%; height:100px;display: none;" class="border mt-2 rounded" id="post_file_uploader" >
+                        <div class="" style="cursor:pointer;">
+                            <img src="/static/svg/undraw_file_sync_ot38.svg" style=" position: absolute; width:70px; text-align: center; margin-left: auto; margin-right:auto; left:0; right:0; margin-top: 16px; ">
+                            <input type="file"  accept="video/*" name="post_doc_file" style="cursor: pointer;" class="form-control image_photo_uploader">
                         </div>
-                        <div id="photo_gif"  style="display: none;">
-                            GIF
-                        </div>
+                    </div>
+                    <div style="width:100%; height:100px;display: none;" class="border mt-2" id="post_gif_uploader" >
+                        
                     </div>
                     <div class="d-flex justify-content-start align-items-center mt-2">
                         
-                        <div title="Attach a photo" data-toggle="tooltip">
-                            <a href="#" onclick="show_post_photo()" class="btn btn-sm" style="color:#E57851"><i class="fa fa-photo"></i></a>
+                        <div title="Attach a photo" data-toggle="tooltip" >
+                            <a href="#" id="post_photo_id" onclick="show_post_photo()" class="btn btn-sm" style="color:#E57851"><i class="fa fa-photo"></i></a>
                         </div>
-                        <div title="Attach a video" data-toggle="tooltip">
-                            <a href="#"  onclick="show_post_video()" class="btn btn-sm" ><i class="fa fa-video-camera fa2"></i></a>
+                        <div title="Attach a video" data-toggle="tooltip" >
+                            <a href="#" id="post_video_id"  onclick="show_post_video()" class="btn btn-sm" ><i class="fa fa-video-camera fa2"></i></a>
                         </div>
-                        <div title="Attach a document" data-toggle="tooltip">
-                            <a href="#"  onclick="show_post_document()" class="btn btn-sm" ><i class="fa fa-file fa2"></i></a>
+                        <div title="Attach a document" data-toggle="tooltip" >
+                            <a href="#"  id="post_document_id" onclick="show_post_document()" class="btn btn-sm" ><i class="fa fa-file fa2"></i></a>
                         </div>
                   
-                        <div title="Post a GIF" data-toggle="tooltip" style="margin-top: -5px;">
-                            <a href="#"  onclick="show_post_gif()" class=" ml-2 rounded  " style="font-size: 10px; border:1px solid #E57851; color: #E57851; padding:3px;" >GIF</a>
+                        <div title="Post a GIF" data-toggle="tooltip" style="margin-top: -5px;" >
+                            <a href="#" id="post_gif_id"  onclick="show_post_gif()" class=" ml-2 mt-1 rounded btn btn-sm" style="font-size: 10px; border:1px solid #E57851; color: #E57851; padding:2px;" >GIF</a>
                         </div>
                         
                     </div>
 
                     <div class="d-flex justify-content-end">
-                       
+                        <div class="d-flex align-items-center" id="post_loader" >
+                            <i class="fa fa-spinner fa-spin" id="post_loader_spinner" style="color: #E57851;display: none;"></i>
+                        </div> 
                         <div>
                             <a class="btn btn-sm text-muted close mt-1" data-dismiss="modal" aria-label="Close" style="font-size: 12px;">Cancel</a>
                         </div>
                         <div>
-                            <a class="btn btn-sm text-white" style="border-radius:20px; background-color:#E57851; font-size: 12px;"><i class="fa fa-paper-plane"></i> Post Update</a>
+                            <button type="submit" class="btn btn-sm text-white" style="border-radius:20px; background-color:#E57851; font-size: 12px;"><i class="fa fa-paper-plane"></i> Post Update</button>
                         </div>
                     </div>
                 </form>
@@ -958,64 +999,66 @@
 {% block script %}
 <script>
     
-    function check(value){
-        if (document.getElementById("post_file_box").style.display == 'none'){
-            document.getElementById("post_file_box").style.display = "block";
+   
+    function show_post_photo(){
+        if(document.getElementById('post_image_uploader').style.display == 'block'){
+        document.getElementById('post_image_uploader').style.display = 'none';
+        document.getElementById('post_video_id').classList.remove("disabled");
+        document.getElementById('post_document_id').classList.remove("disabled");
+        document.getElementById('post_gif_id').classList.remove("disabled");
         }
         else{
-            if(document.getElementById('photo_image').style.display == 'block')
-            {document.getElementById("post_file_box").style.display = "none";}
-            else if (document.getElementById('photo_image').style.display == 'none'){
-                document.getElementById('photo_image').style.display = 'block';
-            }
-            else if(document.getElementById('photo_video').style.display == 'block')
-            {document.getElementById("post_file_box").style.display = "none";}
-            else if (document.getElementById('photo_video').style.display == 'none'){
-                document.getElementById('photo_video').style.display = 'block';
-            }
-            else if(document.getElementById('photo_attachment').style.display == 'block')
-            {document.getElementById("post_file_box").style.display = "none";}
-            else if (document.getElementById('photo_attachment').style.display == 'none'){
-                document.getElementById('photo_attachment').style.display = 'block';
-            }
-            else if(document.getElementById('photo_gif').style.display == 'block')
-            {document.getElementById("post_file_box").style.display = "none";}
-            else if (document.getElementById('photo_gif').style.display == 'none'){
-                document.getElementById('photo_gif').style.display = 'block';
-            }
-            
+        document.getElementById('post_image_uploader').style.display = 'block';
+        document.getElementById('post_video_id').classList.add("disabled");
+        document.getElementById('post_document_id').classList.add("disabled");
+        document.getElementById('post_gif_id').classList.add("disabled");
         }
-    }
-    function show_post_photo(){
-        check(1);
-        document.getElementById('photo_image').style.display = 'block';
-        document.getElementById('photo_video').style.display = 'none';
-        document.getElementById('photo_attachment').style.display = 'none';
-        document.getElementById('photo_gif').style.display = 'none';
+        
     }
     function show_post_video(){
-        check(2);
-        document.getElementById('photo_image').style.display = 'none';
-        document.getElementById('photo_video').style.display = 'block';
-        document.getElementById('photo_attachment').style.display = 'none';
-        document.getElementById('photo_gif').style.display = 'none';
+        if(document.getElementById('post_video_uploader').style.display == 'block'){
+        document.getElementById('post_video_uploader').style.display = 'none';
+        document.getElementById('post_photo_id').classList.remove("disabled");
+        document.getElementById('post_document_id').classList.remove("disabled");
+        document.getElementById('post_gif_id').classList.remove("disabled");
+        }
+        else{
+        document.getElementById('post_video_uploader').style.display = 'block';
+        document.getElementById('post_photo_id').classList.add("disabled");
+        document.getElementById('post_document_id').classList.add("disabled");
+        document.getElementById('post_gif_id').classList.add("disabled");
+        }
     }
     function show_post_document(){
-        check(3);
-        document.getElementById('photo_image').style.display = 'none';
-        document.getElementById('photo_video').style.display = 'none';
-        document.getElementById('photo_attachment').style.display = 'block';
-        document.getElementById('photo_gif').style.display = 'none';
+        if(document.getElementById('post_file_uploader').style.display == 'block'){
+        document.getElementById('post_file_uploader').style.display = 'none';
+        document.getElementById('post_video_id').classList.remove("disabled");
+        document.getElementById('post_photo_id').classList.remove("disabled");
+        document.getElementById('post_gif_id').classList.remove("disabled");
+        }
+        else{
+        document.getElementById('post_file_uploader').style.display = 'block';
+        document.getElementById('post_video_id').classList.add("disabled");
+        document.getElementById('post_photo_id').classList.add("disabled");
+        document.getElementById('post_gif_id').classList.add("disabled");
+        }
     }
     function show_post_gif(){
-        check(4);
-        document.getElementById('photo_image').style.display = 'none';
-        document.getElementById('photo_video').style.display = 'none';
-        document.getElementById('photo_attachment').style.display = 'none';
-        document.getElementById('photo_gif').style.display = 'block';
+        if(document.getElementById('post_gif_uploader').style.display == 'block'){
+        document.getElementById('post_gif_uploader').style.display = 'none';
+        document.getElementById('post_video_id').classList.remove("disabled");
+        document.getElementById('post_document_id').classList.remove("disabled");
+        document.getElementById('post_photo_id').classList.remove("disabled");
+        }
+        else{
+        document.getElementById('post_gif_uploader').style.display = 'block';
+        document.getElementById('post_video_id').classList.add("disabled");
+        document.getElementById('post_document_id').classList.add("disabled");
+        document.getElementById('post_photo_id').classList.add("disabled");
+        }
     }
     ClassicEditor
-        .create( document.querySelector( '#editor' ) )
+        .create( document.querySelector( '.editor' ) )
         .catch( error => {
             console.error( error );
         } );
@@ -1118,6 +1161,47 @@ $(document).ready(function (e) {
   
 });
 
+// ------------------- Post Upload Form -----------------------
+
+$(document).ready(function (e) {
+    $('#PostUploadForm').on('submit',(function(e) {
+        document.getElementById('post_loader_spinner').style.display="block";
+        
+        e.preventDefault();
+        document.getElementById('loader').style.display = 'block';
+        document.getElementById('loader_bar').style.display = 'block';
+        $.ajax({
+            type:'POST',
+            url: '/post/upload/list/',
+            data:new FormData($('#VideoUploadForm')[0]),
+            processData: false,
+    contentType: false,
+            success:function(data){
+                document.getElementById("video_loader").innerHTML = "<span class='badge badge-sm badge-success'>Posted Successfully!!</span>";
+                $('#Video').modal('hide');
+                data = JSON.parse(data);
+                if(data == 'Success'){
+                    var notfy = new Notyf();
+                    
+                    notfy.success("You uploaded post successfully!")
+                }
+                else{
+                    var notfy = new Notyf();
+                    notfy.warning("Some eror occurred!")
+                }
+                document.getElementById('loader').style.display = 'none';
+                document.getElementById('loader_bar').style.display = 'none';
+                
+            },
+            error: function(data){
+                console.log("error");
+                console.log(data);
+            }
+        });
+    }));
+
+  
+});
               
 function myFunction() {
     var input, filter, cards, cardContainer, h5, title, i;

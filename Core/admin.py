@@ -22,4 +22,6 @@ admin.site.register(Photo)
 admin.site.register(Photo_Image)
 admin.site.register(Homepage_Activity)
 admin.site.register(Video)
+admin.site.register(Post)
+admin.site.register(Post_Image)
 
