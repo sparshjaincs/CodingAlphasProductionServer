@@ -10,4 +10,8 @@ urlpatterns = [
      path("photo/upload/list/",views.photo_upload,name="photo_upload"),
      path("video/upload/list/",views.video_upload,name="video_upload"),
      path("post/upload/list/",views.post_upload,name="post_upload"),
+     path("settings/",views.settings,name="settings"),
+     path("notifications/",views.notifications,name="notifications"),
+     path("bookmarks/",views.bookmarks,name="bookmarks"),
+     path("activities/<method>/<value>/",views.activities,name="activities"),
 ]

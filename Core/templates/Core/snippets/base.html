@@ -69,7 +69,7 @@
         .fa3{
             color: transparent;
             -webkit-text-stroke-width:1px;
-            -webkit-text-stroke-color:#C42D63;
+            -webkit-text-stroke-color:#546E7A;
         }
         .tag{
     font-size:12px; 
@@ -81,7 +81,7 @@
     background-color:#E57851;
 }
         .pulse{
-            box-shadow: 0 0 0 rgba(196,45,99, 0.4);
+            box-shadow: 0 0 0 rgba(229,120,81, 0.4);
             animation: pulse 2s 1;
             border-radius:50%;
         }
@@ -156,7 +156,7 @@
 
 function like1(method,instance,value,count,discount,oppo){
         var element = document.getElementById(value);
-        var diselem = document.getElementById(oppo);
+        var diselem = document.getElementById(discount);
         $.ajax({
                     type: "GET",
                     data: {
@@ -171,13 +171,14 @@ function like1(method,instance,value,count,discount,oppo){
                             element.classList.remove('pulse');
                         }
                         else{
-                           element.style['-webkit-text-stroke-color'] = "#C42D63";
+                           element.style['-webkit-text-stroke-color'] = "#E57851";
+                      
                            element.classList.add('pulse'); 
                         }
                         diselem.style['-webkit-text-stroke-color'] = "#546E7A";
                         diselem.classList.remove('pulse');
                             document.getElementById(count).innerHTML = data[1];
-                            document.getElementById(discount).innerHTML = data[2];
+                            document.getElementById(oppo).innerHTML = data[2];
                         
                         
                     }
@@ -187,7 +188,7 @@ function like1(method,instance,value,count,discount,oppo){
 
     function dislike1(method,instance,value,count,discount,oppo){
         var element = document.getElementById(value);
-        var diselem = document.getElementById(oppo);
+        var diselem = document.getElementById(discount);
         $.ajax({
                     type: "GET",
                     data: {
@@ -202,13 +203,13 @@ function like1(method,instance,value,count,discount,oppo){
                             element.classList.remove('pulse')
                         }
                         else{
-                           element.style['-webkit-text-stroke-color'] = "#C42D63";
+                           element.style['-webkit-text-stroke-color'] = "#E57851";
                            element.classList.add('pulse'); 
                         }
                         diselem.style['-webkit-text-stroke-color'] = "#546E7A";
                         diselem.classList.remove('pulse');
                             document.getElementById(count).innerHTML = data[1];
-                            document.getElementById(discount).innerHTML = data[2];
+                            document.getElementById(oppo).innerHTML = data[2];
                           
                         
                     }

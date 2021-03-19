@@ -110,5 +110,17 @@ def extension(value):
     elif val == 'xlsx':
         data = 'Spreadsheet'
     else:
-        data = val.capitalize()
+        data = val.lower()
     return data
+@register.filter
+def check_extension(value):
+    val = str(value).split(".")[-1]
+    x = ['py','html','htm','css','js','c','cpp','java','txt']
+    return True if val in x else False
+
+@register.filter
+def fetch(value):
+    fp = open(f'media/{value}','r')
+    val = fp.read()
+    fp.close()
+    return val

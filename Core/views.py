@@ -74,9 +74,22 @@ def like(request):
             status = 1  
         likecount = ins.like.all().count()  
         dislikecount = ins.dislike.all().count()
+    elif method == 'post':
+        ins = Post.objects.get(id = instance)
+        if request.user in ins.like.all():
+            ins.like.remove(request.user)
+            status = 0
+        else:
+            ins.like.add(request.user)
+            if request.user in ins.dislike.all():
+                ins.dislike.remove(request.user)
+            status = 1
+        likecount = ins.like.all().count()  
+        dislikecount = ins.dislike.all().count()
 
 
-    return HttpResponse(json.dumps([status,likecount,dislikecount]))
+
+    return HttpResponse(json.dumps([status,str(likecount)+" Likes",str(dislikecount)+" Dislikes"]))
 
 
 def dislike(request):
@@ -118,7 +131,19 @@ def dislike(request):
             status = 1
         dislikecount = ins.dislike.all().count()
         likecount = ins.like.all().count() 
-    return HttpResponse(json.dumps([status,dislikecount,likecount]))
+    elif method == 'post':
+        ins = Post.objects.get(id = instance)
+        if request.user in ins.dislike.all():
+            ins.dislike.remove(request.user)
+            status = 0
+        else:
+            ins.dislike.add(request.user)
+            if request.user in ins.like.all():
+                ins.like.remove(request.user)
+            status = 1
+        likecount = ins.like.all().count()  
+        dislikecount = ins.dislike.all().count()
+    return HttpResponse(json.dumps([status,str(dislikecount)+" Dislikes",str(likecount)+" Likes"]))
 
 
 def follow(request):
@@ -170,6 +195,9 @@ def profile(request,user):
     elif method == 'Articles':
         context['method'] = 'Articles'
         context['home'] = Homepage_Activity.objects.filter(user = request.user,category = 'Blog').order_by('-id')
+    elif method == 'Post':
+        context['method'] = 'Post'
+        context['home'] = Homepage_Activity.objects.filter(user = request.user,category = 'Post').order_by('-id')
     else:
         context['method'] = method
     context['article'] = Articles.objects.filter(user_name2 = request.user).order_by('-date_Publish','-time')
@@ -231,5 +259,20 @@ def post_upload(request):
         return HttpResponse(json.dumps("Success"))
     else:
        return HttpResponse(json.dumps("Error"))
+
+def settings(request):
+    return render(request,'Core/settings.html')
+
+
+def notifications(request):
+    return render(request,'Core/notifications.html')
+
+
+def bookmarks(request):
+    return render(request,'Core/bookmarks.html')
+
+
+def activities(request,method,value):
+    return render(request,'Core/activities.html')
 
 
