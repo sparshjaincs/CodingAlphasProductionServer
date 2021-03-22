@@ -1,6 +1,6 @@
 {% extends 'Core/snippets/base.html' %}
 {% load static%}
-
+{% load crispy_forms_tags %}
 {% block style%}
 .overlay{
     filter: brightness(50%); 
@@ -37,11 +37,92 @@ label{
 .form-group input{
     font-size:14px;
 }
+#hint_id_password1{
+    display:none;
+}
+#hint_id_password2{
+    display:none;
+}
 
+.animate1{
+    animation:example 5s infinite;
+ left:0;
+}
+@keyframes example {
+    0%{
+        top:280px;
+    }
+    50%{
+        top:300px;
+    }
+    100%{
+        top:280px;
+    }
+
+  }
+.animate2{
+    animation:example1 8s infinite;
+    
+ 
+}
+@keyframes example1 {
+    0%{
+        top:220px;
+    }
+    50%{
+        top:250px;
+    }
+    100%{
+        top:220px;
+    }
+
+  }
+
+  .animate3{
+    animation:example3 5s infinite;
+ 
+}
+@keyframes example3 {
+    0%{
+       top:0px;
+    }
+    50%{
+        top:20px;
+    }
+    100%{
+        top:0px;
+    }
+
+  }
+
+  .animate4{
+    animation:example4 6s infinite;
+ 
+}
+@keyframes example4 {
+    0%{
+       top:0px;
+    }
+    50%{
+        top:25px;
+    }
+    100%{
+        top:0px;
+    }
+
+  }
+
+  .hex1::before {
+    -webkit-transform: rotate(-30deg);
+    -moz-transform: rotate(-30deg);
+    -o-transform: rotate(-30deg);
+    transform: rotate(-30deg);
+  }
+ 
 {% endblock %}
 {% block body %}
-<div class="section " >
-   <div class="container pt-5 ">
+<div class="section " style="background-color:#fff;" >
+   <div class="container pt-5 pb-5">
     <div class="row">
     
         <div class="col-sm-12 col-md-12 col-lg-6 pb-5 ">
@@ -82,44 +163,43 @@ label{
                <center> Online Community Where Developers Share Their Knowledge, Practise, Learn and Grow their Careers.</center>
             </div>
         <div class="tab-content mt-3">        
-          <div class="container-fluid drivers-main tab-pane active" id="driver-details-tab" role="tabpanel">
-                <form>
+          <div class="container-fluid drivers-main tab-pane{% if messages.flag != 1 %} active {% endif %}" id="driver-details-tab" role="tabpanel">
+            {% if messages %}
+            <div class="messages">
+                {% for message in messages %}
+                <p  {% if message.tags %} class="alert alert-danger " {% endif %}> {{ message }} </p>
+                {% endfor %}
+            </div>
+            {% endif %}    
+            <form method="POST">
                     {% csrf_token %}
 
                   
                         <div class="form-group row">
                             <div class="col-6">
-                                <label for="exampleInputEmail1">First Name</label>
-                                <input type="text" class="form-control" id="first_name" aria-describedby="emailHelp" required>
+                           
+                                {{form.first_name|as_crispy_field}}
                                  
                             </div>
                             <div class="col-6">
-                                <label for="exampleInputEmail1">Last Name</label>
-                                <input type="text" class="form-control" id="last_name" aria-describedby="emailHelp" required >
-                                 
+                                {{form.last_name|as_crispy_field}}
                             </div>
                          </div>
                         <div class="form-group row">
                             <div class="col-12">
-                                <label for="exampleInputEmail1">Email address</label>
-                                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
-                                
+                                {{form.email|as_crispy_field}}
                             </div>
                             
                         </div>
                         <div class="form-group row">
                             <div class="col-12">
-                                <label for="exampleInputPassword1">Password</label>
-                                <input type="password" class="form-control" id="exampleInputPassword1"required >
-                            </div>
+                                {{form.password1|as_crispy_field}} </div>
                             
                         </div>
                         <div class="form-group row">
                             <div class="col-12">
-                                <label for="exampleInputPassword1">Confirm Password</label>
-                                <input type="password" class="form-control" id="exampleInputPassword2" required>
-                            </div>
-                            
+                                {{form.password2|as_crispy_field}} </div>
+                            <div class="registrationFormAlert ml-3 mt-1" style="color:#E57851; font-size: 12px;" id="CheckPasswordMatch"></div>
                         </div>
                         
                        <div style=" font-size:12px;" class="text-muted">
@@ -128,19 +208,25 @@ label{
                      
                        </div>
                         <center>
-                            <button type="submit" class="btn mt-3" style="background-color: #E57851; color: #fff; font-size: 12px;">Sign Up <i class="fa fa-arrow-right"></i></button>
+                            <button formaction="/signingup/" type="submit" class="btn mt-3" style="background-color: #E57851; color: #fff; font-size: 12px;">Sign Up <i class="fa fa-arrow-right"></i></button>
                         </center>
                     
                 </form>
           </div>
-          <div class="container-fluid drivers-main tab-pane " id="erer" role="tabpanel"> 
-
-            <form>
+          <div class="container-fluid drivers-main tab-pane {% if messages.flag == 1 %} active {% endif %}" id="erer" role="tabpanel"> 
+            {% if messages %}
+            <div class="messages">
+                {% for message in messages %}
+                <p  {% if message.tags %} class="alert alert-danger " {% endif %}> {{ message }} </p>
+                {% endfor %}
+            </div>
+            {% endif %}
+            <form method="POST">
                 {% csrf_token %}
                 <div class="form-group row">
                     <div class="col-12">
-                        <label for="exampleInputEmail1">Email address</label>
-                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+                        <label for="exampleInputEmail1">Username</label>
+                        <input type="text" name="signinuser"class="form-control" id="signinexampleInputEmail1" aria-describedby="emailHelp" required>
                         
                     </div>
                     
@@ -148,7 +234,7 @@ label{
                 <div class="form-group row">
                     <div class="col-12">
                         <label for="exampleInputPassword1">Password</label>
-                        <input type="password" class="form-control" id="exampleInputPassword1"required >
+                        <input type="password" name="siginpassword" class="form-control" id="signinexampleInputPassword1"required >
                     </div>
                     
                 </div>
@@ -157,7 +243,7 @@ label{
                        <a href="#">Forgot Password?</a>
                    </div>
                     <center>
-                        <button type="submit" class="btn mt-3" style="background-color: #E57851; color: #fff; font-size: 12px;">Sign In <i class="fa fa-arrow-right"></i></button>
+                        <button  formaction="/signin/"  type="submit" class="btn mt-3" style="background-color: #E57851; color: #fff; font-size: 12px;">Sign In <i class="fa fa-arrow-right"></i></button>
                     </center>
             </form>
           </div>
@@ -169,15 +255,123 @@ label{
     </div>
 </div>
 </div>
-<div class="section" style="background: #fff;">
+<div class="section" style=" min-height: 1000px;   z-index:-100; ">
     <div class="container">
-        <div class="row mt-5">
-            <div class="col-12 mb-3 mt-3">
-                <div style="font-size: 14px; color:rgb(0,0,0,0.3); font-weight: 600;">
-                   <i class="fa fa-bar-chart " style=" color:rgb(0,0,0,0.2);"></i> Trending on CodingAlphas
+
+        <div class="row mt-5 pt-5 pb-5">
+            
+            <div class="col-12 col-md-12 col-lg-12 mt-4 ">
+                <div class="card border-0" style="background: none;">
+                    <div class="card-body ">
+                        <div class="d-flex justify-content-center">
+                          
+                            <img src="{% static 'svg/content.svg' %}" style="width:100%; height:200px;">
+                          
+                        </div>
+                       <div class="title d-flex justify-content-center mt-3">
+                        <h4 style="font-weight: 600;color: #1ACCED;">Start a Devleoper Blog</h4>
+                       </div>
+                       <div style="color: rgb(0,0,0,0.2); text-align:center;" class="">
+                      
+                            We offer everything you need to start blogging as a developer. CodingAlphas is a platform that allows you to 
+                            read, write, share articles as per your on convenience and helps you to stay connected with other developers too.
+                      
+                      
+                        
+                 
+                </div>
+                       <div class="mt-1 d-flex justify-content-center">
+                           <a class="btn btn-sm" style="background: #1ACCED; font-size: 12px; color: white;">Start Writing <i class="fa fa-arrow-right"></i></a>
+                       </div>
+                    </div>
+                </div>
+       </div>
+
+       <div class="col-12 col-md-12 col-lg-12" style="margin-top: 150px;">
+                <div class="card border-0" style="background: none;">
+                    <div class="card-body ">
+                        <div>
+                            <img src="{% static 'svg/content.svg' %}" style="width:100%; height:200px;">
+                        </div>
+                       <div class="title d-flex justify-content-center mt-3">
+                           <center>
+
+                            <h4 style="font-weight: 600;color: #1DA09C;">Share Your Ideas, Thoughts, Views With Other Developer.  </h4>
+                       
+                           </center>
+                        </div>
+                       <div style="color: rgb(0,0,0,0.2);">
+                   <center>
+                    We provide environment where you can share videos, images, post, ideas, thoughts, opinion, views, documents with other community members. Show your skills and help other members to solve their problems. 
+              
+                   </center> 
+                </div>
+                       <div class="mt-2 d-flex justify-content-center">
+                           <a class="btn btn-sm" style="background: #1DA09C; font-size: 12px; color: white;">Share Now <i class="fa fa-arrow-right"></i></a>
+                       </div>
+                    </div>
+                </div>
+       </div>
+       <div class="col-12 col-md-12 col-lg-12 " style="margin-top: 150px;">
+        <div class="card border-0" style="background: none;">
+            <div class="card-body ">
+                <div class="badge badge-sm p-1 pl-2 pr-2" style="position: absolute; background: #E57851; color: white; font-size: 10px; border-radius: 20px; right:0;">
+                    Comming Soon
+                </div>
+                <div>
+                    <img src="{% static 'svg/learn.svg' %}" style="width:100%; height:200px;">
+                </div>
+               <div class="title d-flex justify-content-center mt-3">
+                <h4 style="font-weight: 600;color: #E57851">Practice, Learn, Discuss, and Grow </h4>
+               </div>
+               <div style="color: rgb(0,0,0,0.2);">
+           <center>
+           We offer 100+ coding questions for you to practice. Learn the best approach to master the coding skill which helps you to grow and survive in the IT world.
+           Particiapte in our contest to challange yourself and earn rewards.
+           </center> 
+        </div>
+               <div class="mt-2 d-flex justify-content-center">
+                   <a class="btn btn-sm" style="background: #E57851; font-size: 12px; color: white;">Start Practice <i class="fa fa-arrow-right"></i></a>
+               </div>
+            </div>
+        </div>
+</div>
+       <div class="col-12 col-md-12 col-lg-12 " style="margin-top: 100px;">
+        <div class="card border-0" style="background: none;">
+            <div class="card-body ">
+                
+                <div>
+                    <img src="{% static 'svg/activity.svg' %}" style="width:100%; height:200px;">
+                </div>
+                <div class="title d-flex justify-content-center mt-3">
+                   <center> <h4 style="font-weight: 600;color: #BEE094;">Contribute and Anwser to Technical Challanges.</h4></center>
+                   </div>
+                   <div style="color: rgb(0,0,0,0.2);">
+               <center>
+                We offer everything you need to start blogging as a developer. CodingAlphas is a platform that allows you to 
+                read, write, share articles as per your on convenience and helps you to stay connected with other developers too.
+          
+               </center> 
+            </div>
+                   <div class="mt-2 d-flex justify-content-center">
+                       <a class="btn btn-sm" style="background: #BEE094; font-size: 12px; color: white;">Contribute or Anwser <i class="fa fa-arrow-right"></i></a>
+                   </div>
+            </div>
+        </div>
+</div>
+    </div>
+   
+    </div>
+</div>
+<div class="section">
+    <div class="container">
+        <div class="row mt-5 mb-5">
+            <div class="col-12 mt-5">
+                <div style="font-size: 14px; font-weight: 600; color: #3C3C3C;">
+                    <i class="fa fa-bar-chart " style="color:#E57851; font-size: 20px;"></i> Trending on Coding<span style="color: #E57851;">Alphas</span>
                 </div>
             </div>
-            <div class="col-sm-12 col-md-12 col-lg-8">
+            <div class="col-sm-12 col-md-12 col-lg-8 mt-4">
                 <div class="card mt-3 border-0" style="background: none;">
                    
                     <div class="card-body p-0">
@@ -191,7 +385,7 @@ label{
                            <div class="col-12 col-md-12 col-lg-8">
                             <div>
          
-                                <div style="color:#292929; font-size:18px;font-weight: 600;" class="mt-2">
+                                <div style="color:#3C3C3C; font-size:18px;font-weight: 600;" class="mt-2">
                                     What Your Music Preference Says About You and Your Personality.
                                 </div>
                                 <div class="text-muted" style="font-size: 13px; ">
@@ -214,22 +408,41 @@ label{
                            </div>
 
 
-                           <!--
-                                
-                        <div class=" d-flex justify-content-between">
-                       
-                        
-                           -->
                        </div>
                         
                     </div>
                     </div>
                     
                 </div>
+        </div>
+    </div>
+</div>
+<div class="section">
+    <div class="container">
+        <div class="row mt-5">
+            <div class="col-12 col-md-12 col-lg-2">
+
+            </div>
+            <div class="col-12 col-md-12 col-lg-8 mt-5">
+                <div class="mt-3 d-flex justify-content-center">
+                    <h2 style="  color:#3C3C3C;  font-size: 1.575rem; font-weight:600;line-height: 45px; letter-spacing: 0.5px;">
+                        <span style="font-size: 30px; font-weight: 800;">C</span>oding<span style="color:#E57851;"><span style="font-size: 30px;">A</span>lphas</span>
+           
+                    </h2>
+                    
+                </div>
+                <div class="title d-flex justify-content-center ">
+                    <center> <h5 style="font-weight: 600;color:#3C3C3C; ">Made with <i class="fa fa-heart" style="color:#C62828"></i> in India.</h5></center>
+                    </div>
+
+                    
             </div>
         </div>
     </div>
 </div>
+<!--
+     
+-->
 {% endblock %}
 {% block script %}
 <script>
@@ -276,43 +489,16 @@ label{
   });
 })(jQuery);
 
-      var myNav = document.getElementById('mynav');
-    var nav_link = document.getElementsByClassName('nav-link');
-   
-   
-    window.onscroll = function () { 
-    if (document.body.scrollTop >= 150 || document.documentElement.scrollTop >= 150) {
-        if(document.body.scrollTop >= 200 || document.documentElement.scrollTop >=200){
-        
-           
-        }
-       
-      
-        myNav.style.background="white";
-        this.myNav.style.transition = ".5s linear";
-        var nav_brand= document.getElementsByClassName('brand')[0].style.color='#2A2D2E';
-        for(i=0;i<=this.nav_link.length;i++){
-            this.nav_link[i].style.color='#2A2D2E';
-
-        }
-
-
- 
-        
-    } 
-  
-    else {
-        myNav.style.background="none";
-        var nav_brand= document.getElementsByClassName('brand')[0].style.color='white';
-        for(i=0;i<=this.nav_link.length;i++){
-            this.nav_link[i].style.color='white';
-        }
-       
-       
+function checkPasswordMatch() {
+        var password = $("#id_password1").val();
+        var confirmPassword = $("#id_password2").val();
+        if (password != confirmPassword)
+            $("#CheckPasswordMatch").html("Passwords does not match!");
+        else
+            $("#CheckPasswordMatch").html("Passwords match.");
     }
-    
-      
-};
-
+    $(document).ready(function () {
+       $("#id_password2").keyup(checkPasswordMatch);
+    });
 </script>
 {% endblock %}

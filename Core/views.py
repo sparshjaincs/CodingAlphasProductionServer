@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 import json
 from discuss.models import Quora
 from discuss.models import Anwsers as AnsModel
@@ -37,7 +37,8 @@ def homepage(request):
 
         return render(request,"Core/homepage.html",context)
     else:
-        return render(request,"Core/newhomepage.html")
+        context['form'] = SignUpForm()
+        return render(request,"Core/newhomepage.html",context)
 
 def like(request):
     method = request.GET.get('method')
@@ -295,4 +296,40 @@ def ajax_news(request):
     feed = ParseFeed(topic)
     data = feed.parse()
     return HttpResponse(json.dumps(data))
+
+def signin(request):
+    if request.method == 'POST':
+        username = request.POST.get('signinuser')
+        password = request.POST.get('siginpassword')
+        print("hello")
+        print(username,password)
+        user = authenticate(username = username,password = password)
+        if user is not None:
+            login(request,user)
+            return HttpResponseRedirect('/')
+        else:
+
+      
+            messages.error(request,"Username and Password are Incorrect!")
+
+            return HttpResponseRedirect('/')
+def signingup(request):
+    if request.method == 'POST':
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            user = form.save(commit = False)
+            user.username = form.cleaned_data['email'].split("@")[0]
+            user.save()
+            user.refresh_from_db()
+            user.profile.first_name = form.cleaned_data['first_name']
+            user.profile.last_name = form.cleaned_data['last_name']
+            user.profile.email = form.cleaned_data['email']
+            user.save()
+            raw_password = form.cleaned_data.get('password1')
+            user = authenticate(username=user.username, password=raw_password)
+            login(request, user)
+            return HttpResponseRedirect('/')
+        else:
+            messages.error(request,form.errors)
+            return HttpResponseRedirect("/")
 

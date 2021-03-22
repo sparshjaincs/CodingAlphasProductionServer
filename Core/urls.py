@@ -17,4 +17,6 @@ urlpatterns = [
      path("analytics/",views.analytics,name="analytics"),
      path("news/<topic>/",views.news,name="news"),
      path("news/ajax/fetch",views.ajax_news,name="ajax_news"),
+     path("signin/",views.signin,name="signin"),
+     path("signingup/",views.signingup,name="signingup"),
 ]
