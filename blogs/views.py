@@ -4,7 +4,7 @@ from django.http import HttpResponseRedirect
 from django.forms.models import model_to_dict
 from Core.models import Homepage_Activity
 # Create your views here.
-def homepage(request):
+def blog(request):
     context = {}
     data = Articles.objects.filter(status = 'published').order_by('-date_Publish','-time')
     if len(data) < 7:
@@ -24,6 +24,10 @@ def homepage(request):
 
     return render(request,'blogs/homepage.html',context)
 
+def inside(request,user,title,ids):
+    context = {}
+    context['data'] = Articles.objects.get(id = ids)
+    return render(request,'Blogs/inside.html',context)
 def create(request):
     context = {}
     if request.method == 'POST':
@@ -31,75 +35,37 @@ def create(request):
         if form.is_valid():
             ins = form.save(commit = False)
             ins.user_name2 = request.user
-            data = form.cleaned_data['content'] 
-            title = form.cleaned_data['title'].lower().replace(" ","-")
-            ins.link = f"/blog/{title}/{ins.id}/"
-            ins.status = 'draft'
+           
             ins.save()
-            home = Homepage_Activity(category = 'Blog',blog = ins)
-            home.save()
-            return HttpResponseRedirect(f'/blog/preview/content/{ins.id}/')
+            ins = Homepage_Activity(category = 'Blog',blog = ins)
+            ins.save()
+            return HttpResponseRedirect("/blog/")
         else:
-            context['error'] = form.errors
+
+            context['errors'] = form.errors
     else:
         form = Article_form()
     context['form'] = form
-    context['data'] = Articles.objects.filter(user_name2 = request.user)
-    return render(request,'blogs/create.html',context)
+    return render(request,'Blogs/create.html',context)
 
-def inside(request,title,id):
-    context = {}
-    data = Articles.objects.get(id = id)
-    context['data'] = data
- 
-    return render(request,'blogs/inside.html',context)
-def preview(request,ids):
-    context = {}
-    context['data'] = Articles.objects.get(id = ids)
-    return render(request,'blogs/preview.html',context)
-
-def post(request,ids):
-    ins = Articles.objects.get(id = ids)
-    ins.status = 'published'
-    ins.save()
-    return HttpResponseRedirect("/blog/")
-
-def edit(request,ids):
+def preview(request):
     context = {}
     if request.method == 'POST':
         form = Article_form(request.POST,request.FILES)
-        
-        ids = request.POST.get("iding")
-        ins = Articles.objects.get(id = ids)
-        ins.user_name2 = request.user
-        data = request.POST.get("content")
-        ins.content = data
-        ins.tags = request.POST.get("tags")
-        ins.title = request.POST.get("title")
-        if not request.FILES.get('image') is None:
-            ins.image = request.FILES.get('image')
-        if not request.FILES.get('video') is None:
-            ins.video = request.FILES.get("video")
-        ins.status = 'draft'
-        ins.quora = request.POST.get("quora")
-        ins.facebook = request.POST.get("facebook")
-        ins.medium = request.POST.get("medium")
-        ins.instagram = request.POST.get("instagram")
-        ins.twitter = request.POST.get("twitter")
-        ins.other = request.POST.get("other")
-        ins.description = request.POST.get('description')
-        ins.save()
-        return HttpResponseRedirect(f'/blog/preview/content/{ins.id}/')
-        
-    else:
-        data = Articles.objects.get(id = ids)
-        context['ids'] = data.id
-        form = Article_form(initial = model_to_dict(data))
-    context['form'] = form
-    context['data'] = Articles.objects.filter(user_name2 = request.user)
-    context['edit'] = True
-    return render(request,'blogs/create.html',context)
+        if form.is_valid():
+            ins = form.save(commit = False)
+            ins.user_name2 = request.user
+            ins.status = 'draft'
+            ins.save()
+            return HttpResponseRedirect(f"/blog/preview/{ins.id}/")
+        else:
 
+            context['errors'] = form.errors
+    else:
+        form = Article_form()
+    context['form'] = form
+    #context['data'] = Articles.objects.get(id = ids)
+    return render(request,'Blogs/preview.html',context)
 def draft(request):
     context = {}
     if request.method == 'POST':
@@ -107,58 +73,95 @@ def draft(request):
         if form.is_valid():
             ins = form.save(commit = False)
             ins.user_name2 = request.user
-            data = form.cleaned_data['content'] 
-            title = form.cleaned_data['title'].lower().replace(" ","-")
-            ins.link = f"/blog/{title}/{ins.id}/"
             ins.status = 'draft'
-            ins.description = form.cleaned_data['description']
             ins.save()
-            return HttpResponseRedirect(f'/blog/')
+            return HttpResponseRedirect(f"/profile/{request.user}/#article")
         else:
-            context['error'] = form.errors
+
+            context['errors'] = form.errors
     else:
         form = Article_form()
     context['form'] = form
-    context['data'] = Articles.objects.filter(user_name2 = request.user)
-    return render(request,'blogs/create.html',context)
+    #context['data'] = Articles.objects.get(id = ids)
+    return render(request,'Blogs/preview.html',context)
+def preview_data(request,ids):
+    context = {}
+    context['data'] = Articles.objects.get(id = ids)
+    return render(request,'Blogs/preview.html',context)
 
-def drafted(request,ids):
+def post(request,ids):
+    ins = Articles.objects.get(id = ids)
+    ins.status = 'published'
+    ins.save()
+    ins = Homepage_Activity(category = 'Blog',blog = ins)
+    ins.save()
+    return HttpResponseRedirect("/blog/")
+
+def edit(request,ids):
+    context = {}
+    ins = Articles.objects.get(id = ids)
+    context['form'] = Article_form(initial = model_to_dict(ins))
+    context['edit'] = True
+    context['link'] = ins.image
+    context['id'] = ins.id
+    return render(request,'Blogs/create.html',context)
+
+def posting(request):
     context = {}
     if request.method == 'POST':
-        form = Article_form(request.POST,request.FILES)
-        
+     
         ids = request.POST.get("iding")
         ins = Articles.objects.get(id = ids)
-        ins.user_name2 = request.user
-        data = request.POST.get("content")
-        ins.content = data
-        ins.tags = request.POST.get("tags")
-        ins.title = request.POST.get("title")
-        if not request.FILES.get('image') is None:
+        ins.title = request.POST.get('title')
+        ins.description = request.POST.get('description')
+        ins.content = request.POST.get('content')
+        if request.FILES.get('image') is not None:
             ins.image = request.FILES.get('image')
-        if not request.FILES.get('video') is None:
-            ins.video = request.FILES.get("video")
-        ins.status = 'draft'
-        ins.quora = request.POST.get("quora")
-        ins.facebook = request.POST.get("facebook")
-        ins.medium = request.POST.get("medium")
-        ins.instagram = request.POST.get("instagram")
-        ins.twitter = request.POST.get("twitter")
-        ins.other = request.POST.get("other")
-        ins.description = request.POST.get("description")
+        ins.status = 'published'
         ins.save()
-        return HttpResponseRedirect(f'/blog/')
-        
-    else:
-        data = Articles.objects.get(id = ids)
-        context['ids'] = data.id
-        form = Article_form(initial = model_to_dict(data))
-    context['form'] = form
-    context['data'] = Articles.objects.filter(user_name2 = request.user)
-    context['edit'] = True
-    return render(request,'blogs/create.html',context)
+        ins = Homepage_Activity(category = 'Blog',blog = ins)
+        ins.save()
+        return HttpResponseRedirect("/blog/")
+       
 
-def delete(request,ids):
-    ins = Articles.objects.get(id = ids)
-    ins.delete()
-    return HttpResponseRedirect("/blog/")
+def previewing(request):
+    context = {}
+    if request.method == 'POST':
+     
+        ids = request.POST.get("iding")
+        ins = Articles.objects.get(id = ids)
+        ins.title = request.POST.get('title')
+        ins.description = request.POST.get('description')
+        ins.content = request.POST.get('content')
+        if request.FILES.get('image') is not None:
+            ins.image = request.FILES.get('image')
+        ins.status = 'draft'
+        ins.save()
+        return HttpResponseRedirect(f"/blog/preview/{ins.id}/")
+        
+    return render(request,'Blogs/preview.html',context)
+
+def drafting(request):
+    context = {}
+    if request.method == 'POST':
+        try:
+            ids = request.POST.get("iding")
+            ins = Articles.objects.get(id = ids)
+            ins.title = request.POST.get('title')
+            ins.description = request.POST.get('description')
+            ins.content = request.POST.get('content') 
+            if request.FILES.get('image') is not None:
+                ins.image = request.FILES.get('image')
+            ins.status = 'draft'
+            ins.save()
+        except exception as exp:
+            context['errors'] = str(exp)
+    return HttpResponseRedirect(f"/profile/{request.user}/#article")
+            
+
+        
+
+
+   
+
+

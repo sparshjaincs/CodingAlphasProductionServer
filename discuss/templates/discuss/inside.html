@@ -80,7 +80,7 @@
                         <div>
                             <a href="/discuss/?method={{method}}" class="btn btn-sm text-muted border-right"><i class="fa fa1 fa-angle-left mr-1"></i> Back</a>
                         </div>
-                        <div class="d-flex align-items-center">
+                        <div class="d-flex align-items-center"> 
                            
                             <a   onclick="like1('discuss','{{data.id}}','discuss_like','like_count','dislike_count','discuss_dislike')" class="btn btn-sm text-muted pr-1 ml-2   " title="Upvote" data-toggle="tooltip"><i id="discuss_like" class="fa {% if like %} fa3{% else %}fa2 {% endif %} fa-thumbs-up"  style=""></i></a> <span class="text-muted " style="font-size: 14px;" id="like_count">{{data.like.all.count}}</span>
                             <a  onclick="dislike1('discuss','{{data.id}}','discuss_dislike','dislike_count','like_count','discuss_like')" class="btn btn-sm text-muted ml-3 pr-1" title="Downvote" data-toggle="tooltip"><i id="discuss_dislike" class="fa {% if dislike %} fa3{%else%}fa2 {% endif %} fa-thumbs-down"></i></a><span class="text-muted " style="font-size: 14px;" id="dislike_count">{{data.dislike.all.count}}</span>

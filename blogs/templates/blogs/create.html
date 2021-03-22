@@ -1,294 +1,208 @@
 {% extends 'Core/snippets/base.html' %}
-{% load shortcut %}
+{% load static %}
 {% load crispy_forms_tags %}
 {% block header %}
 {% include 'Core/snippets/header.html' %}
-
 {% endblock %}
-
-
-{% block jscss %}
-<!--<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css">-->
-<link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/dataTables.bootstrap5.min.css">
-<script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap5.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/ace.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/ace.min.js"></script>
-{% endblock %} 
 {% block style %}
-.slider {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    overflow: hidden;
-    background-color:#fff;
-
-    transition: all 1s;
-  }
-  
-  .slider.close {
-    top: 100%;
-    height: 0;
-  }
-.button{
-    background-color:#C92C60;
-    
-}
-.button:hover{
- background-color:#97274C;
-}
-#div_id_title label{
-    display:none;
-}
-#div_id_tags label{
-    display:none;
-}
-#div_id_content label{
-    display:none;
-}
 #div_id_image label{
     display:none;
 }
 #div_id_image{
-    width:150px;
-    height:50px;
-   box-shadow:2px 2px 10px rgb(0,0,0,0.1);
+    width:100%;
+    height:150px;
+  
   cursor:pointer;
-  background-color:#DAE0E5;
+  background-color:#fff;
+  {% if edit %}
+    display:none;
+  {% endif %}
 
 }
 #div_id_image input{
-    width:150px;
-    height:50px;
+    width:100%;
+    height:150px;
     opacity:0;
     cursor:pointer;
-    background-color:#DAE0E5;
+    background-color:#fff;
 }
-#div_id_video label{
+#div_id_title label{
     display:none;
 }
-#div_id_video{
-    width:150px;
-    height:50px;
-   box-shadow:2px 2px 10px rgb(0,0,0,0.1);
-  cursor:pointer;
-  background-color:#DAE0E5;
 
+#div_id_title input{
+    width:100%;
+   
+    border:none;
+    height:80px;
+    font-size:36px;
+   
+   
 }
-#div_id_video input{
-    width:150px;
-    height:50px;
-    opacity:0;
-    cursor:pointer;
-    background-color:#DAE0E5;
-}
-#div_id_facebook label{
+#div_id_tags label{
     display:none;
+}
+
+#div_id_tags input{
+    width:100%;
+    margin-top:-13px;
+    border:none;
+    height:80px;
+    font-size:20px;
+   
+   
 }
 #div_id_description label{
     display:none;
 }
-#div_id_medium label{
-    display:none;
-}
-#div_id_instagram label{
-    display:none;
-}
-#div_id_twitter label{
-    display:none;
-}
-#div_id_quora label{
-    display:none;
-}
-#div_id_other label{
-    display:none;
-}
 
+#div_id_description input{
+    width:100%;
+    margin-top:-13px;
+    border:none;
+    height:90px;
+    font-size:20px;
+   
+   
+}
+#div_id_content label{
+    display:none;
+}
+#id_image{
+{% if edit %}
+    margin-top:-200px;
+{% endif %}"
+}
+#div_id_title input:focus {
+    outline: none;
+    box-shadow: none;
+  }
+  #div_id_tags input:focus {
+    outline: none;
+    box-shadow: none;
+  }
+  .django-ckeditor-widget{
+    width: 100%;
+  }
 {% endblock %}
 {% block body %}
+<div class="section" style="background-color: white; min-height:750px;">
 
-<div class="slider close" style="z-index:1000; overflow-y: scroll;">
-    <div class="row">
-        <div class="col-12 d-flex justify-content-end">
-            <a class="btn btn-sm border btn-outline-dark  p-2 cancel m-2" style="font-size: 12px;" href="#"><i class="fa fa-close"></i> Close</a>
-        </div>
-        <div class="col-12 ">
-           <div class="ml-5 mr-5 pl-5 pr-5">
-   
 
-  <div class="mt-5">
-    <table id="example" class="table" style="width:100% ; font-size: 13px;">
-        <thead> 
-            <tr class="text-muted">
-                <th>S.No.</th>
-                <th style="width:70%;">Title</th>
-                <th>Date, Time</th>
-                <th>Status</th>
-                <th>Options</th>
-               
-            </tr>
-        </thead>
-        <tbody class="text-dark">
-            {% for x in data %}
-                    <tr>
-                        <td  class=" text-muted">
-                            <div style="display: flex; justify-content: space-between;">
-                                {{forloop.counter}}
-                                
-                            </div>
-                        </td>
-                        <td   class=" text-muted" >
-                            
-                        <div style="display: flex; justify-content: space-between;" >
-                            <a href="/blog/{{x.title|replace}}/{{x.id}}/" style="underline:none; text-decoration:none;">{{x.title}}</a>
-                            
+<div class="container p-0" style="background-color: #fff;">
+    <div class="row mt-5 ">
+        <div class="col-12">
+            <form method="POST" action="" enctype="multipart/form-data">
+                {% csrf_token %}
+                {% if edit %}
+                <input type="hidden" value="{{id}}" name="iding">
+                {% endif %}
+                <div>
+                    {% if errors %}
+                        <div class="alert alert-danger">
+                            {{errors}}
                         </div>
+                    {% endif %}
+                </div>
+                <div class="d-flex justify-content-between">
+                    <div></div>
+                    <div class="p-3">
+                        {% if edit %}
+                        <button formaction="/blog/posting/" onclick='return confirm("Do you really want to Post this article?");' type="submit" class="btn btn-sm border shadow-sm text-white"  style="font-size: 12px; background-color: #E57851;"><i class="fa fa-paper-plane"></i> Post</button>
+                        {% else %}
+                        <button onclick='return confirm("Do you really want to Post this article?");' type="submit" class="btn btn-sm border shadow-sm text-white"  style="font-size: 12px; background-color: #E57851;"><i class="fa fa-paper-plane"></i> Post</button>
+                        {% endif %}
+                        {% if edit %}
+                        <button formaction = "/blog/previewing/" onclick='return confirm("Do you really want to Post this article?");' type="submit" formaction="/blog/preview/" class="btn btn-sm border shadow-sm bg-light" style="font-size: 12px;"><i class="fa fa-eye"></i> Preview</button>
+                      
+                        {% else %}
+                        <button onclick='return confirm("Do you really want to Post this article?");' type="submit" formaction="/blog/preview/" class="btn btn-sm border shadow-sm bg-light" style="font-size: 12px;"><i class="fa fa-eye"></i> Preview</button>
+                      
+                          {% endif %}
+                        {% if edit %}
+                        <button formaction = "/blog/drafting/" class="btn btn-sm border shadow-sm bg-dark text-white" style="font-size: 12px;"><i class="fa fa-cloud-upload"></i> Draft</button>
+                        {% else %}
+                        <button  formaction="/blog/draft/" class="btn btn-sm border shadow-sm bg-dark text-white" style="font-size: 12px;"><i class="fa fa-cloud-upload"></i> Draft</button>
+                        {% endif %}
+  
+                    </div>
+                </div>
+                
+                    <div class="d-flex justify-content-center" >
                         
-                    </td>
-                        
-                        <td class="text-muted">{{x.date_Publish}}, {{x.time}}</td>
-                        <td class="text-muted">
-                           {{x.status}}
-                        </td>
-                        <td>
-                            
-                           <a href="/blog/edit/content/{{x.id}}/" class="btn btn-sm" title="Edit" data-toggle="tooltip"><i class="fa fa-pencil"></i></a>
-                           <a href="/blog/delete/content/{{x.id}}/" class="btn btn-sm" title="Delete" data-toggle="tooltip"><i class="fa fa-trash"></i></a>
-                        </td>
-                    </tr>
-                {% endfor %}
-        </tbody>
-    </table>
-  </div>
-           </div>
+                        <div style="width:100%;  position: absolute; padding-top:auto; margin-left:auto;  margin-right:auto; color:#202C33; font-size: 100px; font-weight: 600; left:0; right:0; text-align: center; ">
+                           <center>
+                            <img src="{% static 'svg/undraw_image_upload_wqh3.svg' %}" style="width:200px;  {% if edit %}
+                            display:none;
+                          {% endif %}" id="upload">
+                           </center>
 
-        </div> 
+                         </div>
+                         {{form.image|as_crispy_field}}
+                         
+                    </div>
+                    <div id="preview" style="{% if edit %} display: block; {% else %} display: none;{% endif %}">
+                        <div class="d-flex justify-content-end">
+                            <a class="btn btn-sm" onclick="show()" style="width:50px;"><i class="fa fa-close "></i></a>
+                        </div>
+                        <div  class="d-flex justify-content-center">
+                            <img id="blah" src="/media/{{link}}/" alt="your image" style="{% if edit %} display: block; {% else %} display: none;{% endif %} width:300px;" >
+                        </div>
+
+                    </div>
+                   
+                    <div class="mt-2">
+                        {{form.title|as_crispy_field}}
+                    </div>
+                    
+                  
+                    
+                    <div>
+                        {{form.tags|as_crispy_field}}
+                    </div>
+                    <div class="">
+                        {{form.content|as_crispy_field}}
+                        {{form.media}}
+                    </div>
+            </form>
+        </div>
     </div>
 </div>
-<div class="container">
-    
-    <div class="row mt-5" >
-        <a  style="font-size: 14px;color:white; position: fixed; bottom:3rem; right:3rem;" class="btn btn-sm border shaodw-sm btn-dark trigger"><i class="fa fa-pencil"></i> My Workspace</a>
-                        
-        <div class="col-12 mt-5">
-           
-
-            <form id="form" action="" method="POST" enctype="multipart/form-data">
-                <input type="hidden" value="{{id}}" name="iding">
-                <div class="mb-2 d-flex justify-content-between">
-                    <div style="font-size: 20px; font-weight: 600; color:#202C33" class="ml-5 pl-5">
-                        <i class="fa fa-file-text"></i> Write Blogs
-                    </div>
-                    <div class="mr-5 pr-5">
-                        <button   onclick="Submit()" style="font-size: 12px;color:white;" class="btn btn-sm border shaodw-sm button"><i class="fa fa-paper-plane"></i> Post</button>
-                        
-                        <button  type="submit" formaction="{% if edit %}/blog/draft/content/saved/{{ids}}/{% else %}/blog/draft/content/save/{% endif %}" style="font-size: 12px; color:white;" class="btn btn-sm border btn-dark shaodw-sm "><i class="fa fa-cloud-upload"></i> Draft</a>
-                    </div>
-                </div>
-                <div class="mr-5 ml-5 pl-5 pr-5" style="">
-                    {% if error %}
-                    <div class="alert alert-danger">
-                        {{error}}
-                    </div>
-                    {% endif %}
-                    
-                        {% csrf_token %}
-                        <input  type="hidden" value="{{ids}}" name="iding">
-                    <div class="form-row border-top pt-5">
-                        <div class="form-group col-12 col-md-3 col-lg-2 mb-0" >
-                            <div style="position: absolute; top:1rem; left:0.9rem; color:#202C33; font-size: 14px; font-weight: 600; ">
-                               <i class="fa fa-image"></i> Image Thumbnail
-                            </div>
-                            {{ form.image}}
-                        
-                          </div>
-
-                          <div class="form-group col-12 col-md-3 col-lg-2 mb-0">
-                            <div style="position: absolute; top:1rem; left:1rem; color:#202C33; font-size: 14px; font-weight: 600;">
-                               <i class="fa fa-video-camera"></i> Video Thumbnail
-                            </div>
-                            {{ form.video }}
-                        
-                          </div>
-                          <div class="form-group col-12 col-md col-lg mb-0 mt-1 d-flex justify-content-end">
-                             <div class="dropdown show">
-                               
-                                <a title="Add Social Links" data-toggle="dropdown" href="#" class="btn btn-sm  d-flex align-items-center shadow justify-content-center rounded-circle button text-white mb-2" style="width:40px; height:40px; "><i class="fa fa-link"></i></a>
-                           
-                              
-                                <div class="dropdown-menu border-0 shadow dropdown-menu-right p-2" aria-labelledby="dropdownMenuLink" style="width:300px;">
-                                     {{ form.medium|as_crispy_field }}
-                                    {{ form.facebook|as_crispy_field }}
-                                    {{ form.instagram|as_crispy_field }}
-                                    {{ form.twitter|as_crispy_field }}
-                                    {{ form.quora|as_crispy_field }}
-                                    {{ form.other|as_crispy_field }}
-                                </div>
-                              </div>
-                          </div>
-                        <div class="form-group col-12 mb-0">
-                          {{ form.title|as_crispy_field }}
-                        </div>
-                        <div class="form-group col-12 mb-0">
-                          {{ form.tags|as_crispy_field }}
-                        </div>
-                        <div class="form-group col-12 mb-0">
-                            {{ form.description|as_crispy_field }}
-                          </div>
-                        <div class="form-group col-12 mb-0">
-                            {{ form.content|as_crispy_field }}
-                          </div>
-                          {{form.media}}
-                      </div>
-                    </form>
-                    
-                </div>
-           
-        </div>
-    </div>
-
 </div>
 {% endblock %}
-
 {% block script %}
 <script>
-    $('.trigger, .cancel').click(function() {
-        $('.slider').toggleClass('close');
-    });
-
-    $(document).ready(function() {
-        var table = $('#example').DataTable({
-            
-        });
-        
-    } ); 
-    document.getElementById('id_medium').placeholder = "Medium Link";
-    document.getElementById('id_medium').style.fontSize = "13px";
-    document.getElementById('id_other').placeholder = "Other Link";
-    document.getElementById('id_other').style.fontSize = "13px";
-    document.getElementById('id_facebook').placeholder = "Facebook Link";
-    document.getElementById('id_facebook').style.fontSize = "13px";
-    document.getElementById('id_quora').placeholder = "Quora Link";
-    document.getElementById('id_quora').style.fontSize = "13px";
-    document.getElementById('id_instagram').placeholder = "Instagram Link";
-    document.getElementById('id_instagram').style.fontSize = "13px";
-    document.getElementById('id_twitter').placeholder = "Twitter Link";
-    document.getElementById('id_twitter').style.fontSize = "13px";
-    function check(){
-        var data = confirm("Are you sure to post your blog?");
-        console.log(data);
-    }
-    function Submit(){
-        
-            document.getElementById("form").submit();
-        
-    }
    
- function Draft(){
-     document.getElementById('form').formAction = '/blog/draft/content/save/';
- }
+   $(function(){
+  $('#id_image').change(function(){
+    document.getElementById("blah").style.display="block";
+    document.getElementById("preview").style.display="block";
+    if (this.files && this.files[0]) {
+            var reader = new FileReader();
 
-   
+            reader.onload = function (e) {
+                $('#blah')
+                    .attr('src', e.target.result)
+                    .width(300);
+                    
+            };
+
+            reader.readAsDataURL(this.files[0]);
+        }
+
+        document.getElementById("div_id_image").style.display = 'none';
+        document.getElementById("upload").style.display = 'none';
+        
+  });
+
+});
+
+function show(){
+    document.getElementById("blah").style.display="none";
+    document.getElementById("preview").style.display="none";
+    document.getElementById("div_id_image").style.display = 'block';
+        document.getElementById("upload").style.display = 'block';
+}
 </script>
+
 {% endblock %}

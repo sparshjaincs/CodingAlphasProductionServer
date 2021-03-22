@@ -145,9 +145,10 @@ MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
 CKEDITOR_UPLOAD_PATH = 'uploads/'
 CKEDITOR_CONFIGS = {
     'default': {
-      
+     'uiColor': '#FFFFFF',
     'width': '100%',
     'height':'100%',
+    
     'toolbarCanCollapse': False,
     'disableNativeSpellChecker': False,
         'toolbar_Basic': [
@@ -156,34 +157,36 @@ CKEDITOR_CONFIGS = {
         'scayt_autoStartup': True,
     'grayt_autoStartup': True,
         'toolbar_YourCustomToolbarConfig': [
-            {'name': 'document', 'items': ['Source', 'NewPage', 'Preview', 'Print', '-', 'Templates']},
+            #{'name': 'document', 'items': ['Source', 'NewPage', 'Preview', 'Print', '-', 'Templates']},
             {'name': 'clipboard', 'items': ['Scayt','Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo']},
             {'name': 'editing', 'items': ['Find', 'Replace', '-', 'SelectAll']},
            
-            {'name': 'basicstyles',
+           {'name': 'basicstyles',
              'items': ['Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'RemoveFormat']},
             {'name': 'paragraph',
              'items': ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote', 'CreateDiv', '-',
                        'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock', '-', 'BidiLtr', 'BidiRtl',
                        'Language']},
-            {'name': 'links', 'items': ['Link', 'Unlink', 'Anchor']},
+        #    {'name': 'links', 'items': ['Link', 'Unlink', 'Anchor']},
             {'name': 'insert',
-             'items': ['Image', 'Flash', 'Table', 'HorizontalRule', 'Smiley', 'SpecialChar', 'PageBreak', 'Iframe']},
-            '/',
-            {'name': 'styles', 'items': ['Styles', 'Format', 'Font', 'FontSize']},
-            {'name': 'colors', 'items': ['TextColor', 'BGColor']},
+                 'items': ['Image', 'Table', 'HorizontalRule', 'Smiley', 'SpecialChar', 'PageBreak', 'Iframe']},
+         #   '/',
+           {'name': 'styles', 'items': ['Styles', 'Format', 'Font', 'FontSize']},
+         
+           {'name': 'colors', 'items': ['TextColor', 'BGColor']},
             
             {'name': 'tools', 'items': ['ShowBlocks']},
             
           # put this to force next toolbar on new line
-            {'name': 'yourcustomtools', 'items': [
+           {'name': 'yourcustomtools', 'items': [
                 # put the name of your editor.ui.addButton here
-                'Preview',
-                'Maximize',
+               'Preview',
+               'Maximize',
                 
 
-            ]},
-        ],
+           ]},
+         ],
+    
         'toolbar': 'YourCustomToolbarConfig',  # put selected toolbar config here
         #'toolbarGroups': [{ 'name': 'document', 'groups': [ 'mode', 'document', 'doctools' ] }],
         #'height': 350,

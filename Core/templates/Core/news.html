@@ -1,0 +1,210 @@
+{% extends 'Core/snippets/base.html' %}
+{% load static %}
+{% load shortcut %}
+{% block header %}
+{% include 'Core/snippets/header.html' %}
+{% endblock %}
+{% block style %}
+.outline:hover{
+    border:1px solid #E57851;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(229, 120, 81, 0.6);
+    outline: 0 none;
+}
+.tagging{
+    color: #546E7A;
+}
+.tagging:hover{
+    background-color: #E9EAEB;
+    color:#E57851;
+}
+{% endblock %}
+{% block body %}
+<div class="section" style="background-color: white;" >
+    <div class="container">
+        <div class="row mt-5 pt-5">
+            <div class="col-12 col-md-12 col-lg-3 order-last order-md-first">
+                <div style="color: #546E7A; font-size: 14px;">
+                   <i class="fa fa-tag" style="color: #E57851;"></i> Categories
+                </div>
+                <a href="/news/Coding/">
+                    <div style="width:100%;{% if method == 'Coding' %} border-left:2px solid #E57851;  background-color: #E9EAEB; color:#E57851; {% endif %} font-size: 12px;  height:40px; cursor:pointer; " class="d-flex align-items-center p-3 mt-3  tagging">
+                     Coding
+                    </div>
+                 </a>
+             <a href="/news/Computer-Programming/">
+                <div style="width:100%;{% if method == 'Computer-Programming' %} border-left:2px solid #E57851;  background-color: #E9EAEB; color:#E57851; {% endif %} font-size: 12px;  height:40px; cursor:pointer; " class="d-flex align-items-center p-3 tagging">
+                    Computer Programming
+                </div>
+             </a>
+            
+             <a href="/news/Programming/">
+                <div style="width:100%;{% if method == 'Programming' %} border-left:2px solid #E57851;  background-color: #E9EAEB; color:#E57851; {% endif %} font-size: 12px;  height:40px; cursor:pointer; " class="d-flex align-items-center p-3 tagging">
+                    Programming
+                </div>
+             </a>
+             <a href="/news/Programming-Languages/">
+                <div style="width:100%;{% if method == 'Programming-Languages' %} border-left:2px solid #E57851;  background-color: #E9EAEB; color:#E57851; {% endif %} font-size: 12px;  height:40px; cursor:pointer; " class="d-flex align-items-center p-3 tagging">
+                    Programming Languages
+                </div>
+             </a>
+             <a href="/news/IT-Industries/">
+                <div style="width:100%;{% if method == 'IT-Industries' %} border-left:2px solid #E57851;  background-color: #E9EAEB; color:#E57851; {% endif %} font-size: 12px;  height:40px; cursor:pointer; " class="d-flex align-items-center p-3 tagging">
+                    It Industries
+                </div>
+             </a>
+             <a href="/news/Artificial-Intelligence/">
+                <div style="width:100%;{% if method == 'Artificial-Intelligence' %} border-left:2px solid #E57851;  background-color: #E9EAEB; color:#E57851; {% endif %} font-size: 12px;  height:40px; cursor:pointer; " class="d-flex align-items-center p-3 tagging">
+                    Artificial Intelligence
+                </div>
+             </a>
+             <a href="/news/Machine-Learning/">
+                <div style="width:100%;{% if method == 'Machine-Learning' %} border-left:2px solid #E57851;  background-color: #E9EAEB; color:#E57851; {% endif %} font-size: 12px;  height:40px; cursor:pointer; " class="d-flex align-items-center p-3 tagging">
+                    Machine Learning
+                </div>
+             </a>
+             <a href="/news/Virtual-Reality/">
+                <div style="width:100%;{% if method == 'Virtual-Reality' %} border-left:2px solid #E57851;  background-color: #E9EAEB; color:#E57851; {% endif %} font-size: 12px;  height:40px; cursor:pointer; " class="d-flex align-items-center p-3 tagging">
+                    Virtual Reality
+                </div>
+             </a>
+             <a href="/news/Internet/">
+                <div style="width:100%;{% if method == 'Internet' %} border-left:2px solid #E57851;  background-color: #E9EAEB; color:#E57851; {% endif %} font-size: 12px;  height:40px; cursor:pointer; " class="d-flex align-items-center p-3 tagging">
+                    Internet
+                </div>
+             </a>
+             <a href="/news/Gadgets/">
+                <div style="width:100%;{% if method == 'Gadgets' %} border-left:2px solid #E57851;  background-color: #E9EAEB; color:#E57851; {% endif %} font-size: 12px;  height:40px; cursor:pointer; " class="d-flex align-items-center p-3 tagging">
+                   Gadgets
+                </div>
+             </a>
+             <a href="/news/Computing/">
+                <div style="width:100%;{% if method == 'Computing' %} border-left:2px solid #E57851;  background-color: #E9EAEB; color:#E57851; {% endif %} font-size: 12px;  height:40px; cursor:pointer; " class="d-flex align-items-center p-3 tagging">
+                   Computing
+                </div>
+             </a>
+             <a href="/news/Science/">
+                <div style="width:100%;{% if method == 'Science' %} border-left:2px solid #E57851;  background-color: #E9EAEB; color:#E57851; {% endif %} font-size: 12px;  height:40px; cursor:pointer; " class="d-flex align-items-center p-3 tagging">
+                   Science
+                </div>
+             </a>
+             <a href="/news/Software/">
+                <div style="width:100%;{% if method == 'Software' %} border-left:2px solid #E57851;  background-color: #E9EAEB; color:#E57851; {% endif %} font-size: 12px;  height:40px; cursor:pointer; " class="d-flex align-items-center p-3 tagging">
+                   Software
+                </div>
+             </a>
+             <a href="/news/Coding-Competition/">
+                <div style="width:100%;{% if method == 'Coding-Competition' %} border-left:2px solid #E57851;  background-color: #E9EAEB; color:#E57851; {% endif %} font-size: 12px;  height:40px; cursor:pointer; " class="d-flex align-items-center p-3 tagging">
+                   Coding Competition
+                </div>
+             </a>
+             <a href="/news/Technologies/">
+                <div style="width:100%;{% if method == 'Technologies' %} border-left:2px solid #E57851;  background-color: #E9EAEB; color:#E57851; {% endif %} font-size: 12px;  height:40px; cursor:pointer; " class="d-flex align-items-center p-3 tagging">
+                   Technologies
+                </div>
+             </a>
+            </div>
+            <div class="col-12 col-md-12 col-lg-6 ">
+                <div id="heading" style="font-size: 24px; font-weight: 600; color:rgb(0,0,0,0.3);" class="d-flex justify-content-center">
+                    {{method}}
+                </div>
+                <div class="mb-3 mt-3">
+                    <input type="text" id="search" value="{{method}}" onkeyup="execute()" class="form-control" style="border-radius: 20px; font-size: 12px; " placeholder="Search Keywords, Tags, Anything..."> 
+                </div>
+                <div class="">
+                    <div style="font-size: 13px;color:#E57851; border-bottom: 1px solid #E57851;" class="btn btn-sm rounded-0">
+                        <i class="fa fa-line-chart"></i> Top Listed News
+                    </div>
+                  
+                </div>
+                <div class="d-flex justify-content-center">
+                    <div>
+                        <i class="fa fa-spinner fa-spin" style="color: #E57851; display: none;" id="spinner"></i>
+                    </div>
+                </div>
+                <div id="inner">
+                  
+                {% for i in data %}
+                <a href="{{i.Url}}">
+                    <div class="card mt-3 outline">
+                        <div class="card-body">
+                          
+                               <div style="font-size: 13px; " class="text-dark">
+                                   {{i.Title}}
+                               </div>
+                               <div style="font-size: 12px;" class="text-muted">
+                                   {{i.Published_Date}}
+                               </div>
+                               <div style="font-size: 12px;" class="text-muted">
+                                {{i.source}}
+                            </div>
+                         
+                        </div>
+                    </div>
+                </a>
+                {% endfor %}
+            </div>
+            </div>
+            <div class="col-12 col-md-12 col-lg-3 order-first order-md-last">
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <div style="font-size: 12px; color: #546E7A;">
+                            Would you like to get news updates via email ?
+                        </div>
+                        <div class="mt-1">
+                            <a class="btn btn-sm p-1 shadow-sm border pr-2 pl-2" style="background-color: #E57851; color: #fff; font-size: 10px; "><i class="fa fa-check"></i> Yes</a>
+                            <a class="btn btn-sm p-1  bg-light border pr-2 pl-2" style=" font-size: 10px; "><i class="fa fa-close"></i> No</a>
+                      
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block script %}
+<script>
+    function execute(){
+      document.getElementById('spinner').style.display="block";
+      var val = document.getElementById('search').value;
+      if ( val == ""){
+          topic = "{{method}}";
+      }
+      else{
+          topic = val;
+      }
+      $.ajax({
+          type:'GET',
+          url:"/news/ajax/fetch",
+          data:{
+              "topic":topic,
+          },
+          success:function(data){
+              document.getElementById('heading').innerHTML = topic;
+             
+            data = JSON.parse(data);
+            var s="";
+            for(i=0;i<data.length;i++){
+                s += `
+                <div class="card mt-3 outline">
+                        <div class="card-body">
+                           <a href="`+data[i]['Url']+`">
+                               <div style="font-size: 13px; " class="text-dark">
+                                  `+data[i]['Title']+`
+                               </div>
+                               <div style="font-size: 12px;" class="text-muted">
+                                   `+data[i]['Published_Date']+`
+                               </div>
+                             
+                           </a>
+                        </div>
+                    </div>
+                `;
+            }
+            document.getElementById('inner').innerHTML = s;
+            document.getElementById('spinner').style.display="none";
+          }
+      });
+    }
+</script>
+{% endblock %}

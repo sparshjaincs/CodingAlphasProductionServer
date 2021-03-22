@@ -1,250 +1,67 @@
 {% extends 'Core/snippets/base.html' %}
 {% load shortcut %}
 {% load static %}
+{% load crispy_forms_tags %}
 {% block header %}
 {% include 'Core/snippets/header.html' %}
 {% endblock %}
-{% block style %}
 
-.button{
-    background-color:#C92C60;
-}
-.button:hover{
- background-color:#97274C;
-}
-
-.anchor{
-
-border-radius:2px; 
-font-size:10px;
-font-weight:100;
-padding:4px;
-padding-left:7px;
-padding-right:7px;
-letter-spacing:0px;
-text-transform: capitalize;
-}
-.anc{
-
-}
-{% endblock %}
-{% block jscss %}
-
-<link rel="preconnect" href="https://fonts.gstatic.com/">
-<link href="{% static 'folder/css2' %}" rel="stylesheet">
-<link rel="stylesheet" href="{% static 'folder/style.css' %}">
-<link rel="stylesheet" href="{% static 'folder/flaticon.css' %}">
-<link rel="stylesheet" href="{% static 'folder/tiny-slider.css' %}">
-<link rel="stylesheet" href="{% static 'folder/glightbox.min.css' %}">
-<link rel="stylesheet" href="{% static 'folder/aos.css' %}">
-<link rel="stylesheet" href="{% static 'folder/style(1).css' %}">
-{% endblock %}
 {% block body %}
-
-
-
-
-{% if carousel %}
-<div class="section ">
-  
-  <div class="container p-1">
- 
-   
-  <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-    <ol class="carousel-indicators">
-
-      {% for x in carousel %}
-      <li style="background-color: #F79918;" data-target="#carouselExampleIndicators" data-slide-to="{{forloop.counter|add:'-1'}}" class="{% if forloop.counter == 1 %} active {% endif %}"></li>
-      {% endfor %}
-    </ol>
-    <div class="carousel-inner pb-0 mb-0">
-    
-        {% for x in carousel %}
-        <div class="carousel-item {% if forloop.counter == 1%}active{% endif %}">
-        
-          <div class="col-lg-12">
-            <div class="post-entry d-lg-flex mb-5">
-            <div class="me-md-3 thumbnail mb-3 mb-md-0">
-            <img src="/media/{{x.image}}/" alt="Image" class="img-fluid">
-            </div>
-            <div class="content">
-           
-            <h2 class="heading"><a href="/blog/{{x.title|replace}}/{{x.id}}/">{{x.title}}</a></h2>
-            <p>{{x.description|safe}}</p>
-            <a href="/profile/{{x.user_name2}}/" class="post-author d-flex align-items-center">
-            <div class="author-pic">
-            <img src="/media/{{x.user_name2.profile.avatar}}/" alt="Image">
-            </div>
-            <div class="text">
-            <strong>{{x.user_name2.profile.first_name}} {{x.user_name2.profile.last_name}}</strong>
-            <span>Author, {{x.user_name2.project_username_2.all.count}} published post, {{x.date_Publish}}</span>
-            </div>
-            </a>
-            </div>
-            </div>
-            </div>
-                </div>
-        {% endfor %}
- 
-     
-      </div>
-    </div>
- 
-    
-  </div>
-</div>
-</div>
-{% endif %}
-{% if inbox %}
-<div class="section" >
 <div class="container">
- 
-<div class="row ">
-  
+    <div class="row mt-5 pt-5">
+        <a href="/article/create/" class="border btn btn-sm d-flex justify-content-center align-items-center rounded-circle shadow text-white" style="position: fixed; bottom:2rem; background-color: #C92C60; right:2rem; width:50px; height:50px;"><i class="fa fa-plus"></i></a>
+        <div class="col-12 mb-4">
+            <div style="font-size: 18px; font-weight: 600; opacity:0.4;" class="text-muted">
+               <i class="fa fa-star"></i> Featured
+            </div>
+        </div>
+        <div class="col-12">
+            <div class="row">
 
-  {% for x in inbox %}
-  <div class="col-lg-4 mb-5">
-    <div class="post-entry d-block small-post-entry-v">
-    <div class="thumbnail">
-    <a href="/blog/{{x.title|replace}}/{{x.id}}/">
-    <img src="/media/{{x.image}}/" alt="Image" class="img-fluid" style="height:200px; width:100%;">
-    </a>
+                {% for i in data %}
+                    <div class="col-12 col-md-12 col-lg-4 mb-4">
+                        <div class="card p-0 border-0 shadow-sm">
+                            <a href="/article/{{i.user_name2}}/{{i.title|replace}}/{{i.id}}/">
+                            <img src="/media/{{i.image}}/" style="width:100%;">
+                        </a>
+                            <div class="card-body">
+                                <a href="/article/{{i.user_name2}}/{{i.title|replace}}/{{i.id}}/">
+                                <div class="text-dark" style="font-size: 14px; font-weight: 600;">
+                                  {{i.title}}
+                                </div>
+                            </a>
+                                <div class="text-muted" style="font-size: 12px;"> 
+                                    {{i.description}}
+                                </div>
+                                
+                            </div>
+                            <div class="card-footer border-0 d-flex justify-content-between">
+                                <div class="d-flex justify-content-start"> 
+                                    <div>
+                                        <img src="/media/{{i.user_name2.profile.avatar}}/" style="width:30px; border-radius: 50%;">
+                                    </div>
+                                    <div class="ml-2"> 
+                                        <div style="font-size: 12px; font-weight: 600;" class="text-dark">
+                                            {{i.user_name2.profile.first_name}}   {{i.user_name2.profile.last_name}}
+                                        </div>
+                                        <div style="font-size: 10px;" class="text-muted">
+                                            {{i.date}}, {{i.time}}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <a class="mr-2" style="font-size: 12px; color:#516A76;"><i class="fa fa-share-alt"></i></a>
+                                    <a class="mr-2" style="font-size: 12px;"><i class="fa fa-thumbs-up fa2"></i></a>
+                                    <a class="mr-2" style="font-size: 12px;"><i class="fa fa-thumbs-down fa2"></i></a>
+                                    <a class="mr-2" style="font-size: 12px;"><i class="fa fa-bookmark fa2"></i></a>
+                                    <a class="" style="font-size: 12px; color:#516A76;"><i class="fa fa-ellipsis-v"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
     </div>
-    <div class="content">
-    
-    <h2 class="heading mb-3"><a href="/blog/{{x.title|replace}}/{{x.id}}/">{{x.title}}</a></h2>
-    <p>{{x.description|safe}}</p>
-    <a href="/profile/{{x.user_name2}}/" class="post-author d-flex align-items-center">
-    <div class="author-pic">
-    <img src="/media/{{x.user_name2.profile.avatar}}" alt="Image">
-    </div>
-    <div class="text">
-      <strong>{{x.user_name2.profile.first_name}} {{x.user_name2.profile.last_name}}</strong>
-      <span>Author, {{x.user_name2.project_username_2.all.count}} published post, {{x.date_Publish}}, {{x.time}}</span>
-    </div>
-    </a>
-    </div>
-    </div>
-    </div>
-  {% endfor %}
-
-
-
 </div>
-</div>
-</div>
-{% endif %}
-{% if box %}
-<div class="section">
-<div class="container-fluid">
-<div class="row justify-content-center mb-5">
-<div class="col-lg-7 text-center">
-<h2 class="heading">Most Popular Posts</h2>
-</div>
-</div>
-</div>
-<div class="most-popular-slider-wrap px-3 px-md-0">
-<div id="most-popular-nav" aria-label="Carousel Navigation" tabindex="0">
-<span class="prev" data-controls="prev" aria-controls="most-popular-center" tabindex="-1" aria-disabled="true">Prev</span>
-<span class="next" data-controls="next" aria-controls="most-popular-center" tabindex="-1">Next</span>
-</div>
-<div class="tns-outer" id="most-popular-center-ow">
- <div class="tns-liveregion tns-visually-hidden" aria-live="polite" aria-atomic="true">slide <span class="current">1 to 2</span>  of 6</div>
-<div id="most-popular-center-mw" class="tns-ovh">
-  <div class="tns-inner" id="most-popular-center-iw">
-    <div class="most-popular-slider  tns-slider tns-carousel tns-subpixel tns-calc tns-horizontal" id="most-popular-center" style="transition-duration: 0s; transform: translate3d(0%, 0px, 0px);">
-{% for i in box %}
-<div class="item tns-item tns-slide-active" id="most-popular-center-item{{forloop.counter|add:'-1'}}">
-  <div class="post-entry d-block small-post-entry-v">
-  <div class="thumbnail">
-  <a href="/blog/{{x.title|replace}}/{{x.id}}/">
-  <img src="/media/{{i.image}}/" alt="Image" class="img-fluid">
-  </a>
-  </div>
-  <div class="content">
-  
-  <h2 class="heading mb-3"><a href="/blog/{{x.title|replace}}/{{x.id}}/">{{i.title}}</a></h2>
-  <p>{{i.description|safe}}</p>
-  <a href="/profile/{{x.user_name2}}/" class="post-author d-flex align-items-center">
-  <div class="author-pic">
-  <img src="/media/{{i.user_name2.profile.avatar}}/" alt="Image">
-  </div>
-  <div class="text">
-    <strong>{{i.user_name2.profile.first_name}} {{i.user_name2.profile.last_name}}</strong>
-    <span>Author, {{i.user_name2.project_username_2.all.count}} published post, {{i.date_Publish}}</span>
-  </div>
-  </a>
-  </div>
-  </div>
-  </div>
-{% endfor %}
-
-
-</div></div></div></div>
-</div>
-</div>
-{% endif %}
-
-{% if list %}
-<div class="section">
-<div class="container">
-<div class="row g-5">
-<div class="col-lg-12">
-<div class="row mb-4">
-
-</div>
-<div class="row justify-content-start">
-{% for x in list %}
-<div class="col-lg-6">
-  <div class="post-entry d-md-flex xsmall-horizontal mb-5">
-  <div class="me-md-3 thumbnail mb-3 mb-md-0">
-  <img src="/media/{{x.image}}/" alt="Image" class="img-fluid">
-  </div>
-  <div class="content">
- 
-  <h2 class="heading"><a href="/blog/{{x.title|replace}}/{{x.id}}/">{{x.title}}</a></h2>
-  <a href="/profile/{{x.user_name2}}/" class="post-author d-flex align-items-center">
-  <div class="author-pic">
-  <img src="/media/{{x.user_name2.profile.avatar}}" alt="Image">
-  </div>
-  <div class="text">
-    <strong>{{x.user_name2.profile.first_name}} {{x.user_name2.profile.last_name}}</strong>
-    <span>Author, {{x.user_name2.project_username_2.all.count}} published post, {{x.date_Publish}}</span>
-  </div>
-  </a>
-  </div>
-  </div>
-  </div>
-{% endfor %}
-
-</div>
-</div>
-
-</div>
-</div>
-</div>
-{% endif %}
-<div style="position: fixed; bottom:4rem; right:4rem;">
-  <a class=" button btn border shadow  d-flex align-items-center justify-content-center text-white" href="{% url 'create' %}" style="width:60px; height:60px; border-radius:50%; font-size: 14px; "><i class="fa fa-plus"></i></a>
-</div>
-
-
-{% endblock %}
-{% block script %}
-<script src="{% static 'folder/bootstrap.bundle.min.js.download'  %}"></script>
-<script src="{% static 'folder/tiny-slider.js.download'  %}"></script>
-<script src="{% static 'folder/glightbox.min.js.download'  %}"></script>
-<script src="{% static 'folder/aos.js.download'  %}"></script>
-<script src="{% static 'folder/navbar.js.download'  %}"></script>
-<script src="{% static 'folder/counter.js.download'  %}"></script>
-<script src="{% static 'folder/custom.js.download'  %}"></script>
-
-<script async="" src="{% static 'folder/js'  %}"></script>
-<script>
-			window.dataLayer = window.dataLayer || [];
-			function gtag(){dataLayer.push(arguments);}
-			gtag('js', new Date());
-
-			gtag('config', 'UA-23581568-13');
-		</script>
 {% endblock %}

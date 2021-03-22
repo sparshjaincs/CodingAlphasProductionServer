@@ -119,7 +119,27 @@
       box-shadow: 0 0 0 0 rgba(204,169,44, 0);
   }
 }
-      
+textarea:focus,
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="datetime"]:focus,
+input[type="datetime-local"]:focus,
+input[type="date"]:focus,
+input[type="month"]:focus,
+input[type="time"]:focus,
+input[type="week"]:focus,
+input[type="number"]:focus,
+input[type="email"]:focus,
+input[type="url"]:focus,
+input[type="search"]:focus,
+input[type="tel"]:focus,
+input[type="color"]:focus,
+.uneditable-input:focus {   
+  border-color: #E57851;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(229, 120, 81, 0.6);
+  outline: 0 none;
+}
+
         {% block style %}
 
         {% endblock %}
@@ -129,7 +149,7 @@
 </head>
 
 
-<body style="overflow-x: hidden; font-family: Helvetica;  background-color: #F3F2EF; ">
+<body style="overflow-x: hidden; font-family: Helvetica;  background-color: #fff; ">
     {% block header %}
 
     {% endblock %}
@@ -169,16 +189,21 @@ function like1(method,instance,value,count,discount,oppo){
                         if (data[0] == 0){
                             element.style['-webkit-text-stroke-color'] = "#546E7A";
                             element.classList.remove('pulse');
+                            var notify = new Notyf();
+                        notify.error("Removed from liked section.");
                         }
                         else{
                            element.style['-webkit-text-stroke-color'] = "#E57851";
                       
                            element.classList.add('pulse'); 
+                           var notify = new Notyf();
+                        notify.success("Added to liked section.");
                         }
                         diselem.style['-webkit-text-stroke-color'] = "#546E7A";
                         diselem.classList.remove('pulse');
                             document.getElementById(count).innerHTML = data[1];
                             document.getElementById(oppo).innerHTML = data[2];
+                      
                         
                         
                     }
@@ -200,11 +225,15 @@ function like1(method,instance,value,count,discount,oppo){
                         data = JSON.parse(data);
                         if (data[0] == 0){
                             element.style['-webkit-text-stroke-color'] = "#546E7A";
-                            element.classList.remove('pulse')
+                            element.classList.remove('pulse');
+                            var notify = new Notyf();
+                        notify.error("Removed from disliked section.");
                         }
                         else{
                            element.style['-webkit-text-stroke-color'] = "#E57851";
                            element.classList.add('pulse'); 
+                           var notify = new Notyf();
+                        notify.success("Added to disliked section.");
                         }
                         diselem.style['-webkit-text-stroke-color'] = "#546E7A";
                         diselem.classList.remove('pulse');

@@ -35,7 +35,7 @@ class Articles(models.Model):
     date_updated = models.DateField(default=datetime.now)
     #category = models.ForeignKey(Categories,related_name = 'category', to_field='category_name',on_delete=models.CASCADE,default=" ")
     image = models.ImageField(upload_to='users/images',blank=True,default='',null=True)
-    video= models.FileField(upload_to='users/video', null=True,blank=True ,verbose_name="Video")
+    #video= models.FileField(upload_to='users/video', null=True,blank=True ,verbose_name="Video")
     image2 = models.CharField(max_length=1000,blank=True,null=True)
     content = RichTextUploadingField(null=True)
     link = models.TextField(blank=True,default="")
@@ -49,12 +49,12 @@ class Articles(models.Model):
     
    
     template = models.CharField(max_length=1000,blank=True,null=True)
-    quora = models.CharField(max_length=1000,blank = True,default="")
-    medium= models.CharField(max_length=1000,blank = True,default="")
-    facebook = models.CharField(max_length=1000,blank = True,default="")
-    instagram = models.CharField(max_length=1000,blank = True,default="")
-    twitter = models.CharField(max_length=1000,blank = True,default="")
-    other= models.CharField(max_length=1000,blank = True,default="")
+    #quora = models.CharField(max_length=1000,blank = True,default="")
+    #medium= models.CharField(max_length=1000,blank = True,default="")
+    #facebook = models.CharField(max_length=1000,blank = True,default="")
+    #instagram = models.CharField(max_length=1000,blank = True,default="")
+    #twitter = models.CharField(max_length=1000,blank = True,default="")
+    #other= models.CharField(max_length=1000,blank = True,default="")
 
     question_field =  models.BooleanField(default=False)
     

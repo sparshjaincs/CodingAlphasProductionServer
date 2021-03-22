@@ -14,4 +14,7 @@ urlpatterns = [
      path("notifications/",views.notifications,name="notifications"),
      path("bookmarks/",views.bookmarks,name="bookmarks"),
      path("activities/<method>/<value>/",views.activities,name="activities"),
+     path("analytics/",views.analytics,name="analytics"),
+     path("news/<topic>/",views.news,name="news"),
+     path("news/ajax/fetch",views.ajax_news,name="ajax_news"),
 ]

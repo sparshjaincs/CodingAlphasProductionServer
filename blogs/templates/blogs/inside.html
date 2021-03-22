@@ -1,131 +1,94 @@
 {% extends 'Core/snippets/base.html' %}
-{% load shortcut %}
-{% load static%}
+{% load static %}
 {% load crispy_forms_tags %}
 {% block header %}
 {% include 'Core/snippets/header.html' %}
-
 {% endblock %}
-{% block style %}
 
-.button{
-    background-color:#C92C60;
-}
-.button:hover{
- background-color:#97274C;
-}
-
-.anchor{
-
-border-radius:2px; 
-font-size:10px;
-font-weight:100;
-padding:4px;
-padding-left:7px;
-padding-right:7px;
-letter-spacing:0px;
-text-transform: capitalize;
-}
-.anc{
-
-}
-{% endblock %}
-{% block jscss %}
-
-<link rel="preconnect" href="https://fonts.gstatic.com/">
-<link href="{% static 'folder/css2' %}" rel="stylesheet">
-<link rel="stylesheet" href="{% static 'folder/style.css' %}">
-<link rel="stylesheet" href="{% static 'folder/flaticon.css' %}">
-<link rel="stylesheet" href="{% static 'folder/tiny-slider.css' %}">
-<link rel="stylesheet" href="{% static 'folder/glightbox.min.css' %}">
-<link rel="stylesheet" href="{% static 'folder/aos.css' %}">
-<link rel="stylesheet" href="{% static 'folder/style(1).css' %}">
-{% endblock %}
 {% block body %}
-<div class="container mt-5 pt-5">
-    <div class="row">
+<div class="container">
+    <div class="row mt-5 pt-5">
+       
         
-        <div class="col-12 " style="text-shadow: 2px 2px 10px rgb(0,0,0,0.5);">
-         <h2 style="font-weight:600;">
-            <center>
-                {{data.title}}
-               </center>
-         </h2>
-        </div>
-        <div class="col-12 p-5 justify-content-center">
-           <center>
-            <img src="/media/{{data.image}}/" style="width:80%; height:80%; border-radius:15px;" class="shadow-sm">
-           </center>
-        </div>
-        <div class="col-12 mb-3">
-            <div style="font-size: 14px;" class="text-muted">
-              <i class="fa fa-paper-plane"></i> Posted by <a href="/profile/data.user_name2/">{{data.user_name2.profile.first_name}}   {{data.user_name2.profile.last_name}}</a>
-               on {{data.date_Publish}}, {{data.time}}
+        <div class="col-12 col-md-12 col-lg-2 mt-5" >
+     
+           <div id="divid" style="position: sticky; top:14rem; display: none;">
+            <div class="d-flex justify-content-center" >
+                <img src="/media/{{data.user_name2.profile.avatar}}/" style="width:60px; height:60px; border-radius: 50%;">
             </div>
+            <div class="d-flex justify-content-center mt-1" >
+                <a class="text-dark" style="font-weight: 600; font-size: 14px;">{{data.user_name2}}</a>
+  
+            </div>
+            <div class="d-flex justify-content-center mt-1" >
+                <a class="btn btn-sm shadow text-white" style="font-size: 12px; background-color: #C92C60;">Follow</a>
+            </div>
+            <div class="d-flex justify-content-center mt-1" >
+                <a class="" href="#" style="font-size: 18px;"><i class="fa fa-thumbs-up fa2"></i></a><span class="text-muted ml-1" style="font-size: 16px;">1</span>
+            </div>
+           
+            <div class="d-flex justify-content-center mt-1" >
+                <a class="" href="#" style="font-size: 18px;"><i class="fa fa-comments fa2"></i></a><span class="text-muted ml-1" style="font-size: 16px;">1</span>
+            </div>
+
+            <div class="d-flex justify-content-center mt-1"  >
+                <a class="mr-3" href="#" style="font-size: 18px;"><i class="fa fa-bookmark fa2"></i></a>
+            </div>
+           </div>
+       
         </div>
-        <div class="col-12" style="font-size: 15px;">
-            {{data.content|safe}}
+        <div class="col-12 col-md-12 col-lg-8">
+            <div style="font-size: 32px; font-weight: 600;" class="text-dark">
+               {{data.title}}
+            </div>
+            <div class="d-flex justify-content-between mt-2">
+                <div class="d-flex justify-content-start">
+                    <div>
+                        <img src="/media/{{data.user_name2.profile.avatar}}/" style="width:60px; height:60px; border-radius: 50%;">
+                    </div>
+                    <div class="mt-1 ml-2">
+                        <div>
+                            <a class="text-dark" style="font-weight: 600; font-size: 14px;">{{data.user_name2}}</a>
+                            <span><a class="btn btn-sm shadow text-white" style="font-size: 12px; background-color: #C92C60;">Follow</a></span>
+                        </div>
+                        <div class="text-muted mt-1" style="font-size: 12px; font-weight: 600;">
+                            {{data.date}}, {{data.time}}
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <a href="#" style="font-size: 20px;"><i class="fa fa-twitter"></i></a>
+                    <a href="#" style="font-size: 20px;" class="ml-2"><i class="fa fa-facebook-square"></i></a>
+                    <a href="#" style="font-size: 20px;" class="ml-2"><i class="fa fa-linkedin-square"></i></a>
+                    <a href="#" style="font-size: 20px;" class="ml-2"><i class="fa fa-bookmark"></i></a>
+                </div>
+            </div>
+
+            <div class="mt-4 d-flex justify-content-center">
+                <img src = "/media/{{data.image}}/" style="width:100%; "  class="rounded">
+            </div>
+
+            <div class="mt-4 text-muted" style="font-size: 14px;">
+                {{data.content|safe}}
+            </div>
         </div>
         
     </div>
 </div>
-
-{% if list %}
-<div class="container mt-5">
-   
-<div class="row g-5">
-<div class="col-lg-12">
-<div class="row">
-    <p class="text-dark" style="font-size: 16px; font-weight: 600;">
-        Related Articles
-    </p>
-</div>
-<div class="row justify-content-start">
-{% for x in list %}
-<div class="col-lg-6">
-  <div class="post-entry d-md-flex xsmall-horizontal mb-5">
-  <div class="me-md-3 thumbnail mb-3 mb-md-0">
-  <img src="/media/{{x.image}}/" alt="Image" class="img-fluid">
-  </div>
-  <div class="content">
- 
-  <h2 class="heading"><a href="/blog/{{x.title|replace}}/{{x.id}}/">{{x.title}}</a></h2>
-  <a href="/profile/{{x.user_name2}}/" class="post-author d-flex align-items-center">
-  <div class="author-pic">
-  <img src="/media/{{x.user_name2.profile.avatar}}" alt="Image">
-  </div>
-  <div class="text">
-    <strong>{{x.user_name2.profile.first_name}} {{x.user_name2.profile.last_name}}</strong>
-    <span>Author, {{x.user_name2.project_username_2.all.count}} published post, {{x.date_Publish}}</span>
-  </div>
-  </a>
-  </div>
-  </div>
-  </div>
-{% endfor %}
-
-</div>
-</div>
-
-</div>
-</div>
-{% endif %}
 {% endblock %}
+
 {% block script %}
-<script src="{% static 'folder/bootstrap.bundle.min.js.download'  %}"></script>
-<script src="{% static 'folder/tiny-slider.js.download'  %}"></script>
-<script src="{% static 'folder/glightbox.min.js.download'  %}"></script>
-<script src="{% static 'folder/aos.js.download'  %}"></script>
-<script src="{% static 'folder/navbar.js.download'  %}"></script>
-<script src="{% static 'folder/counter.js.download'  %}"></script>
-<script src="{% static 'folder/custom.js.download'  %}"></script>
-
-<script async="" src="{% static 'folder/js'  %}"></script>
 <script>
-			window.dataLayer = window.dataLayer || [];
-			function gtag(){dataLayer.push(arguments);}
-			gtag('js', new Date());
-
-			gtag('config', 'UA-23581568-13');
-		</script>
-{% endblock %}
+    $(window).scroll(function(){ 
+  //more then or equals to 
+  if($(window).scrollTop() >= 200 ){ 
+      $( "#divid" ).css( "display", "block" ); 
+ 
+  //less then 100px from top 
+  } else { 
+      
+ $( "#divid" ).css( "display", "none" ); 
+  } 
+}); 
+</script>
+{% endblock %}  

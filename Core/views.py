@@ -13,6 +13,7 @@ from django.contrib import messages
 from datetime import date
 from discuss.jobs import Jobs
 from .forms import *
+from .news import ParseFeed
 class MyPasswordResetView(UserPassesTestMixin, PasswordResetView):
     template_name = 'Core/snippets/password_reset.html'
 
@@ -26,14 +27,17 @@ def homepage(request):
     if request.user.is_authenticated:
         context['home'] = Homepage_Activity.objects.all().order_by('-id')
         context['day'] = date.today()
-        context['activity'] = activity.objects.all().order_by('-id')[:5]
+        context['activity'] = activity.objects.filter(user = request.user).order_by('-id')[:5]
+        feed = ParseFeed('Programming')
+        data = feed.parse()
+        context['news'] = data[:10]
         #job = Jobs('SDE',"",1)
         #data = job.select()
         #context['jobs'] = data[:5]
 
         return render(request,"Core/homepage.html",context)
     else:
-        return render(request,"Core/frontend.html")
+        return render(request,"Core/newhomepage.html")
 
 def like(request):
     method = request.GET.get('method')
@@ -185,7 +189,7 @@ def profile(request,user):
     elif method == 'Timeline':
         context['method'] = 'Timeline'
         context['home'] = Homepage_Activity.objects.filter(user = request.user).order_by('-id')
-        context['activity'] = activity.objects.all().order_by('-id')[:5]
+        context['activity'] = activity.objects.filter(user = request.user).order_by('-id')[:5]
     elif method == 'Photos':
         context['method'] = 'Photos'
         context['home'] = Homepage_Activity.objects.filter(user = request.user,category = 'Photo').order_by('-id')
@@ -275,4 +279,20 @@ def bookmarks(request):
 def activities(request,method,value):
     return render(request,'Core/activities.html')
 
+def analytics(request):
+    return render(request,'Core/analytics.html')
+
+def news(request,topic):
+    context = {}
+    feed = ParseFeed(topic)
+    data = feed.parse()
+    context['data'] = data
+   
+    context['method'] = topic
+    return render(request,'Core/news.html',context)
+def ajax_news(request):
+    topic = request.GET.get('topic').replace(" ","-")
+    feed = ParseFeed(topic)
+    data = feed.parse()
+    return HttpResponse(json.dumps(data))
 
